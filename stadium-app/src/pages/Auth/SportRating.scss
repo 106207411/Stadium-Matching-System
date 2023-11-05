@@ -1,0 +1,26 @@
+.main-container {
+  border-radius: 40px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: 0 21px 0 28px;
+}
+@media (max-width: 991px) {
+  .main-container {
+    padding: 0 20px;
+  }
+}
+.title {
+  color: #2b2b2b;
+  align-content: center;
+  align-self: center;
+  margin-top: 148px;
+  white-space: nowrap;
+  font: 700 32px Inter, sans-serif;
+}
+@media (max-width: 991px) {
+  .title {
+    margin-top: 40px;
+    white-space: initial;
+  }
+}

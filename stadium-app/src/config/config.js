@@ -1,0 +1,10 @@
+export const API_URL= ''
+
+export const baseballThumbnail = ''
+export const tableTennisThumbnail = ''
+export const basketballThumbnail = ''
+export const badmintonThumbnail = ''
+export const volleyballThumbnail = ''
+export const tennisThumbnail = ''
+export const swimmingThumbnail = ''
+export const gymThumbnail = ''
