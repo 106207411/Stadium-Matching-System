@@ -1,0 +1,36 @@
+name: Deploy to ACR
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+    defaults:
+        run:
+          working-directory: ./stadium-app
+    env:
+        ACR_NAME: "stadiumappacr"
+
+    steps:
+        - name: Checkout repository
+          uses: actions/checkout@v2
+
+        - name: Login to ACR
+          uses: azure/docker-login@v1
+          with:
+              
+              login-server: ${{ env.ACR_NAME }}.azurecr.io
+              username: ${{ secrets.ACR_USERNAME }}
+              password: ${{ secrets.ACR_PASSWORD }}
+
+        - name: Build and push Docker image
+        ## build the docker image with `RepositoryName:BuildId` as the tag
+        ## push the docker image with `RepositoryName:BuildId` as the tag
+
+
+          run: |
+              docker build -t ${{ env.ACR_NAME }}.azurecr.io/${{github.RepositoryName}}:${{ github.run_id }} -f ../devops/Dockerfile .
+              docker push ${{ env.ACR_NAME }}.azurecr.io/${{github.RepositoryName}}:${{ github.run_id }}
