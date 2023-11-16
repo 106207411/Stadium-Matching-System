@@ -5,7 +5,7 @@ FROM node:20.9-bullseye
 WORKDIR /app
 
 # Copy the contents of the FE repository into the container
-COPY ../stadium-app/* .
+COPY . .
 
 # Install the dependencies
 RUN npm install
