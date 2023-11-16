@@ -32,5 +32,5 @@ jobs:
 
 
           run: |
-              docker build -t ${{ env.ACR_NAME }}.azurecr.io/${{github.RepositoryName}}:${{ github.run_id }} -f ../devops/Dockerfile .
-              docker push ${{ env.ACR_NAME }}.azurecr.io/${{github.RepositoryName}}:${{ github.run_id }}
+              docker build -t ${{ env.ACR_NAME }}.azurecr.io/${{github.repository}}:${{ github.run_id }} -f ../devops/Dockerfile .
+              docker push ${{ env.ACR_NAME }}.azurecr.io/${{github.repository}}:${{ github.run_id }}
