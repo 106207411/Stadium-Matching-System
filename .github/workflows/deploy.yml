@@ -33,5 +33,5 @@ jobs:
 
 
           run: |
-              docker build -t ${{ env.ACR_NAME }}.azurecr.io/${{env.IMAGE_NAME}}:${{ github.run_id }} -f ../devops/Dockerfile .
+              docker build -t --no-cache ${{ env.ACR_NAME }}.azurecr.io/${{env.IMAGE_NAME}}:${{ github.run_id }} -f ../devops/Dockerfile .
               docker push ${{ env.ACR_NAME }}.azurecr.io/${{env.IMAGE_NAME}}:${{ github.run_id }}
