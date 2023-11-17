@@ -7,8 +7,7 @@ import Register from './pages/Auth/Register'
 import SportType from './pages/Auth/SportType'
 import SportRating from './pages/Auth/SportRating'
 import ActivityList from './pages/Activity/ActivityList'
-//import ActivitiesList from './pages/Activity/nActivityList'
-// import Stadium from './pages/Stadium/Stadium'
+import StadiumList from './pages/Stadium/StadiumList'
 // import Message from './pages/Message/Message'
 import './index.css'
 
@@ -24,6 +23,7 @@ const AppRoutes = () => {
       <Route path='/register/rating' element={<SportRating />} />
       <Route path='/home' element={isAuth ? <Home /> : <Navigate to="/" />} />
       <Route path='/activity/list' element={<ActivityList />} />
+      <Route path='/stadium/list' element={<StadiumList />} />
     </Routes>
   );
 };
