@@ -6,6 +6,9 @@ import Login from './pages/Auth/Login'
 import Register from './pages/Auth/Register'
 import SportType from './pages/Auth/SportType'
 import SportRating from './pages/Auth/SportRating'
+import ActivityList from './pages/Activity/ActivityList'
+import StadiumList from './pages/Stadium/StadiumList'
+// import Message from './pages/Message/Message'
 import './index.css'
 
 const AppRoutes = () => {
@@ -19,6 +22,8 @@ const AppRoutes = () => {
       <Route path='/register/sportType' element={<SportType />} />
       <Route path='/register/rating' element={<SportRating />} />
       <Route path='/home' element={isAuth ? <Home /> : <Navigate to="/" />} />
+      <Route path='/activity/list' element={<ActivityList />} />
+      <Route path='/stadium/list' element={<StadiumList />} />
     </Routes>
   );
 };
