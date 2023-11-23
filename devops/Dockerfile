@@ -10,10 +10,10 @@ COPY . .
 
 # Install the dependencies
 # https://stackoverflow.com/questions/75883720/504-outdated-optimize-dep-while-using-react-vite
-RUN npm install && \
-    rm -rf /app/stadium-app/node_modules/.vite/ && \
-    npm cache clean --force && \
-    npm i
+RUN npm install
+    # rm -rf /app/stadium-app/node_modules/.vite/ && \
+    # npm cache clean --force && \
+    # npm i
 
 # Expose the port (if needed)
 EXPOSE 5173

@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: stadium-app
-        image: stadiumappacr.azurecr.io/stadiumapp:6888476148 
+        image: stadiumappacr.azurecr.io/frontend:6966843537
         ports:
         - containerPort: 5173
           name: http  # We named that port "http" so we can refer to it later
