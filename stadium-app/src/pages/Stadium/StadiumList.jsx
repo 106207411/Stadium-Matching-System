@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import './ActivityList.scss';
+import './StadiumList.scss';
 import FooterBar from '../../components/FooterBar/FooterBar.jsx'; 
 import Header from '../../components/Header/Header.jsx'; 
 import mockStadium from '../../mockData/mockStadium.js'; 
