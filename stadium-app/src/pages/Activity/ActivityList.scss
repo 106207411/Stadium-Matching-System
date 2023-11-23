@@ -92,17 +92,11 @@ $background-color: #fff;
 }
 
 
-
-
-
-
-
 .footer {
-  position: fixed; // 固定 footer 在底部
-  bottom: 0; // 將 footer 置於螢幕底部
-  left: 0; // 與螢幕左邊對齊
-  width: 100%; // footer 寬度與螢幕一樣寬
-  //background-color: #e0e0e0; // footer 的背景顏色
+  position: fixed; 
+  bottom: 0; 
+  left: 0; 
+  width: 100%; 
   z-index: 5; // 確保 footer 的層級低於其他內容
   text-align: center; // 文字置中
   padding: 10px 0; // 上下邊距

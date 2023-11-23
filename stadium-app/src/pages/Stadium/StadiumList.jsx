@@ -41,23 +41,23 @@ const StadiumList = () => {
   return (
     <div>
       <Header title="場地" />
-      <div className="activity-list">
+      <div className="stadium-list">
         <InfiniteScroll
-          dataLength={visibleActivities.length}
-          next={loadMoreActivities}
+          dataLength={visibleStadiums.length}
+          next={loadMoreStadiums}
           hasMore={hasMore}
           loader={<h4>Loading...</h4>}
         >
-          {visibleActivities.map((stadium) => (
+          {visibleStadiums.map((stadium) => (
             <div key={stadium.id} className="stadium-item">
               <img src={stadium.image} alt={stadium.title} />
               <div className="stadium-info">
-                <div className="stadium-address">
-                  <h3>{activity.title}</h3>
+                <div className="name-address">
+                  <h3>{stadium.name}</h3>
                   <span className="address">{stadium.address}</span>
                 </div>
                 <div className="price">
-                  <p>{activity.price}</p>
+                  <p>{stadium.price}</p>
                 </div>
               </div>
             </div>
