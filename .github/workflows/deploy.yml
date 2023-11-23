@@ -13,7 +13,7 @@ jobs:
           working-directory: ./stadium-app
     env:
         ACR_NAME: "stadiumappacr"
-        IMAGE_NAME: "stadiumapp"
+        IMAGE_NAME: "frontend"
 
     steps:
         - name: Checkout repository
@@ -28,9 +28,6 @@ jobs:
               password: ${{ secrets.ACR_PASSWORD }}
 
         - name: Build and push Docker image
-        ## build the docker image with `RepositoryName:BuildId` as the tag
-        ## push the docker image with `RepositoryName:BuildId` as the tag
-
 
           run: |
               docker build -t ${{ env.ACR_NAME }}.azurecr.io/${{env.IMAGE_NAME}}:${{ github.run_id }} -f ../devops/Dockerfile .
