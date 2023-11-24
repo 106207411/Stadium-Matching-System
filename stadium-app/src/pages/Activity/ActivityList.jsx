@@ -1,4 +1,3 @@
-// ActivityList.jsx
 import React, { useState, useEffect } from 'react';
 import './ActivityList.scss';
 import FooterBar from '../../components/FooterBar/FooterBar.jsx'; 
@@ -84,63 +83,6 @@ const generateStars = (rating) => {
 };
 
 export default ActivityList;
-
-
-// // Inside your component
-
-// const ActivityList = () => {
-//   const [activities, setActivities] = useState([]);
-
-//   useEffect(() => {
-//     // Load mock data instead of fetching from an API
-//     setActivities(mockActivities);
-//   }, []);
-
- 
-
-//   return (
-//     <div>
-//       <Header />{/* Your footer content */}
-//       <div className="footer">
-//       <FooterBar />{/* Your footer content */}
-//     </div>
-
-//     </div>
-//   );
-// };
-
-
-
-// return (
-//   <div>
-//     <InfiniteScroll
-//       dataLength={activities.length}
-//       next={fetchMoreActivities}
-//       hasMore={hasMore}
-//       loader={<h4>Loading...</h4>}
-//       endMessage={
-//         <p style={{ textAlign: 'center' }}>
-//           <b>You have seen all activities</b>
-//         </p>
-//       }
-//       className="activity-list"
-//     >
-//       {activities.map((activity) => (
-//         <div key={activity.id} className="activity-item">
-//           <img src={activity.image} alt={activity.name} />
-//           <div>
-//             <h3>{activity.name}</h3>
-//             <p>{activity.description}</p>
-//           </div>
-//         </div>
-//       ))}
-//     <div className="footer">
-//     <FooterBar />{/* Your footer content */}
-//   </div>
-//     </InfiniteScroll>
-//   </div>
-// );
-// };
 
 
 
