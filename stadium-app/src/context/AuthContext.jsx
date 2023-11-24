@@ -1,4 +1,5 @@
 import { createContext, useState, useContext, useCallback } from "react"
+import { signUp } from '../api/signup'
 
 const AuthContext = createContext()
 
@@ -8,6 +9,7 @@ export const AuthProvider = ({ children }) => {
   const register = useCallback((registerInfo) => {
     console.log('register')
     console.log(registerInfo)
+    signUp(registerInfo)
     setIsAuth(true)
   })
 
@@ -15,6 +17,7 @@ export const AuthProvider = ({ children }) => {
     console.log('login')
 
     // Call loginHandler in /api here
+
 
     setIsAuth(true)
     console.log(isAuth)

@@ -11,7 +11,7 @@ const Login = () => {
     navigate('/')
   }
 
-  const handleLogin = () => {
+  const handleLoginClick = () => {
     login()
     navigate('/home')
   }
@@ -29,7 +29,7 @@ const Login = () => {
         <div className="textbox-title">密碼</div>
         <input className="textbox" type="password"/>
       </div>
-      <button className="button" onClick={handleLogin}>登入</button>
+      <button className="button" onClick={handleLoginClick}>登入</button>
     </div>
   )
 }

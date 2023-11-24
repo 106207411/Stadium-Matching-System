@@ -24,7 +24,8 @@ const SportType = () => {
   }
 
   const handleClickRegister = () => {
-    register()
+    console.log(registerInfo)
+    register(registerInfo)
   }
 
   return (

@@ -1,6 +1,7 @@
 import { useState } from "react"
 import { useNavigate } from "react-router-dom"
 import ArrowBackIcon from '@mui/icons-material/ArrowBack'
+import Radio from '@mui/material/Radio'
 import './Register.scss'
 
 const Register = () => {
@@ -11,6 +12,7 @@ const Register = () => {
     password: '',
     age: 0,
     note: '',
+    gender: '',
     interest: {
       baseball: false,
       tableTennis: false,
@@ -73,6 +75,9 @@ const Register = () => {
       <div className="textbox-group">
         <div className="textbox-title">年紀</div>
         <input className="textbox" name="age" placeholder="18" onChange={handleChange}/>
+      </div>
+      <div>
+
       </div>
       <div className="textbox-group">
         <div className="textbox-title">自我介紹</div>
