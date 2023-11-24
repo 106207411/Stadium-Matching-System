@@ -9,7 +9,7 @@ WORKDIR /app
 COPY . .
 
 # Make the script executable
-RUN chmod +x /app/devops/entrypoint.sh
+RUN chmod +x /app/dockerfile/entrypoint.sh
 
 # Install dependencies
 RUN npm install
@@ -18,4 +18,4 @@ RUN npm install
 EXPOSE 5173
 
 # Run the entrypoint script as the main command
-CMD ["/app/devops/entrypoint.sh"]
+CMD ["/app/dockerfile/entrypoint.sh"]
