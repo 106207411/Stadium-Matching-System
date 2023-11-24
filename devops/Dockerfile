@@ -17,7 +17,7 @@ RUN npm run build
 # Stage 2: Run stage
 # Remove the node_modules/.vite/ folder
 # https://stackoverflow.com/questions/75883720/504-outdated-optimize-dep-while-using-react-vite
-RUN ls -al /app/node_modules/.vite/
+RUN ls -al /app/node_modules/
 
 RUN rm -rf /app/node_modules/.vite/ && \
     npm cache clean --force && \
