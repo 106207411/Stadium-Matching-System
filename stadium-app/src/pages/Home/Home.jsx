@@ -62,8 +62,6 @@ const Home = () => {
       </div>
       {selectedOption === 'List' ? (
         <>
-
-
           <div className="sports-container">
             <div className="title-container">
               <div className="title-left">場地</div>
@@ -83,7 +81,6 @@ const Home = () => {
           <div className="activity-container">
             <div className="title-container">
               <div className="title-left">活動</div>
-
               <div className="title-right">
                 <span onClick={gotoActivity} style={{ cursor: 'pointer' }}>更多</span>
               </div>
