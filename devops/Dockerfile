@@ -1,5 +1,5 @@
-# Stage 1: Build stage
-FROM node:20.9-bullseye AS build
+# Use the official Node.js image as the base image
+FROM node:20.9-bullseye
 
 # Set the working directory
 WORKDIR /app
@@ -8,23 +8,14 @@ WORKDIR /app
 # https://www.jamestharpe.com/docker-include-files-outside-build-context/
 COPY . .
 
+# Make the script executable
+RUN chmod +x /app/devops/entrypoint.sh
+
 # Install dependencies
 RUN npm install
-
-# Build the application and generate node_modules/.vite/
-RUN npm run build
-
-# Stage 2: Run stage
-# Remove the node_modules/.vite/ folder
-# https://stackoverflow.com/questions/75883720/504-outdated-optimize-dep-while-using-react-vite
-RUN ls -al /app/node_modules/
-
-RUN rm -rf /app/node_modules/.vite/ && \
-    npm cache clean --force && \
-    npm i
 
 # Expose the port (if needed)
 EXPOSE 5173
 
-# Run the application
-ENTRYPOINT ["npm", "run", "dev"]
+# Run the entrypoint script as the main command
+CMD ["/app/devops/entrypoint.sh"]
