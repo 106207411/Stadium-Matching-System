@@ -15,8 +15,8 @@ RUN npm install
     # npm cache clean --force && \
     # npm i
 
+# Run the application
+RUN npm run build
+
 # Expose the port (if needed)
 EXPOSE 5173
-
-# Run the application
-ENTRYPOINT ["npm", "run", "dev"]
