@@ -2,27 +2,29 @@ import { useState } from "react"
 import { useNavigate } from "react-router-dom"
 import ArrowBackIcon from '@mui/icons-material/ArrowBack'
 import Radio from '@mui/material/Radio'
+import RadioGroup from '@mui/material/RadioGroup'
+import FormControlLabel from '@mui/material/FormControlLabel'
+import FormControl from '@mui/material/FormControl'
+import FormLabel from '@mui/material/FormLabel'
 import './Register.scss'
 
 const Register = () => {
   const navigate = useNavigate()
   const [formData, setFormData] = useState({
-    username: '',
-    account: '',
-    password: '',
+    name: "",
+    email: "",
+    password: "",
     age: 0,
-    note: '',
-    gender: '',
-    interest: {
-      baseball: false,
-      tableTennis: false,
-      basketball: false,
-      badminton: false,
-      volleyball: false,
-      tennis: false,
-      swimming: false,
-      gym: false,
-    },
+    self_intro: "",
+    gender: "",
+    baseball: false,
+    tableTennis: false,
+    basketball: false,
+    badminton: false,
+    volleyball: false,
+    tennis: false,
+    swimming: false,
+    gym: false,
   })
 
   const handleChange = (e) => {
@@ -37,7 +39,6 @@ const Register = () => {
     */
 
     setFormData(prevState => ({ ...prevState, [name]: value }))
-    console.log(formData)
   }
 
   const handleClickBack = () => {
@@ -56,11 +57,11 @@ const Register = () => {
       </h1>
       <div className="textbox-group">
         <div className="textbox-title">名稱</div>
-        <input className="textbox" name="username" placeholder="至少2個字, 大家會看到這名稱喔" onChange={handleChange}/>
+        <input className="textbox" name="name" placeholder="至少2個字, 大家會看到這名稱喔" onChange={handleChange}/>
       </div>
       <div className="textbox-group">
         <div className="textbox-title">帳號</div>
-        <input className="textbox" name="account" placeholder="直接用信箱嗎？" onChange={handleChange}/>
+        <input className="textbox" name="email" placeholder="電子信箱" onChange={handleChange}/>
       </div>
       <div className="textbox-group">
         <div className="textbox-title">密碼</div>
@@ -72,18 +73,29 @@ const Register = () => {
           onChange={handleChange}
         />
       </div>
-      <div className="textbox-group">
-        <div className="textbox-title">年紀</div>
-        <input className="textbox" name="age" placeholder="18" onChange={handleChange}/>
-      </div>
-      <div>
-
+      <div className="textbox-group-horizontal">
+        <div className="textbox-group">
+          <div className="textbox-title">年紀</div>
+          <input className="textbox" name="age" placeholder="18" onChange={handleChange}/>
+        </div>
+        <div className="textbox-group">
+          <FormControl>
+            <FormLabel className="textbox-title">性別</FormLabel>
+            <RadioGroup
+              name="gender"
+              onChange={handleChange}
+            >
+              <FormControlLabel value="Female" control={<Radio />} label="Female" />
+              <FormControlLabel value="Male" control={<Radio />} label="Male" />
+            </RadioGroup>
+          </FormControl>
+        </div>
       </div>
       <div className="textbox-group">
         <div className="textbox-title">自我介紹</div>
-        <input className="textbox" name="note" placeholder="讓大家認識你~!" onChange={handleChange}/>
+        <input className="textbox" name="self_intro" placeholder="讓大家認識你~!" onChange={handleChange}/>
       </div>
-      <button className="button" onClick={handleClickNextStep}>下一步</button>
+      <div className="button" onClick={handleClickNextStep}>下一步</div>
     </div>
   )
 }

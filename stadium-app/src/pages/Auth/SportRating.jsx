@@ -2,44 +2,66 @@ import { useState } from "react"
 import { useAuth } from "../../context/AuthContext"
 import { useNavigate } from "react-router-dom"
 import Rating from '@mui/material/Rating'
+import translate from "../../lib/utils/translator"
 import './SportRating.scss'
 
 const SportRating = () => {
   const navigate = useNavigate()
-  const { register } = useAuth()
+  const { signUpHandler } = useAuth()
   const registerInfo = JSON.parse(localStorage.getItem('registerInfo'))
-  const interestSport = Object.fromEntries(
-    Object.entries(registerInfo.interest)
+  const interestSportType = Object.fromEntries(
+    Object.entries(registerInfo)
       .filter(([key, value]) => value === true)
       .map(([key]) => [key, 0])
   )
-  const [rating, setRating] = useState(interestSport)
+  const [rating, setRating] = useState(interestSportType)
+  
+  const mapValues = (registerInfo, rating) => {
+    for (let key in registerInfo) {
+      if (rating.hasOwnProperty(key)) {
+        registerInfo[key] = rating[key]
+      }
+      else if (typeof registerInfo[key] === 'boolean' && registerInfo[key] === false) {
+        registerInfo[key] = -1
+      }
+    }
+  }
 
   const handleClickRegister = () => {
-    registerInfo.interest = rating
-    register(registerInfo)
-    console.log(registerInfo)
+    let finalRegisterInfo = registerInfo
+    mapValues(finalRegisterInfo, rating)
+    signUpHandler(finalRegisterInfo)
     navigate('/home')
   }
 
-  console.log(rating)
-
   return (
-    <div className="main-containter">
-      <div className="title">你的擅長程度?</div>
-      {Object.keys(interestSport).map((sport) => (
-      <div key={sport} className="rating-container">
-        <div className="sport-name">{sport}</div>
-        <Rating
-          size="large"
-          defaultValue={5}
-          value={rating[sport]}
-          onChange={(event, newValue) => setRating(prev => ({ ...prev, [sport]: newValue }))}
-        />
+    <>
+      <div className="main-container">
+        <div className="title">你的擅長程度?</div>
+        <div className="rating-group">
+          {Object.keys(interestSportType).map((sport) => (
+            <div key={sport} className="rating-container">
+              <div className="rating-item">
+                <div className="sport-name">{translate(sport)}</div>
+                <Rating
+                  size="large"
+                  defaultValue={5}
+                  value={rating[sport]}
+                  onChange={(event, newValue) => {
+                    setRating(prev => ({ ...prev, [sport]: newValue }))
+                    // console.log(rating)
+                    console.log(registerInfo)
+                  }}
+                />
+              </div>
+            </div>
+          ))}
+        </div>
+        <div className="button-group">
+          <div className="button" onClick={handleClickRegister}>註冊</div>
+        </div>
       </div>
-    ))}
-      <div className="button" onClick={handleClickRegister}>註冊</div>
-    </div>
+    </>
   )
 }
 
