@@ -8,15 +8,14 @@ WORKDIR /app
 # https://www.jamestharpe.com/docker-include-files-outside-build-context/
 COPY . .
 
-# Install the dependencies
-# https://stackoverflow.com/questions/75883720/504-outdated-optimize-dep-while-using-react-vite
-RUN npm install && \
-    rm -rf /app/stadium-app/node_modules/.vite/ && \
-    npm cache clean --force && \
-    npm i
+# Make the script executable
+RUN chmod +x /app/dockerfile/entrypoint.sh
+
+# Install dependencies
+RUN npm install
 
 # Expose the port (if needed)
 EXPOSE 5173
 
-# Run the application
-ENTRYPOINT ["npm", "run", "dev"]
+# Run the entrypoint script as the main command
+CMD ["/app/dockerfile/entrypoint.sh"]
