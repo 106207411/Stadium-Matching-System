@@ -9,7 +9,7 @@ import SportRating from './pages/Auth/SportRating'
 import ActivityList from './pages/Activity/ActivityList'
 import StadiumList from './pages/Stadium/StadiumList'
 import MessageList from './pages/Message/MessageList'
-import LikeList from './pages/Like/LikeList'
+import Reserve from './pages/Reserve/Reserve'
 import './index.css'
 
 const AppRoutes = () => {
@@ -26,7 +26,7 @@ const AppRoutes = () => {
       <Route path='/activity/list' element={<ActivityList />} />
       <Route path='/stadium/list' element={<StadiumList />} />
       <Route path='/message/list' element={<MessageList />} />
-      <Route path='/like/list' element={<LikeList />} />
+      <Route path='/reserve' element={<Reserve />} />
     </Routes>
   );
 };
