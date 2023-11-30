@@ -1,0 +1,24 @@
+.activities-list {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%; // 取決於您希望容器多寬
+  }
+  
+  .activity-info {
+    width: 100%; // 可以根據需要設定一個固定的寬度或百分比
+    max-width: 500px; // 限制最大寬度，确保在大屏幕上也不會過寬
+    margin-bottom: 20px; // 每個活動卡片之間的間距
+    
+    // 如果有其他样式，也可以在这里添加
+  }
+  
+  // 确保其他相關元素的样式也被正确引入和设置
+  .header {
+    // 标题的样式
+  }
+  
+  .footer-bar {
+    // 底部導航條的样式
+  }
+  

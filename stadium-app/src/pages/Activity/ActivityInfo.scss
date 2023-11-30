@@ -1,0 +1,50 @@
+.activity-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #fff;
+    border-radius: 20px;
+    //box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);  //增加卡片下方陰影
+    padding: 20px;
+    width: 100%; // Or a specific width as needed
+    max-width: 500px; // Optional, if you want to limit the card width
+    margin-top:60px;
+    margin-bottom:0px;
+
+    .activity-title {
+      // Additional styles for the title
+    }
+  
+    .activity-image {
+        width: 80%; 
+        height: auto; 
+        border-radius: 10px;
+    }
+  
+    .activity-details {
+      text-align: left;
+      width: 80%;
+      font-size:18px;
+    }
+  
+      .user-avatar {
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
+        margin-bottom:30px;
+       
+      }
+  
+      .join-button {
+        padding: 20px 120px; //button 大小
+        border-radius: 30px;
+        background-color: black;
+        color: white;
+        border: none;
+        cursor: pointer;
+        font-size: 16px;
+      
+    }
+  }
+  
+  
