@@ -8,34 +8,57 @@
     padding: 20px;
     width: 100%; // Or a specific width as needed
     max-width: 500px; // Optional, if you want to limit the card width
-    margin-top:60px;
-    margin-bottom:0px;
+    margin-top: 60px;
+    margin-bottom: 0px;
 
     .activity-title {
-      // Additional styles for the title
+        // Additional styles for the title
     }
-  
+
     .activity-image {
-        width: 80%; 
-        height: auto; 
+        width: 80%;
+        height: auto;
         border-radius: 10px;
     }
-  
+
     .activity-details {
-      text-align: left;
-      width: 80%;
-      font-size:18px;
+        text-align: left;
+        width: 80%;
+        font-size: 18px;
     }
-  
-      .user-avatar {
+
+    .location-container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%; // Take full width of the parent to push items to the edges
+
+        p {
+            margin: 0; // Remove margin from the paragraph if any
+        }
+
+        .report-issue {
+            display: flex;
+            align-items: center;
+
+            .report-icon {
+                margin-left: 10px; // Space between icon and text
+                width: 24px; // Adjust size of the icon
+                height: auto;
+            }
+        }
+    }
+
+
+    .user-avatar {
         width: 100px;
         height: 100px;
         border-radius: 50%;
-        margin-bottom:30px;
-       
-      }
-  
-      .join-button {
+        margin-bottom: 30px;
+
+    }
+
+    .join-button {
         padding: 20px 120px; //button 大小
         border-radius: 30px;
         background-color: black;
@@ -43,8 +66,12 @@
         border: none;
         cursor: pointer;
         font-size: 16px;
-      
+
     }
-  }
-  
-  
+}
+
+.star {
+    display: inline-block; // Display in a row
+    width: 20px;
+    height: auto;
+}

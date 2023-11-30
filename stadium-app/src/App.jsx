@@ -11,6 +11,7 @@ import StadiumList from './pages/Stadium/StadiumList'
 import MessageList from './pages/Message/MessageList'
 import LikeList from './pages/Like/LikeList'
 import ActivityInfo from './pages/Activity/ActivityInfo';
+import MyActivityList from './pages/Activity/MyActivityList';
 import './index.css'
 
 const AppRoutes = () => {
@@ -28,7 +29,8 @@ const AppRoutes = () => {
       <Route path='/stadium/list' element={<StadiumList />} />
       <Route path='/message/list' element={<MessageList />} />
       <Route path='/like/list' element={<LikeList />} />
-      <Route path='/activity/info/:activity_id' element={<ActivityInfo />} />
+      <Route path='/activity/mylist/:activity_id' element={<ActivityInfo />} />
+      <Route path='/activity/mylist' element={<MyActivityList />} />
     </Routes>
   );
 };
