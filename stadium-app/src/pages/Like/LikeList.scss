@@ -14,11 +14,11 @@ $background-color: #fff;
 .stadium-list {
   display: grid;
   grid-template-columns: repeat(2, 1fr); // Two columns
-  grid-gap: 10px; // Adjust the gap as needed
-  padding-top: 100px; // Adjust the padding as needed
-  padding-left: 10px;
-  padding-right: 10px;
-  margin-bottom: 50px; // Adjust the margin as needed
+  margin-top:80px;
+  padding-top: 2rem; 
+  padding-left: 0;
+  padding-right: 0; 
+  padding-bottom:5rem;
   background-color: #fff;
   width: 100%;
 
@@ -29,18 +29,20 @@ $background-color: #fff;
     flex-direction: column;
     border-radius: 8px;
     overflow: hidden;
+    margin-bottom: 1rem;
+    margin-top: 1rem;
 
 
     img {
       border-radius: 10px;
       width: 100%;
-      height: auto; // Adjust height to maintain aspect ratio
-      object-fit: cover; // Cover the area without stretching
+      height: auto; 
+      object-fit: cover; 
       margin-bottom: 1px;
     }
 
     .stadium-info {
-      padding: 0.5rem; // Add padding inside the stadium-info box
+      padding: 0;  
       display: flex;
       flex-direction: column;
       justify-content: space-between;
@@ -64,16 +66,13 @@ $background-color: #fff;
   }
 }
 
-
-
-
 .footer {
-  position: fixed; // 固定 footer 在底部
-  bottom: 0; // 將 footer 置於螢幕底部
-  left: 0; // 與螢幕左邊對齊
-  width: 100%; // footer 寬度與螢幕一樣寬
-  z-index: 5; // 確保 footer 的層級低於其他內容
-  text-align: center; // 文字置中
-  padding: 10px 0; // 上下邊距
+  position: fixed; 
+  bottom: 0; 
+  left: 0; 
+  width: 100%; 
+  z-index: 5; 
+  text-align: center; 
+  padding: 10px 0; 
   box-shadow: 0 -2px 4px rgba(0,0,0,0.1); // 給 footer 上方添加陰影
 }
