@@ -15,7 +15,7 @@ jobs:
         working-directory: ./stadium-app
     env:
       IMAGE_NAME: ${{ secrets.ACR_SERVER }}/frontend
-      DOCKERFILE_PATH: ./dockerfile/Dockerfile
+      DOCKERFILE_PATH: ./stadium-app/dockerfile/Dockerfile
 
     steps:
       - name: Checkout repository
