@@ -24,7 +24,7 @@ jobs:
       - name: Generate build ID
         id: tag
         run: |
-          echo "::set-output name=BUILD_ID::${date +"%Y%m%d.%H%M%S"}"
+          echo "::set-output name=BUILD_ID::$(date +"%Y%m%d.%H%M%S")"
 
       - name: Login to ACR
         uses: docker/login-action@v1
