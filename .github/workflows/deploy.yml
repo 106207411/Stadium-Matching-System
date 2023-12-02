@@ -4,8 +4,8 @@ on:
   push:
     branches:
       - feat/pipeline
-    paths:
-      - 'stadium-app/**'
+    # paths:
+    #   - 'stadium-app/**'
 
 jobs:
   build-and-push:
