@@ -49,6 +49,30 @@
         }
     }
 
+    .participant-container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%; // Take full width of the parent to push items to the edges
+
+        p {
+            margin: 0; // Remove margin from the paragraph if any
+        }
+
+        .participant {
+            display: flex;
+            align-items: center;
+
+            .participant-icon {
+                margin-left: 10px; // Space between icon and text
+                width: 24px; // Adjust size of the icon
+                height: auto;
+            }
+        }
+    }
+
+
+
 
     .user-avatar {
         width: 100px;

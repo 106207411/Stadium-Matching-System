@@ -60,6 +60,18 @@ const mockMyActivity = [
         vending: 1,
         picture:'../../b1.jpg',
     },
+    users: [
+        {
+            user_id: 1,
+            Name: "John Doe",
+            picture: '../../baseball.png'
+        },
+        {
+            user_id: 2,
+            Name: "2222",
+            picture: '../../basketball.png'
+        }
+    ]
   },
   {
     id: '12346', //
@@ -87,7 +99,19 @@ const mockMyActivity = [
         vending: 1,
         picture:'../../b1.jpg',
     },
-  },
+    users: [
+        {
+            user_id: 1,
+            Name: "John Doe",
+            picture: "http://52.8.178.204/static/1701667086419-e8f03678786d6b17-zidane.jpg"
+        },
+        {
+            user_id: 2,
+            Name: "2222",
+            picture: "http://52.8.178.204/static/1701667086419-e8f03678786d6b17-zidane.jpg"
+        }
+    ]
+  }
 ];
   
   export default mockMyActivity;

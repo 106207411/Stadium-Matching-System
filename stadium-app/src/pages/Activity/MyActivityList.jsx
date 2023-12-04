@@ -23,7 +23,7 @@ const MyActivityList = () => {
     const timeRangeMapping = (timeNumber) => {
         const startHour = 8 + timeNumber; // Assuming 1 corresponds to 9-10
         const endHour = startHour + 1;
-        return `${startHour}- ${endHour}`;
+        return `${startHour} - ${endHour}`;
     };
     
 
