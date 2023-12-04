@@ -20,6 +20,13 @@ const MyActivityList = () => {
         return stars;
     };
 
+    const timeRangeMapping = (timeNumber) => {
+        const startHour = 8 + timeNumber; // Assuming 1 corresponds to 9-10
+        const endHour = startHour + 1;
+        return `${startHour}- ${endHour}`;
+    };
+    
+
     return (
         <div>
             <Header title="我的清單" />
@@ -27,17 +34,17 @@ const MyActivityList = () => {
                 <div>
                     {mockMyActivity.map((activity) => (
                         <div key={activity.id} className="activity-item" onClick={() => handleActivityClick(activity.id)}>
-                            <img src={activity.image} alt={activity.title} />
+                            <img src={activity.stadium.picture} alt={activity.title} />
                             <div className="activity-info">
                                 <div className="title-time">
                                     <h3>{activity.title}</h3>
-                                    <span className="time">{activity.date}</span>
+                                    <span className="time">{activity.date} {timeRangeMapping(activity.time)}</span>
                                 </div>
                                 <div className="stadium-price">
-                                    <p>{activity.location} - {activity.fee}</p>
-                                    <div className="rating">{generateStars(activity.rating)}</div>
+                                    <p>{activity.stadium.name} - {activity.fee}/人</p>
+                                    <div className="rating">{generateStars(activity.level)}</div>
                                 </div>
-                                <span className="remaining">活動參與：{activity.peoples}/{activity.max}人</span>
+                                <span className="remaining">活動參與：{activity.people}/{activity.max}人</span>
                             </div>
                         </div>
                     ))}

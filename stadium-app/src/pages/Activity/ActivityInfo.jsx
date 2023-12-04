@@ -40,21 +40,21 @@ const ActivityInfo = () => {
             <div className="activity-card">
 
                 <h1 className="activity-title">{selectedActivity.title}</h1>
-                <img src={selectedActivity.image} alt={selectedActivity.title} className="activity-image" />
+                <img src={selectedActivity.stadium.picture} alt={selectedActivity.title} className="activity-image" />
                 <div className="activity-details">
                     <p>ID:{selectedActivity.id}</p><div className="location-container">
-                        <p>場地：{selectedActivity.location}</p>
+                        <p>場地：{selectedActivity.stadium.address}</p>
                         <span className="report-issue" onClick={handleReportIssue}>
                             <LuAlertCircle className="report-icon" />
                             問題回報
                         </span>
                     </div>
-                    <p>時間：{selectedActivity.date}</p>
-                    <p>收費：{selectedActivity.fee} / 時</p>
-                    <p>程度：{generateStars(selectedActivity.rating)}</p>
-                    <p>活動參與：{selectedActivity.peoples}/{selectedActivity.max}人</p>
+                    <p>時間：{selectedActivity.date} {selectedActivity.time}</p>
+                    <p>收費：{selectedActivity.fee} / 人</p>
+                    <p>程度：{generateStars(selectedActivity.level)}</p>
+                    <p>活動參與：{selectedActivity.people}/{selectedActivity.max}人</p>
                 </div>
-                <img src={selectedActivity.avatar} alt="Avatar" className="user-avatar" />
+                <img src={selectedActivity.creator.picture} alt="Avatar" className="user-avatar" />
                 <button className="join-button">退出活動</button>
 
             </div>
