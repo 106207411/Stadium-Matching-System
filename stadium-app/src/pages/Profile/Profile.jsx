@@ -2,30 +2,32 @@ import Header from '../../components/Header/Header'
 import Footer from '../../components/FooterBar/FooterBar'
 import QRCode from '../../components/QRCode/QRCodeCard'
 import Rating from '@mui/material/Rating'
+import Text from '@mui/material/Typography'
+import translate from '../../lib/utils/translator'
 import { useNavigate } from 'react-router-dom'
 import { useState, useEffect } from 'react'
 import './Profile.scss'
+import mockUser from '../../mockData/mockUser'
 
 const Profile = () => {
   const [profile, setProfile] = useState(null)
 
   useEffect(() => {
-    // Parse the user profile from localStorage and update the state
     const storedProfile = localStorage.getItem('userProfile')
     if (storedProfile) {
       setProfile(JSON.parse(storedProfile))
     }
   }, [])
 
-  // Function to render ratings for sports with a non-zero value
   const renderSportsRatings = () => {
-    if (!profile) return null
+    if (!mockUser) return null
 
-    const sports = Object.keys(profile).filter(key => key !== 'user_id' && profile[key] !== 0)
+    const sports = Object.keys(mockUser).filter(key => key !== 'age' && mockUser[key] !== 0 && typeof(mockUser[key]) !== 'string')
+    console.log(sports)
     return sports.map(sport => (
       <div key={sport}>
-        <Text component="span">{sport.charAt(0).toUpperCase() + sport.slice(1)}: </Text>
-        <Rating name={sport} value={profile[sport]} readOnly size="small" />
+        <Text component="span">{translate(sport)}</Text>
+        <Rating name={sport} value={mockUser[sport]} readOnly size="small" />
         <br />
       </div>
     ))
@@ -37,15 +39,13 @@ const Profile = () => {
       <div className="info-container">
         <QRCode />
         <div className='data-column'>
-          <Text>姓名: {profile.user_id}</Text>
-          <Text>性別: {profile.user_id}</Text>
-          <Text>電話: {profile.user_id}</Text>
-          <Text>E-mail: {profile.user_id}</Text>
-          <Text>年紀: {profile.user_id}</Text>
-          <Text>擅長運動: </Text>
-          {renderSportsRatings()}
-          <br />
-          <Text>自我介紹: {profile.user_id}</Text>
+          <Text>姓名: {mockUser.userName}</Text>
+          <Text>性別: {mockUser.gender}</Text>
+          <Text>電話: {mockUser.phoneNumber}</Text>
+          <Text>信箱: {mockUser.email}</Text>
+          <Text>年紀: {mockUser.age}</Text>
+          <Text>擅長運動: {renderSportsRatings()}</Text>
+          <Text>自我介紹: {mockUser.introduction}</Text>
         </div>
       </div>
       <Footer />

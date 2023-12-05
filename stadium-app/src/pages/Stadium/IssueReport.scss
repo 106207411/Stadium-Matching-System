@@ -9,14 +9,26 @@
   font: 700 32px Inter, sans-serif;
 }
 
-.description {
-  align-items: center;
-  align-self: center;
-  display: flex;
-  margin-top: 24px;
-  width: 100%;
-  flex-grow: 1;
-  flex-direction: column;
+.issue-info {
+  margin-left: 25px;
+  margin-right: 25px;
+}
+
+.issue-select {
+  background-color: rgb(233, 233, 233);
+}
+
+.input-group {
+  margin-bottom: 1rem;
+  
+  textarea {
+    background-color: rgb(233, 233, 233);
+    width: 95%;
+    padding: 0.5rem;
+    border: 1px solid #8e8e8e;
+    border-radius: 5px;
+    resize: none; // Disables the resize handle if desired
+  }
 }
 
 .button-group {
