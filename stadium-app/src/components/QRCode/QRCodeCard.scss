@@ -1,0 +1,27 @@
+.qrcode-container {
+  background-color: #e0e0e0; // A shade of grey
+  padding: 40px;
+  margin-top: 40px;
+  text-align: center; // Centers the content
+  position: relative; // Needed to position the avatar absolutely
+  
+  .MuiAvatar-root {
+    position: absolute; // Position the avatar absolutely
+    top: -30px; // Half of the avatar's height to pull it up
+    left: 50%;
+    transform: translateX(-50%); // Center the avatar
+    width: 60px; // Size of the avatar
+    height: 60px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2); // Optional shadow for depth
+
+    img {
+      width: 100%; // Ensure the image fills the avatar
+    }
+  }
+
+  .qrcode-canvas {
+    // If you need to apply styles directly to the QR code canvas
+    // For example, to add margin to the top to account for the avatar
+    margin-top: 60px; // Adjust based on avatar size and desired spacing
+  }
+}

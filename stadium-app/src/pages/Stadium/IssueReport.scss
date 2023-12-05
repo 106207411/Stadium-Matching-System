@@ -1,0 +1,46 @@
+.stadium-name {
+  padding-top: 50px;
+  margin-top: 50px;
+  font-size: 24px;
+  color: #2b2b2b;
+  align-self: center;
+  text-align: center;
+  white-space: nowrap;
+  font: 700 32px Inter, sans-serif;
+}
+
+.description {
+  align-items: center;
+  align-self: center;
+  display: flex;
+  margin-top: 24px;
+  width: 100%;
+  flex-grow: 1;
+  flex-direction: column;
+}
+
+.button-group {
+  margin-bottom: 30px;
+  margin-left: 20px;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  align-self: center;
+  width: 90%;
+}
+
+.button {
+  color: #fff;
+  border-radius: 55px;
+  background-color: #2b2b2b;
+  padding: 23px 20px;
+  margin: 20px 0 15px;
+  font: 400 24px Inter, sans-serif;
+}
+
+.buttonV2 {
+  color: #000;
+  white-space: nowrap;
+  margin: 44px 0 15px;
+  font: 400 24px Inter, sans-serif;
+}

@@ -9,7 +9,9 @@ import SportRating from './pages/Auth/SportRating'
 import ActivityList from './pages/Activity/ActivityList'
 import StadiumList from './pages/Stadium/StadiumList'
 import MessageList from './pages/Message/MessageList'
+import Profile from './pages/Profile/Profile'
 import './index.css'
+import IssueReport from './pages/Stadium/IssueReport'
 
 const AppRoutes = () => {
   const { isAuth } = useAuth()
@@ -24,7 +26,9 @@ const AppRoutes = () => {
       <Route path='/home' element={isAuth ? <Home /> : <Navigate to="/" />} />
       <Route path='/activity/list' element={<ActivityList />} />
       <Route path='/stadium/list' element={<StadiumList />} />
+      <Route path='/stadium/report' element={<IssueReport />} />
       <Route path='/message/list' element={<MessageList />} />
+      <Route path='/profile' element={<Profile />} />
     </Routes>
   );
 };
