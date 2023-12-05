@@ -10,6 +10,9 @@ import ActivityList from './pages/Activity/ActivityList'
 import StadiumList from './pages/Stadium/StadiumList'
 import MessageList from './pages/Message/MessageList'
 import Profile from './pages/Profile/Profile'
+import LikeList from './pages/Like/LikeList'
+import ActivityInfo from './pages/Activity/ActivityInfo';
+import MyActivityList from './pages/Activity/MyActivityList';
 import './index.css'
 import IssueReport from './pages/Stadium/IssueReport'
 
@@ -29,6 +32,9 @@ const AppRoutes = () => {
       <Route path='/stadium/report' element={<IssueReport />} />
       <Route path='/message/list' element={<MessageList />} />
       <Route path='/profile' element={<Profile />} />
+      <Route path='/like/list' element={<LikeList />} />
+      <Route path='/activity/mylist/:activity_id' element={<ActivityInfo />} />
+      <Route path='/activity/mylist' element={<MyActivityList />} />
     </Routes>
   );
 };
