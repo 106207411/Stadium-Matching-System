@@ -125,3 +125,13 @@ az aks get-credentials --name $clusterName --resource-group $aksResourceGroup
 # echo "----------------------------------------------------------------------------------------------"
 # echo "Deploying app..."
 # kubectl apply -f ./k8s/stadium-app.yaml -n stadiumapp
+
+
+# Helm
+# helm create stadium-chart
+# helm lint stadium-chart
+# helm template "stadium-chart" "./stadium-chart/" --namespace "stadiumapp" > stadiumapp-manifests.yaml
+# helm install "stadium-release" "./stadium-chart/" --namespace "stadiumapp"
+# helm upgrade "stadium-release" "./stadium-chart/" --namespace "stadiumapp"
+# helm ls -n stadiumapp
+# helm uninstall "stadium-release" --namespace "stadiumapp"

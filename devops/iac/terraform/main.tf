@@ -82,6 +82,18 @@ resource "azurerm_kubernetes_cluster" "aks" {
   }
 }
 
+# Allow AKS Cluster access to Azure Container Registry
+resource "azurerm_role_assignment" "role_acrpull" {
+  principal_id                     = azurerm_kubernetes_cluster.aks.kubelet_identity[0].object_id
+  role_definition_name             = "AcrPull"
+  scope                            = azurerm_container_registry.acr.id
+  skip_service_principal_aad_check = true
+  depends_on = [
+    azurerm_container_registry.acr,
+    azurerm_kubernetes_cluster.aks
+  ]
+}
+
 
 # resource "azurerm_kubernetes_cluster_node_pool" "aks-np" {
 #   enable_auto_scaling   = true

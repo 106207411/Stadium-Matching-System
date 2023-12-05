@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: stadium-app # This will be the name of the deployment
-  namespace: stadium
+  namespace: stadium-app
   labels:
     app: stadium-app
 spec:
@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
         - name: stadium-app
-          image: stadiumappacr.azurecr.io/frontend:6977383977
+          image: "acrstadium.azurecr.io/frontend:latest"
           ports:
             - containerPort: 5173
               name: http # We named that port "http" so we can refer to it later

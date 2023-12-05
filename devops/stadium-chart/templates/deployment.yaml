@@ -4,22 +4,22 @@ metadata:
   name: {{ include "stadium-chart.fullname" . }} # This will be the name of the deployment
   namespace: {{ .Values.global.namespace }}
   labels:
-    {{ include "stadium-chart.fullname" }}
+    app: {{ include "stadium-chart.fullname" . }}
 spec:
   replicas: {{ .Values.microservices.stadiumapp.replicaCount }}
   selector:
     matchLabels:
-      {{ include "stadium-chart.fullname" }}
+      app: {{ include "stadium-chart.fullname" . }}
   template: # This is the template of the pod inside the deployment
     metadata:
       labels:
-        app: {{ include "stadium-chart.fullname" }}
+        app: {{ include "stadium-chart.fullname" . }}
     spec:
       containers:
         - name: {{ .Chart.Name }}
           # image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
           #TODO: Change this to the correct image
-          image: "{{ .Values.global.registryPrefix }}/frontend:6977383977" 
+          image: "{{ .Values.global.registryPrefix }}/frontend:latest" 
           ports:
             - name: http # We named that port "http" so we can refer to it later
               containerPort: {{ .Values.service.port }}

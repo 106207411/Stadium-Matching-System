@@ -3,9 +3,11 @@ apiVersion: v1
 kind: Service
 metadata:
   name: stadium-app
-  namespace: stadium-app-k8s
+  namespace: stadium-app
 spec:
-  type: ClusterIP
+  # Currently using ClusterIP would not occur `net::ERR_ABORTED 504 (Outdated Optimize Dep)`
+  # TODO: Fix this issue by LoadBalancer
+  type: LoadBalancer
   selector:
     app: stadium-app
   ports:

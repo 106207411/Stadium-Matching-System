@@ -3,7 +3,7 @@
 
 global:
   environment: dev
-  namespace: stadium
+  namespace: stadiumapp
   registryPrefix: acrstadium.azurecr.io
 
 microservices:    
