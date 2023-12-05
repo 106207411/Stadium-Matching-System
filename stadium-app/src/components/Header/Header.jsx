@@ -1,12 +1,21 @@
 // import { useState, useEffect } from "react"
 import React from 'react';
 import './Header.scss'; 
+import { useNavigate } from 'react-router-dom';
+import { FaArrowLeft } from "react-icons/fa";
+
 
 const Header = ({ title }) => {
+  const navigate = useNavigate();
+
+  const goBack = () => {
+    navigate(-1); 
+  };
+
   return (
     <header className="header">
-      <div className="header-icon">
-        <img src="/left.png" alt="Left" />
+      <div className="header-icon" onClick={goBack}>
+      <FaArrowLeft size={32}/>
       </div>
       <h1 className="header-title">{title}</h1>
       <div className="header-icon right">

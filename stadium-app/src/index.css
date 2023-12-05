@@ -1,4 +1,17 @@
-body {
+/* body {
   font-family: monospace, "Noto";
   height: 100%;
+} */
+
+/* CSS Reset */
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%; /* 確保 html 和 body 元素填滿整個視窗高度 */
+  width: 100%; /* 確保 html 和 body 元素填滿整個視窗寬度 */
+  box-sizing: border-box; /* 調整盒模型計算方式 */
+}
+
+body {
+  font-family: monospace, "Noto"; /* 保留原有的字體設置 */
 }
