@@ -39,20 +39,20 @@ resource "azurerm_container_registry" "acr" {
 
 # Create a new Azure Kubernetes Service (Cluster)
 resource "azurerm_kubernetes_cluster" "aks" {
-  name                             = lower("${var.aks_prefix}-${var.cluster_name}-${local.environment}")
-  resource_group_name              = azurerm_resource_group.rg.name
-  location                         = azurerm_resource_group.rg.location
-  dns_prefix                       = var.dns_prefix
-  sku_tier                         = var.aks_sku_tier
+  name                = lower("${var.aks_prefix}-${var.cluster_name}-${local.environment}")
+  resource_group_name = azurerm_resource_group.rg.name
+  location            = azurerm_resource_group.rg.location
+  dns_prefix          = var.dns_prefix
+  sku_tier            = var.aks_sku_tier
 
   default_node_pool {
-    name                         = var.default_node_pool_name
-    node_count                   = var.default_node_pool_node_count
-    vm_size                      = var.default_node_pool_vm_size
-    enable_auto_scaling          = var.default_node_pool_enable_auto_scaling
-    max_count                    = var.default_node_pool_max_count
-    max_pods                     = var.default_node_pool_max_pods
-    min_count                    = var.default_node_pool_min_count
+    name                = var.default_node_pool_name
+    node_count          = var.default_node_pool_node_count
+    vm_size             = var.default_node_pool_vm_size
+    enable_auto_scaling = var.default_node_pool_enable_auto_scaling
+    max_count           = var.default_node_pool_max_count
+    max_pods            = var.default_node_pool_max_pods
+    min_count           = var.default_node_pool_min_count
   }
 
   identity {
@@ -66,7 +66,7 @@ resource "azurerm_kubernetes_cluster" "aks" {
       key_data = jsondecode(azapi_resource_action.ssh_public_key_gen.output).publicKey
     }
   }
-  
+
   tags = merge(local.default_tags, var.aks_tags)
   lifecycle {
     ignore_changes = [

@@ -2,6 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: stadium-app # This will be the name of the deployment
+  namespace: stadium-app
   labels:
     app: stadium-app
 spec:
