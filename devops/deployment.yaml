@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: stadium-app # This will be the name of the deployment
-  namespace: stadium-app
+  namespace: stadium
   labels:
     app: stadium-app
 spec:
@@ -10,14 +10,14 @@ spec:
   selector:
     matchLabels:
       app: stadium-app
-  template:   # This is the template of the pod inside the deployment
+  template: # This is the template of the pod inside the deployment
     metadata:
       labels:
         app: stadium-app
     spec:
       containers:
-      - name: stadium-app
-        image: stadiumappacr.azurecr.io/frontend:6977383977
-        ports:
-        - containerPort: 5173
-          name: http  # We named that port "http" so we can refer to it later
+        - name: stadium-app
+          image: stadiumappacr.azurecr.io/frontend:6977383977
+          ports:
+            - containerPort: 5173
+              name: http # We named that port "http" so we can refer to it later

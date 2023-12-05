@@ -2,14 +2,13 @@ apiVersion: v1
 kind: Service
 metadata:
   name: {{ include "stadium-chart.fullname" . }}
-  labels:
-    {{- include "stadium-chart.labels" . | nindent 4 }}
+  namespace: {{ .Values.global.namespace }}
 spec:
   type: {{ .Values.service.type }}
-  ports:
-    - port: {{ .Values.service.port }}
-      targetPort: http
-      protocol: TCP
-      name: http
   selector:
-    {{- include "stadium-chart.selectorLabels" . | nindent 4 }}
+    app: {{ include "stadium-chart.fullname" . }}
+  ports:
+    - port: {{ .Values.service.port }} # SERVICE exposed port
+      targetPort: http # Port to forward to in the POD
+      protocol: TCP # The protocol the SERVICE will listen to
+      name: http # SERVICE port name
