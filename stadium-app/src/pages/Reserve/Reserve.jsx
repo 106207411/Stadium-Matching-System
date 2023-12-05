@@ -2,10 +2,13 @@ import * as React from "react";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { DateCalendar } from "@mui/x-date-pickers/DateCalendar";
+import Header from "../../components/Header/Header";
 
 export default function BasicDateCalendar() {
   const [selectedDate, setSelectedDate] = React.useState(null);
   const [selectedItems, setSelectedItems] = React.useState([]);
+
+  // Handle GET the stadium available time first
 
   const handleItemClick = (row, col) => {
     const isItemSelected = selectedItems.some(
@@ -56,60 +59,63 @@ export default function BasicDateCalendar() {
   };
 
   return (
-    <LocalizationProvider dateAdapter={AdapterDayjs}>
-      <DateCalendar
-        onChange={(newDate) => {
-          setSelectedItems([]);
-          setSelectedDate(newDate);
-        }}
-      />
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          marginTop: "20px",
-        }}
-      >
-        {[1, 2, 3, 4].map((row) => (
-          <div key={row} style={{ display: "flex", marginBottom: "15px" }}>
-            {[1, 2, 3, 4].map((col) => (
-              <div
-                key={col}
-                style={{
-                  width: "80px",
-                  height: "40px",
-                  border: "1px solid #000",
-                  margin: "0 5px",
-                  marginBottom: "0.5em",
-                  cursor: "pointer",
-                  backgroundColor: selectedItems.some(
-                    (item) => item.row === row && item.col === col,
-                  )
-                    ? "#ffcccc"
-                    : "#f0f0f0",
-                  borderRadius: "5px",
-                  display: "flex",
-                  flexDirection: "column",
-                  justifyContent: "center",
-                  alignItems: "center",
-                }}
-                onClick={() => handleItemClick(row, col)}
-              >
-                <div>{getText(row, col)}</div>
-              </div>
-            ))}
-          </div>
-        ))}
-      </div>
-      <div style={{ textAlign: "center", marginTop: "20px" }}>
-        <button
-          style={{ padding: "10px 20px", fontSize: "16px" }}
-          onClick={handleSend}
+    <>
+      <Header title="預約時段" />
+      <LocalizationProvider dateAdapter={AdapterDayjs}>
+        <DateCalendar
+          onChange={(newDate) => {
+            setSelectedItems([]);
+            setSelectedDate(newDate);
+          }}
+        />
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            marginTop: "20px",
+          }}
         >
-          送出
-        </button>
-      </div>
-    </LocalizationProvider>
+          {[1, 2, 3, 4].map((row) => (
+            <div key={row} style={{ display: "flex", marginBottom: "15px" }}>
+              {[1, 2, 3, 4].map((col) => (
+                <div
+                  key={col}
+                  style={{
+                    width: "80px",
+                    height: "40px",
+                    border: "1px solid #000",
+                    margin: "0 5px",
+                    marginBottom: "0.5em",
+                    cursor: "pointer",
+                    backgroundColor: selectedItems.some(
+                      (item) => item.row === row && item.col === col,
+                    )
+                      ? "#ffcccc"
+                      : "#f0f0f0",
+                    borderRadius: "5px",
+                    display: "flex",
+                    flexDirection: "column",
+                    justifyContent: "center",
+                    alignItems: "center",
+                  }}
+                  onClick={() => handleItemClick(row, col)}
+                >
+                  <div>{getText(row, col)}</div>
+                </div>
+              ))}
+            </div>
+          ))}
+        </div>
+        <div style={{ textAlign: "center", marginTop: "20px" }}>
+          <button
+            style={{ padding: "10px 20px", fontSize: "16px" }}
+            onClick={handleSend}
+          >
+            送出
+          </button>
+        </div>
+      </LocalizationProvider>
+    </>
   );
 }
