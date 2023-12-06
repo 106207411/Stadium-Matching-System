@@ -10,10 +10,15 @@ import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined
 import './FooterBar.scss'
 
 const Footer = () => {
+  const navigate = useNavigate()
+  const Navigation = (path) => {
+    navigate(path)
+  }
+
   return (
     <footer className="footer">
       <div className="footer-icon">
-        <img src="/mail.png" alt="Mail" />
+        <img src="/mail.png" alt="Mail"/>
       </div>
       <div className="footer-icon">
         <img src="/list.png" alt="List" />
@@ -24,7 +29,7 @@ const Footer = () => {
       <div className="footer-icon">
         <img src="/heart.png" alt="Favorites" />
       </div>
-      <div className="footer-icon">
+      <div className="footer-icon" name="profile" onClick={() => Navigation('/profile')}>
         <img src="/profile.png" alt="Profile" />
       </div>
     </footer>

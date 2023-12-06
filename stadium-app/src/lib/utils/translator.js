@@ -1,6 +1,6 @@
 export default function translate(sportType) {
   if (sportType === 'baseball') return '棒球'
-  else if (sportType === 'tableTennis') return '桌球'
+  else if (sportType === 'tableTennis' || sportType === 'tabletennis') return '桌球'
   else if (sportType === 'basketball') return '籃球'
   else if (sportType === 'badminton') return '羽球'
   else if (sportType === 'volleyball') return '排球'
