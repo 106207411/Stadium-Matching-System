@@ -13,7 +13,7 @@ jobs:
         run:
           working-directory: ./stadium-app
     env:
-        ACR_NAME: "stadiumappacr"
+        ACR_NAME: "acrstadium"
         IMAGE_NAME: "frontend"
 
     steps:
