@@ -3,33 +3,45 @@ name: Deploy to ACR
 on:
   push:
     branches:
-      - main
       - feat/terraform
+    # paths:
+    #   - 'stadium-app/**'
 
 jobs:
   build-and-push:
     runs-on: ubuntu-latest
-    defaults:
-        run:
-          working-directory: ./stadium-app
     env:
-        ACR_NAME: "acrstadium"
-        IMAGE_NAME: "frontend"
+      IMAGE_NAME: ${{ secrets.ACR_SERVER }}/frontend
+      BUILD_PATH: ./stadium-app
+      DOCKERFILE_PATH: ./stadium-app/dockerfile/Dockerfile
 
     steps:
-        - name: Checkout repository
-          uses: actions/checkout@v2
+      - name: Checkout repository
+        uses: actions/checkout@v2
 
-        - name: Login to ACR
-          uses: azure/docker-login@v1
-          with:
-              
-              login-server: ${{ env.ACR_NAME }}.azurecr.io
-              username: ${{ secrets.ACR_USERNAME }}
-              password: ${{ secrets.ACR_PASSWORD }}
+      - name: Generate build ID
+        id: tag
+        run: |
+          echo "BUILD_ID=$(TZ='Asia/Taipei' date +"%Y%m%d.%H%M%S")" >> $GITHUB_ENV
 
-        - name: Build and push Docker image
-
-          run: |
-              docker build -t ${{ env.ACR_NAME }}.azurecr.io/${{env.IMAGE_NAME}}:${{ github.run_id }} -f ./dockerfile/Dockerfile .
-              docker push ${{ env.ACR_NAME }}.azurecr.io/${{env.IMAGE_NAME}}:${{ github.run_id }}
+      - name: Login to ACR
+        uses: docker/login-action@v1
+        with:
+          registry: ${{ secrets.ACR_SERVER }}
+          username: ${{ secrets.ACR_USERNAME }}
+          password: ${{ secrets.ACR_PASSWORD }}
+      
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v2
+        with:
+          push: true
+          context: ${{ env.BUILD_PATH }}
+          tags: |
+            ${{ env.IMAGE_NAME }}:latest
+            ${{ env.IMAGE_NAME }}:${{ env.BUILD_ID }}
+          file: ${{ env.DOCKERFILE_PATH }}
+            
+      - name: Save container hashes
+        id: acr
+        run: |
+            echo "$(docker inspect ${{ env.IMAGE_NAME }}:latest -f '{{ .Id }}')" >> acr.txt
