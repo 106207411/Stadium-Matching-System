@@ -1,5 +1,6 @@
 import { createContext, useState, useContext, useCallback } from "react"
 import { signUp, login } from "../lib/api/auth"
+import { getUserProfile } from "../lib/api/user"
 
 const AuthContext = createContext()
 
@@ -13,17 +14,18 @@ export const AuthProvider = ({ children }) => {
 
   const loginHandler = useCallback((loginInfo) => {
     login(loginInfo)
+    getUserProfile()
     setIsAuth(true)
   }, [])
 
-  const logout = useCallback(() => {
+  const logoutHandler = useCallback(() => {
     setIsAuth(false)
   }, [])
 
   // Considering using `useMemo` here
 
   return (
-    <AuthContext.Provider value={{isAuth, signUpHandler, loginHandler, logout}}>
+    <AuthContext.Provider value={{isAuth, signUpHandler, loginHandler, logoutHandler}}>
       {children}
     </AuthContext.Provider>
   )

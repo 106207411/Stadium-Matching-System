@@ -9,10 +9,12 @@ import SportRating from './pages/Auth/SportRating'
 import ActivityList from './pages/Activity/ActivityList'
 import StadiumList from './pages/Stadium/StadiumList'
 import MessageList from './pages/Message/MessageList'
+import Profile from './pages/Profile/Profile'
 import LikeList from './pages/Like/LikeList'
 import ActivityInfo from './pages/Activity/ActivityInfo';
 import MyActivityList from './pages/Activity/MyActivityList';
 import './index.css'
+import IssueReport from './pages/Stadium/IssueReport'
 
 const ProtectedRoute = ({ children }) => {
   const { isAuth } = useAuth();
