@@ -3,12 +3,12 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: stadium-chart
+  name: stadium-release-stadium-chart
   namespace: stadiumapp
 spec:
   type: LoadBalancer
   selector:
-    app: stadium-chart
+    app: stadium-release-stadium-chart
   ports:
     - port: 5173 # SERVICE exposed port
       targetPort: http # Port to forward to in the POD
@@ -19,25 +19,26 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: stadium-chart # This will be the name of the deployment
+  name: stadium-release-stadium-chart # This will be the name of the deployment
   namespace: stadiumapp
   labels:
-    app: stadium-chart
+    app: stadium-release-stadium-chart
 spec:
   replicas: 2
   selector:
     matchLabels:
-      app: stadium-chart
+      app: stadium-release-stadium-chart
   template: # This is the template of the pod inside the deployment
     metadata:
       labels:
-        app: stadium-chart
+        app: stadium-release-stadium-chart
     spec:
       containers:
         - name: stadium-chart
           # image: "nginx:1.16.0"
           #TODO: Change this to the correct image
           image: "acrstadium.azurecr.io/frontend:latest" 
+          # image: "acrstadium.azurecr.io/sample/aspnet-api:20230226.1" 
           ports:
             - name: http # We named that port "http" so we can refer to it later
               containerPort: 5173
