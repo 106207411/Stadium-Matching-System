@@ -5,7 +5,7 @@ export const login = (data) => {
   return (
     axios({
       method: 'post',
-      url: `${API_URL}/user/signin`,
+      url: `${PROD_API_URL}/user/signin`,
       data: data
     })
     .then((res) => {
@@ -22,7 +22,7 @@ export const signUp = (data) => {
   return (
     axios({
       method: 'post',
-      url: `${API_URL}/user/signup`,
+      url: `${PROD_API_URL}/user/signup`,
       data: data
     })
     .then((res) => {
