@@ -8,6 +8,6 @@ export default defineConfig({
     host: '0.0.0.0',
   },
   optimizeDeps: {
-    exclude: ['react', 'react-dom', 'react-router-dom'],
+    force: true,
   },
 })

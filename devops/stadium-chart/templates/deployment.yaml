@@ -20,7 +20,6 @@ spec:
           # image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
           #TODO: Change this to the correct image
           image: "{{ .Values.global.registryPrefix }}/frontend:latest" 
-          # image: "acrstadium.azurecr.io/sample/aspnet-api:20230226.1" 
           ports:
             - name: http # We named that port "http" so we can refer to it later
               containerPort: {{ .Values.service.port }}
