@@ -26,7 +26,7 @@ const MessageList = () => {
 
     return (
       <div>
-        <Header title="通知" />
+        <Header title="通知" showSortIcon={false}/>
         <div className="message-list">
           {messages.map((message) => (
             <div

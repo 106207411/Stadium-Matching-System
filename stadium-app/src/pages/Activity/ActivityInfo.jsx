@@ -50,7 +50,7 @@ const ActivityInfo = () => {
 
     return (
         <div>
-            <Header title="我的活動" />
+            <Header title="我的活動" showSortIcon={false}/>
             <div className="activity-card">
 
                 <h1 className="activity-title">{selectedActivity.title}</h1>
