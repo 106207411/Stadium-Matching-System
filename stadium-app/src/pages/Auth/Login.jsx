@@ -1,11 +1,13 @@
 import { useNavigate } from "react-router-dom"
 import { useAuth } from "../../context/AuthContext"
-import ArrowBackIcon from '@mui/icons-material/ArrowBack'
-import './Login.scss'
 import { useState } from "react"
+import ArrowBackIcon from '@mui/icons-material/ArrowBack'
+import { ToastContainer, toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
+import './Login.scss'
 
 const Login = () => {
-  const { loginHandler } = useAuth()
+  const { loginHandler, isAuth, authError } = useAuth()
   const navigate = useNavigate()
   const [loginInfo, setLoginInfo] = useState({
     email: "",
@@ -22,9 +24,28 @@ const Login = () => {
     navigate('/')
   }
 
-  const handleLoginClick = () => {
-    loginHandler(loginInfo)
-    navigate('/home')
+  const handleLoginClick = async () => {
+    // Check if email and password are not empty
+    if (!loginInfo.email) {
+      toast.error('請輸入帳號')
+      return
+    }
+    if (!loginInfo.password) {
+      toast.error('請輸入密碼')
+      return
+    }
+
+    await loginHandler(loginInfo)
+      .then((res) => {
+        if (res) {
+          navigate('/home')
+        } else {
+          toast.error('信箱或密碼錯誤')
+        }
+      })
+      .catch((err) => {
+        console.log(err)
+      })
   }
 
   return (
@@ -41,6 +62,7 @@ const Login = () => {
         <input className="textbox" type="password" name="password" onChange={handleChange}/>
       </div>
       <button className="button" onClick={handleLoginClick}>登入</button>
+      <ToastContainer />
     </div>
   )
 }

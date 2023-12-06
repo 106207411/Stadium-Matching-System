@@ -5,15 +5,32 @@ const AuthContext = createContext()
 
 export const AuthProvider = ({ children }) => {
   const [isAuth, setIsAuth] = useState(false)
+  const [authError, setAuthError] = useState(null)
 
-  const signUpHandler = useCallback((registerInfo) => {
-    signUp(registerInfo)
+  const signUpHandler = useCallback((signUpInfo) => {
+    signUp(signUpInfo)
     setIsAuth(true)
   })
 
-  const loginHandler = useCallback((loginInfo) => {
-    login(loginInfo)
-    setIsAuth(true)
+  const loginHandler = useCallback(async (loginInfo) => {
+    return login(loginInfo)
+      .then((res) => {
+        console.log(res.data)
+        if (res.data) {
+          setIsAuth(true)
+          setAuthError(null)
+          return true
+        } else {
+          setAuthError(res.data)
+          setIsAuth(false)
+          return false
+        }
+      })
+      .catch((err) => {
+        setAuthError(err.data)
+        setIsAuth(false)
+        return false
+      });
   }, [])
 
   const logout = useCallback(() => {
@@ -23,7 +40,7 @@ export const AuthProvider = ({ children }) => {
   // Considering using `useMemo` here
 
   return (
-    <AuthContext.Provider value={{isAuth, signUpHandler, loginHandler, logout}}>
+    <AuthContext.Provider value={{isAuth, authError, signUpHandler, loginHandler, logout}}>
       {children}
     </AuthContext.Provider>
   )

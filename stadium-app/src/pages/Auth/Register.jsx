@@ -6,7 +6,13 @@ import RadioGroup from '@mui/material/RadioGroup'
 import FormControlLabel from '@mui/material/FormControlLabel'
 import FormControl from '@mui/material/FormControl'
 import FormLabel from '@mui/material/FormLabel'
+import { ToastContainer, toast } from 'react-toastify'
+import { validatePasswordFormat } from '../../lib/utils/passwordValidator'
+import 'react-toastify/dist/ReactToastify.css'
 import './Register.scss'
+
+// 是否要實作 pre-flight email exist or not check
+// 到填完興趣才說信箱已存在 UX 不太好
 
 const Register = () => {
   const navigate = useNavigate()
@@ -18,7 +24,7 @@ const Register = () => {
     self_intro: "",
     gender: "",
     baseball: false,
-    tableTennis: false,
+    tabletennis: false,
     basketball: false,
     badminton: false,
     volleyball: false,
@@ -30,13 +36,7 @@ const Register = () => {
   const handleChange = (e) => {
     const { name, value } = e.target
 
-    // Error Handling
-    /*
-    if (name == 'username') {}
-    if (name == 'account') {}
-    if (name == 'password') {}
-    if (name == 'age') {}
-    */
+    // Error Handling in real-time
 
     setFormData(prevState => ({ ...prevState, [name]: value }))
   }
@@ -47,7 +47,51 @@ const Register = () => {
 
   const handleClickNextStep = () => {
     localStorage.setItem('registerInfo', JSON.stringify(formData))
+
+    if (
+      formData.name === "" ||
+      formData.email === "" ||
+      formData.password === "" ||
+      formData.age === 0 ||
+      formData.gender === "" || 
+      formData.self_intro === ""
+    ) {
+      notifyFormNotComplete()
+      return
+    }
+
+    if (!validatePasswordFormat(formData.password)) {
+      notifyPasswordFormatError()
+      return
+    }
+
     navigate('/register/sportType')
+  }
+
+  const notifyFormNotComplete = () => {
+    toast.warning("你還有資訊未完成填寫喔！", {
+      position: "top-center",
+      autoClose: 3000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+    })
+  }
+
+  const notifyPasswordFormatError = () => {
+    toast("密碼格式錯誤喔！", {
+      position: "top-center",
+      autoClose: 3000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+    })
   }
 
   return (
@@ -96,6 +140,7 @@ const Register = () => {
         <input className="textbox" name="self_intro" placeholder="讓大家認識你~!" onChange={handleChange}/>
       </div>
       <div className="button" onClick={handleClickNextStep}>下一步</div>
+      <ToastContainer />
     </div>
   )
 }

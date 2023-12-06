@@ -2,7 +2,7 @@ import { useState } from "react"
 import { useAuth } from "../../context/AuthContext"
 import { useNavigate } from "react-router-dom"
 import Rating from '@mui/material/Rating'
-import translate from "../../lib/utils/translator"
+import { translate } from "../../lib/utils/translator"
 import './SportRating.scss'
 
 const SportRating = () => {
@@ -16,6 +16,7 @@ const SportRating = () => {
   )
   const [rating, setRating] = useState(interestSportType)
   
+  // 讓 false 變成 -1
   const mapValues = (registerInfo, rating) => {
     for (let key in registerInfo) {
       if (rating.hasOwnProperty(key)) {

@@ -8,17 +8,10 @@ export const login = (data) => {
       url: `${API_URL}/user/signin`,
       data: data
     })
-    .then((res) => {
-      console.log(res.data)
-    })
-    .catch((err) => {
-      console.err(err)
-    })
   )
 }
 
 export const signUp = (data) => {
-  console.log(data)
   return (
     axios({
       method: 'post',
