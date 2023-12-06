@@ -12,7 +12,7 @@ export const login = (data) => {
       console.log(res.data)
     })
     .catch((err) => {
-      console.err(err)
+      console.log(err)
     })
   )
 }
