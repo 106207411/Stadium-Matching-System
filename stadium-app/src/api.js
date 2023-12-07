@@ -13,13 +13,18 @@ export const fetchMessages = async () => {
       throw new Error('Network response was not ok');
     }
 
-    const contentType = response.headers.get('content-type');
-    if (!contentType || !contentType.includes('application/json')) {
-      throw new TypeError('Received response is not JSON');
-    }
-
-    const data = await response.json();
+    const responseText = await response.text(); // 获取响应的文本内容
+  try {
+    const data = JSON.parse(responseText); // 尝试解析为 JSON
     return data;
+  } catch (error) {
+    console.error('Received response is not JSON:', responseText); // 打印原始响应文本
+    throw error;
+  }
+
+   
+
+   
   
     // const data = await response.json();
     // return data;
