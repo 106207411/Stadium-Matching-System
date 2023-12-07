@@ -26,8 +26,12 @@ import { useQuery } from '@tanstack/react-query';
 // ]
 // }
 
+let renderCount = 0;
 
 const MessageList = () => {
+  renderCount++;
+  console.log(`Component rendered ${renderCount} times`);
+
   const { data: event, isLoading, isError, error } = useQuery({
     queryKey: ['messages'], 
     queryFn: fetchMessages
@@ -36,10 +40,11 @@ const MessageList = () => {
   const [events, setEvents] = useState([]);
 
   useEffect(() => {
+    console.log("useEffect is triggered");
     console.log("Event Data:", event);
-    
-    if (event && Array.isArray(event)) {
-      const initialEvents = event.map(message => ({
+
+    if (event?.event && Array.isArray(event.event)) {
+      const initialEvents = event.event.map(message => ({
         ...message,
         isRead: message.is_read === 1,
       }));
