@@ -10,6 +10,22 @@ import { fetchMessages } from '../../api';
 import { useQuery } from '@tanstack/react-query';
 
 
+// {"event":
+// [{"stadium_id":1,
+// "stadium_name":"Taipei Arena",
+// "reservation_id":2,
+// "title":"YO",
+//"is_read":1,
+// "message":"The activity is about to start"},
+// {"stadium_id":1,
+// "stadium_name":"Taipei Arena",
+// "reservation_id":1,
+// "title":"for testing",
+// "is_read":0,
+// "message":"The activity is about to start"}
+// ]
+// }
+
 
 const MessageList = () => {
   const { data: event, isLoading, isError, error } = useQuery({
@@ -20,6 +36,8 @@ const MessageList = () => {
   const [events, setEvents] = useState([]);
 
   useEffect(() => {
+    console.log("Event Data:", event);
+    
     if (event && Array.isArray(event)) {
       const initialEvents = event.map(message => ({
         ...message,
@@ -39,16 +57,23 @@ const MessageList = () => {
     setEvents(updatedEvents);
   };
 
+
+  // [{"stadium_id":1,
+// "stadium_name":"Taipei Arena",
+// "reservation_id":2,
+// "title":"YO",
+//"is_read":1,
+// "message":"The activity is about to start"},
   return (
     <div>
       <Header title="通知" showSortIcon={false}/>
       <div className="message-list">
         {events.map((message) => (
           <div
-            key={message.reservation_id}
-            className={`message-item ${message.isRead ? 'read' : ''}`}
-            onClick={() => handleReadMessage(message.reservation_id)}
-          >
+          key={message.reservation_id}
+          className={`message-item ${message.isRead ? 'read' : ''}`}
+          onClick={() => handleReadMessage(message.reservation_id)}
+        >
             <div className="message-content">
               <h3>{message.title}</h3>
               <p>預約編號：{message.reservation_id}</p>
