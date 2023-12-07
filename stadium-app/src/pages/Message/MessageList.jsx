@@ -1,22 +1,24 @@
 
 import React, { useState, useEffect } from 'react';
-import { useQuery } from 'react-query';
+//import { useQuery } from 'react-query';
 import axios from 'axios'; // or you can use fetch
 import './MessageList.scss';
 import FooterBar from '../../components/FooterBar/FooterBar.jsx';
 import Header from '../../components/Header/Header.jsx';
 import mockMessages from '../../mockData/mockMessage.js';
+import { fetchMessages } from '../../api'; 
+import { useQuery } from '@tanstack/react-query';
 
-const fetchMessages = async () => {
-  const { data } = await axios.get('http://52.8.178.204/api/event/');
-  return data;
-  console.log(data);
-};
+
+
 
 const MessageList = () => {
 
-  const { data: event, isLoading, isError, error } = useQuery('messages', fetchMessages);
-
+  const { data: event, isLoading, isError, error } = useQuery({
+    queryKey: 'messages',
+    queryFn: fetchMessages
+  });
+  
   if (isLoading) return <div>Loading...</div>;
   if (isError) return <div>Error: {error.message}</div>;
 
