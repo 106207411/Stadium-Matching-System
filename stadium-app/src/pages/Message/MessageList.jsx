@@ -1,30 +1,11 @@
 
 import React, { useState, useEffect } from 'react';
-//import { useQuery } from 'react-query';
-import axios from 'axios'; // or you can use fetch
 import './MessageList.scss';
 import FooterBar from '../../components/FooterBar/FooterBar.jsx';
 import Header from '../../components/Header/Header.jsx';
-import mockMessages from '../../mockData/mockMessage.js';
 import { fetchMessages } from '../../api'; 
 import { useQuery } from '@tanstack/react-query';
 
-
-// {"event":
-// [{"stadium_id":1,
-// "stadium_name":"Taipei Arena",
-// "reservation_id":2,
-// "title":"YO",
-//"is_read":1,
-// "message":"The activity is about to start"},
-// {"stadium_id":1,
-// "stadium_name":"Taipei Arena",
-// "reservation_id":1,
-// "title":"for testing",
-// "is_read":0,
-// "message":"The activity is about to start"}
-// ]
-// }
 
 let renderCount = 0;
 
@@ -41,7 +22,6 @@ const MessageList = () => {
 
   useEffect(() => {
     console.log("useEffect is triggered");
-    console.log("Event Data:", event);
 
     if (event?.event && Array.isArray(event.event)) {
       const initialEvents = event.event.map(message => ({
@@ -62,13 +42,6 @@ const MessageList = () => {
     setEvents(updatedEvents);
   };
 
-
-  // [{"stadium_id":1,
-// "stadium_name":"Taipei Arena",
-// "reservation_id":2,
-// "title":"YO",
-//"is_read":1,
-// "message":"The activity is about to start"},
   return (
     <div>
       <Header title="通知" showSortIcon={false}/>
@@ -95,6 +68,7 @@ const MessageList = () => {
 };
 
 export default MessageList;
+
 
 
 // const MessageList = () => {
