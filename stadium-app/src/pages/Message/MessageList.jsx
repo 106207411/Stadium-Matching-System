@@ -1,27 +1,42 @@
 
 import React, { useState, useEffect } from 'react';
+import { useQuery } from 'react-query';
+import axios from 'axios'; // or you can use fetch
 import './MessageList.scss';
 import FooterBar from '../../components/FooterBar/FooterBar.jsx';
 import Header from '../../components/Header/Header.jsx';
 import mockMessages from '../../mockData/mockMessage.js';
 
+const fetchMessages = async () => {
+  const { data } = await axios.get('http://52.8.178.204/api/event/');
+  return data;
+  console.log(data);
+};
+
 const MessageList = () => {
-    const initialMessages = mockMessages.map(message => ({
+
+  const { data: event, isLoading, isError, error } = useQuery('messages', fetchMessages);
+
+  if (isLoading) return <div>Loading...</div>;
+  if (isError) return <div>Error: {error.message}</div>;
+
+
+    const initialEvents = event.map(message => ({
       ...message,
       isRead: message.is_read === 1,
     }));
 
-    const [messages, setMessages] = useState(initialMessages);
+    const [events, setEvents] = useState(initialEvents);
 
     useEffect(() => {
       // No need to slice since all messages are already in the state
-    }, [messages]);
+    }, [events]);
 
     const handleReadMessage = (messageId) => {
-      const updatedMessages = messages.map(message =>
+      const updatedEvents = events.map(message =>
         message.reservation_id === messageId ? { ...message, isRead: true } : message
       );
-      setMessages(updatedMessages);
+      setEvents(updatedEvents);
     };
 
     return (
