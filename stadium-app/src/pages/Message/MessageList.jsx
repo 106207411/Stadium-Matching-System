@@ -23,29 +23,56 @@ const MessageList = () => {
   if (isError) return <div>Error: {error.message}</div>;
 
 
-    const initialEvents = event.map(message => ({
-      ...message,
-      isRead: message.is_read === 1,
-    }));
+    // const initialEvents = event.map(message => ({
+    //   ...message,
+    //   isRead: message.is_read === 1,
+    // }));
 
-    const [events, setEvents] = useState(initialEvents);
+    // const [events, setEvents] = useState(initialEvents);
+
+   
+
+    // useEffect(() => {
+    //   // No need to slice since all messages are already in the state
+    // }, [events]);
+
+    // const handleReadMessage = (messageId) => {
+    //   const updatedEvents = events.map(message =>
+    //     message.reservation_id === messageId ? { ...message, isRead: true } : message
+    //   );
+    //   setEvents(updatedEvents);
+    // };
+
+
+
+    const [events, setEvents] = useState([]);
 
     useEffect(() => {
-      // No need to slice since all messages are already in the state
-    }, [events]);
-
+      if (event && Array.isArray(event)) {
+        const initialEvents = event.map(message => ({
+          ...message,
+          isRead: message.is_read === 1,
+        }));
+        setEvents(initialEvents);
+      }
+    }, [event]);
+  
+    if (isLoading) return <div>Loading...</div>;
+    if (isError) return <div>Error: {error.message}</div>;
+  
     const handleReadMessage = (messageId) => {
       const updatedEvents = events.map(message =>
         message.reservation_id === messageId ? { ...message, isRead: true } : message
       );
       setEvents(updatedEvents);
     };
+  
 
     return (
       <div>
         <Header title="通知" showSortIcon={false}/>
         <div className="message-list">
-          {messages.map((message) => (
+          {events.map((message) => (
             <div
               key={message.reservation_id}
               className={`message-item ${message.isRead ? 'read' : ''}`}
