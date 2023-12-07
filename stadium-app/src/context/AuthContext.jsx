@@ -7,13 +7,8 @@ export const AuthProvider = ({ children }) => {
   const [isAuth, setIsAuth] = useState(false)
   const [authError, setAuthError] = useState(null)
 
-  const signUpHandler = useCallback((signUpInfo) => {
-    signUp(signUpInfo)
-    setIsAuth(true)
-  })
-
-  const loginHandler = useCallback(async (loginInfo) => {
-    return login(loginInfo)
+  const signUpHandler = useCallback(async (signUpInfo) => {
+    return signUp(signUpInfo)
       .then((res) => {
         console.log(res.data)
         if (res.data) {
@@ -30,7 +25,28 @@ export const AuthProvider = ({ children }) => {
         setAuthError(err.data)
         setIsAuth(false)
         return false
-      });
+      })
+  }, [])
+
+  const loginHandler = useCallback(async (loginInfo) => {
+    return await login(loginInfo)
+      .then((res) => {
+        console.log(res.data)
+        if (res.data) {
+          setIsAuth(true)
+          setAuthError(null)
+          return true
+        } else {
+          setAuthError(res.data)
+          setIsAuth(false)
+          return false
+        }
+      })
+      .catch((err) => {
+        setAuthError(err.data)
+        setIsAuth(false)
+        return false
+      })
   }, [])
 
   const logout = useCallback(() => {

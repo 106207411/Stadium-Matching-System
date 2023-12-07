@@ -18,11 +18,5 @@ export const signUp = (data) => {
       url: `${API_URL}/user/signup`,
       data: data
     })
-    .then((res) => {
-      console.log(res.data)
-    })
-    .catch((err) => {
-      console.log(err)
-    })
   )
 }

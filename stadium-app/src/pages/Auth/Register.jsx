@@ -1,5 +1,6 @@
 import { useState } from "react"
 import { useNavigate } from "react-router-dom"
+import { useAuth } from "../../context/AuthContext"
 import ArrowBackIcon from '@mui/icons-material/ArrowBack'
 import Radio from '@mui/material/Radio'
 import RadioGroup from '@mui/material/RadioGroup'
@@ -15,6 +16,7 @@ import './Register.scss'
 // 到填完興趣才說信箱已存在 UX 不太好
 
 const Register = () => {
+  const { signUpHandler } = useAuth()
   const navigate = useNavigate()
   const [formData, setFormData] = useState({
     name: "",
@@ -36,7 +38,7 @@ const Register = () => {
   const handleChange = (e) => {
     const { name, value } = e.target
 
-    // Error Handling in real-time
+    // TODO: Error detecting in real-time
 
     setFormData(prevState => ({ ...prevState, [name]: value }))
   }
@@ -45,7 +47,7 @@ const Register = () => {
     navigate('/')
   }
 
-  const handleClickNextStep = () => {
+  const handleClickNextStep = async () => {
     localStorage.setItem('registerInfo', JSON.stringify(formData))
 
     if (
@@ -59,6 +61,18 @@ const Register = () => {
       notifyFormNotComplete()
       return
     }
+
+    await signUpHandler(formData)
+      .then((res) => {
+        console.log(res)
+        if (res.data == undefined) {
+          toast.error('信箱已存在！')
+          return
+        }
+      })
+      .catch((err) => {
+        console.log(err)
+      })
 
     if (!validatePasswordFormat(formData.password)) {
       notifyPasswordFormatError()
@@ -82,7 +96,7 @@ const Register = () => {
   }
 
   const notifyPasswordFormatError = () => {
-    toast("密碼格式錯誤喔！", {
+    toast.error("密碼格式錯誤喔！", {
       position: "top-center",
       autoClose: 3000,
       hideProgressBar: false,
