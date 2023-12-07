@@ -16,7 +16,9 @@ export const fetchMessages = async () => {
 
     const responseText = await response.text(); // 获取响应的文本内容
   try {
-    const data = JSON.parse(responseText); // 尝试解析为 JSON
+    const data = JSON.parse(responseText); 
+    console.log('fetch data is', data);
+    console.log('fetch event',data.event);
     return data;
   } catch (error) {
     console.error('Received response is not JSON:', responseText); // 打印原始响应文本
