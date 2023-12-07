@@ -8,7 +8,8 @@ const apiUrl = import.meta.env.VITE_API_URL;
 
 
 export const fetchMessages = async () => {
-      const response =  await fetch(`${apiUrl}/api/event/`);
+    console.log(`${apiUrl}/api/event/`);
+    const response =  await fetch(`${apiUrl}/api/event/`);
     if (!response.ok) {
       throw new Error('Network response was not ok');
     }
