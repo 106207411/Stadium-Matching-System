@@ -12,10 +12,21 @@ export const fetchMessages = async () => {
     if (!response.ok) {
       throw new Error('Network response was not ok');
     }
-    console.log('fetch message');
-    const data = await response.json(); 
-    console.log(data);
+
+    const contentType = response.headers.get('content-type');
+    if (!contentType || !contentType.includes('application/json')) {
+      throw new TypeError('Received response is not JSON');
+    }
+
+    const data = await response.json();
     return data;
+  
+    // const data = await response.json();
+    // return data;
+    // console.log('fetch message');
+    // const data = await response.json(); 
+    // console.log(data);
+    // return data;
   };
   
 
