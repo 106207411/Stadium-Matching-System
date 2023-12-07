@@ -1,15 +1,15 @@
-import axios from 'axios'
+import axios from "axios"
 import { PROD_API_URL, API_URL } from '../../config/config'
 
-export const login = (data) => {
+export const getUserProfile = () => {
   return (
     axios({
-      method: 'post',
-      url: `${PROD_API_URL}/user/signin`,
-      data: data
+      method: 'get',
+      url: `${PROD_API_URL}/user/profile`,
     })
     .then((res) => {
       console.log(res.data)
+      localStorage.setItem('userProfile', JSON.stringify(res.data))
     })
     .catch((err) => {
       console.log(err)
@@ -17,12 +17,11 @@ export const login = (data) => {
   )
 }
 
-export const signUp = (data) => {
-  console.log(data)
+export const updateUserProfile = (data) => {
   return (
     axios({
-      method: 'post',
-      url: `${PROD_API_URL}/user/signup`,
+      method: 'put',
+      url: `${PROD_API_URL}/user/profile`,
       data: data
     })
     .then((res) => {

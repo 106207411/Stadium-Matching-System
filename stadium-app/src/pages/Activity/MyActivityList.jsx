@@ -29,7 +29,7 @@ const MyActivityList = () => {
 
     return (
         <div>
-            <Header title="我的清單" />
+            <Header title="我的清單" showSortIcon={false}/>
             <div className="activity-list">
                 <div>
                     {mockMyActivity.map((activity) => (

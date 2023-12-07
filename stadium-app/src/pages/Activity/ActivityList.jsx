@@ -51,7 +51,7 @@ const generateStars = (rating) => {
 
   return (
     <div>
-      <Header title="活動" />
+      <Header title="活動" showSortIcon={true}/>
       <div className="activity-list">
         <InfiniteScroll
           dataLength={visibleActivities.length}
