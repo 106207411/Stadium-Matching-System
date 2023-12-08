@@ -3,4 +3,7 @@
   text-align: center;
   height: 100%;
   display: flex;
+  margin: 0 auto; /* 加入自動外邊距以在寬度小於 1280px 時居中 */
 }
+
+

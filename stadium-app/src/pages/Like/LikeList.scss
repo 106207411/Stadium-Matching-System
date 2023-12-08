@@ -1,0 +1,78 @@
+$background-color: #fff;
+
+.header {
+  position: fixed;
+  top: 0;
+  left: 0; 
+  width: 100%;
+  z-index: 10;
+  padding: 10px 0;
+  text-align: center;
+  
+}
+
+.stadium-list {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); // Two columns
+  margin-top:80px;
+  padding-top: 2rem; 
+  padding-left: 0;
+  padding-right: 0; 
+  padding-bottom:5rem;
+  background-color: #fff;
+  width: 100%;
+
+  
+  .stadium-item {
+ 
+    display: flex;
+    flex-direction: column;
+    border-radius: 8px;
+    overflow: hidden;
+    margin-bottom: 1rem;
+    margin-top: 1rem;
+
+
+    img {
+      border-radius: 10px;
+      width: 100%;
+      height: auto; 
+      object-fit: cover; 
+      margin-bottom: 1px;
+    }
+
+    .stadium-info {
+      padding: 0;  
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    
+
+      h3 {
+        font-size: 1rem;
+        color: #333;
+        margin: 0;
+        margin-bottom: 0rem;
+      }
+
+      p {
+        font-size: 0.9rem;
+        color: #666;
+        margin: 0;
+      }
+
+
+    }
+  }
+}
+
+.footer {
+  position: fixed; 
+  bottom: 0; 
+  left: 0; 
+  width: 100%; 
+  z-index: 5; 
+  text-align: center; 
+  padding: 10px 0; 
+  box-shadow: 0 -2px 4px rgba(0,0,0,0.1); // 給 footer 上方添加陰影
+}
