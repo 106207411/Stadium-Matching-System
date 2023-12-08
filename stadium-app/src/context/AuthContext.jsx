@@ -1,5 +1,6 @@
 import { createContext, useState, useContext, useCallback } from "react"
 import { signUp, login } from "../lib/api/auth"
+import { getUserProfile } from "../lib/api/user"
 
 const AuthContext = createContext()
 
@@ -53,7 +54,7 @@ export const AuthProvider = ({ children }) => {
       })
   }, [])
 
-  const logout = useCallback(() => {
+  const logoutHandler = useCallback(() => {
     setIsAuth(false)
   }, [])
 

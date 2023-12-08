@@ -40,7 +40,7 @@ const StadiumList = () => {
 
   return (
     <div>
-      <Header title="場地" />
+      <Header title="場地" showSortIcon={true}/>
       <div className="stadium-list">
         <InfiniteScroll
           dataLength={visibleStadiums.length}
