@@ -1,4 +1,4 @@
-# #!/bin/bash
+#!/bin/bash
 
 # # Function to stop the server gracefully
 # stop_server() {
