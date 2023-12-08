@@ -61,7 +61,7 @@ export const AuthProvider = ({ children }) => {
   // Considering using `useMemo` here
 
   return (
-    <AuthContext.Provider value={{isAuth, authError, signUpHandler, loginHandler, logout}}>
+    <AuthContext.Provider value={{isAuth, authError, signUpHandler, loginHandler, logoutHandler}}>
       {children}
     </AuthContext.Provider>
   )

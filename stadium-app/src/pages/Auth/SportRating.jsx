@@ -3,8 +3,8 @@ import { useAuth } from "../../context/AuthContext"
 import { useNavigate } from "react-router-dom"
 import Rating from '@mui/material/Rating'
 import { translate } from "../../lib/utils/translator"
-import './SportRating.scss'
 import { toast } from "react-toastify"
+import './SportRating.scss'
 
 const SportRating = () => {
   const navigate = useNavigate()

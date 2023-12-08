@@ -17,7 +17,7 @@ export const signUp = (data) => {
   return (
     axios({
       method: 'post',
-      url: `${PROD_API_URL}/user/signup`,
+      url: `${API_URL}/user/signup`,
       data: data
     })
   )

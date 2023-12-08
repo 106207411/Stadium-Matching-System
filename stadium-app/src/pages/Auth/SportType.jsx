@@ -1,9 +1,9 @@
 import { useState } from "react"
 import { useNavigate } from "react-router-dom"
 import { useAuth } from "../../context/AuthContext"
-import './SportType.scss'
 import { toast } from "react-toastify"
 import { authTranslator } from "../../lib/utils/translator"
+import './SportType.scss'
 
 // 應設計成 toggle sportType 再 append 到 registerInfo 即可
 // 節省後續處理成本 (未知後端不處理 === 0 的 rating)
