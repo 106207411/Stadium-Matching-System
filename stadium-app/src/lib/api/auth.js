@@ -5,6 +5,7 @@ export const login = (data) => {
   return (
     axios({
       method: 'post',
+      withCredentials: true,
       url: `${API_URL}/user/signin`,
       data: data
     })
@@ -12,6 +13,7 @@ export const login = (data) => {
 }
 
 export const signUp = (data) => {
+  console.log(data)
   return (
     axios({
       method: 'post',

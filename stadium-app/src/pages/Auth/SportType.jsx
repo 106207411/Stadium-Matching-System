@@ -2,9 +2,12 @@ import { useState } from "react"
 import { useNavigate } from "react-router-dom"
 import { useAuth } from "../../context/AuthContext"
 import './SportType.scss'
+import { toast } from "react-toastify"
+import { authTranslator } from "../../lib/utils/translator"
 
 // 應設計成 toggle sportType 再 append 到 registerInfo 即可
 // 節省後續處理成本 (未知後端不處理 === 0 的 rating)
+// 12/08 已修正
 
 const SportType = () => {
   const navigate = useNavigate()
@@ -21,18 +24,34 @@ const SportType = () => {
   const handleClickNextStep = () => {
     // 如果沒有擅長運動的話，點選下一步應該直接 trigger 跳過並註冊
     if (Object.values(registerInfo).includes(true)) {
+      console.log('sport')
       localStorage.setItem('registerInfo', JSON.stringify(registerInfo))
       navigate('/register/rating')
       return
     } else {
+      console.log('no sport')
       handleClickRegister()
       return
     }
   }
 
-  const handleClickRegister = () => {
+  const handleClickRegister = async () => {
     console.log(registerInfo)
-    signUpHandler(registerInfo)
+    await signUpHandler(registerInfo)
+      .then((res) => {
+        console.log(res)
+        // 理論上在這個 Page 不會走到前 3 個 block
+        if (res === 'Missing value') {
+          toast.warning(authTranslator(res))
+        } else if (res === 'Invalid email format') {
+          toast.warning(authTranslator(res))
+        } else if (res === 'Email already exists') {
+          toast.warning(authTranslator(res))
+        } else {
+          toast.success('註冊成功')
+          navigate('/')
+        }
+      })
   }
 
   return (

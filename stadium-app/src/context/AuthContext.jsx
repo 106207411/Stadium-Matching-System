@@ -7,14 +7,14 @@ export const AuthProvider = ({ children }) => {
   const [isAuth, setIsAuth] = useState(false)
   const [authError, setAuthError] = useState(null)
 
-  const signUpHandler = useCallback(async (signUpInfo) => {
+  const signUpHandler = useCallback((signUpInfo) => {
     return signUp(signUpInfo)
       .then((res) => {
         console.log(res.data)
         if (res.data) {
           setIsAuth(true)
           setAuthError(null)
-          return true
+          return res.data
         } else {
           setAuthError(res.data)
           setIsAuth(false)
@@ -22,20 +22,22 @@ export const AuthProvider = ({ children }) => {
         }
       })
       .catch((err) => {
-        setAuthError(err.data)
+        console.log(err.response.data)
+        setAuthError(err.response.data)
         setIsAuth(false)
-        return false
+        // 回傳錯誤訊息以顯示 toast
+        return err.response.data
       })
   }, [])
 
-  const loginHandler = useCallback(async (loginInfo) => {
-    return await login(loginInfo)
+  const loginHandler = useCallback((loginInfo) => {
+    return login(loginInfo)
       .then((res) => {
         console.log(res.data)
         if (res.data) {
           setIsAuth(true)
           setAuthError(null)
-          return true
+          return res.data
         } else {
           setAuthError(res.data)
           setIsAuth(false)
@@ -43,9 +45,11 @@ export const AuthProvider = ({ children }) => {
         }
       })
       .catch((err) => {
+        console.log(err.response.data)
         setAuthError(err.data)
         setIsAuth(false)
-        return false
+        // 回傳錯誤訊息以顯示 toast
+        return err.response.data
       })
   }, [])
 

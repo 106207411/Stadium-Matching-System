@@ -1,5 +1,6 @@
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom'
 import { AuthProvider, useAuth } from './context/AuthContext'
+import { ToastContainer, toast } from 'react-toastify'
 import Entry from './pages/Auth/Entry'
 import Home from './pages/Home/Home'
 import Login from './pages/Auth/Login'
@@ -38,6 +39,7 @@ const AppRoutes = () => {
 const App = () => {
   return (
     <AuthProvider>
+      <ToastContainer />
       <Router>
         <AppRoutes />
       </Router>

@@ -10,8 +10,11 @@ export const translate = (sportType) => {
 }
 
 export const authTranslator = (string) => {
-  if (string === 'Email does not exist') return '信箱不存在'
-  else if (string === 'Password does not match') return '密碼錯誤'
+  if (string === 'Email does not exist') return '信箱不存在！'
+  else if (string === 'Password does not match') return '密碼錯誤！'
+  else if (string === 'Invalid email format') return '信箱格式錯誤！'
+  else if (string === 'Email already exists') return '信箱已存在！'
+  else if (string === 'Missing value') return '您還有資訊未填寫完成喔！'
 }
 
 export default { translate, authTranslator }

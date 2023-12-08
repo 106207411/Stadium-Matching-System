@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom"
 import Rating from '@mui/material/Rating'
 import { translate } from "../../lib/utils/translator"
 import './SportRating.scss'
+import { toast } from "react-toastify"
 
 const SportRating = () => {
   const navigate = useNavigate()
@@ -12,11 +13,11 @@ const SportRating = () => {
   const interestSportType = Object.fromEntries(
     Object.entries(registerInfo)
       .filter(([key, value]) => value === true)
-      .map(([key]) => [key, 0])
+      .map(([key]) => [key, 1])
   )
   const [rating, setRating] = useState(interestSportType)
   
-  // 讓 false 變成 -1
+  // map rating number to registerInfo
   const mapValues = (registerInfo, rating) => {
     for (let key in registerInfo) {
       if (rating.hasOwnProperty(key)) {
@@ -28,41 +29,52 @@ const SportRating = () => {
     }
   }
 
-  const handleClickRegister = () => {
+  const handleClickRegister = async () => {
     let finalRegisterInfo = registerInfo
     mapValues(finalRegisterInfo, rating)
-    signUpHandler(finalRegisterInfo)
-    navigate('/home')
+    await signUpHandler(registerInfo)
+      .then((res) => {
+        console.log(res)
+        // 理論上在這個 Page 也不會走到前 3 個 block
+        if (res === 'Missing value') {
+          toast.warning(authTranslator(res))
+        } else if (res === 'Invalid email format') {
+          toast.warning(authTranslator(res))
+        } else if (res === 'Email already exists') {
+          toast.warning(authTranslator(res))
+        } else {
+          toast.success('註冊成功')
+          navigate('/')
+        }
+    })
   }
 
   return (
-    <>
-      <div className="main-container">
-        <div className="title">你的擅長程度?</div>
-        <div className="rating-group">
-          {Object.keys(interestSportType).map((sport) => (
-            <div key={sport} className="rating-container">
-              <div className="rating-item">
-                <div className="sport-name">{translate(sport)}</div>
-                <Rating
-                  size="large"
-                  defaultValue={5}
-                  value={rating[sport]}
-                  onChange={(event, newValue) => {
-                    setRating(prev => ({ ...prev, [sport]: newValue }))
-                    // console.log(rating)
-                    console.log(registerInfo)
-                  }}
-                />
-              </div>
+    <div className="main-container">
+      <div className="title">你的擅長程度?</div>
+      <div className="rating-group">
+        {Object.keys(interestSportType).map((sport) => (
+          <div key={sport} className="rating-container">
+            <div className="rating-item">
+              <div className="sport-name">{translate(sport)}</div>
+              <Rating
+                size="large"
+                defaultValue={5}
+                value={rating[sport]}
+                onChange={(event, newValue) => {
+                  setRating(prev => ({ ...prev, [sport]: newValue }))
+                  console.log(rating)
+                  console.log(registerInfo)
+                }}
+              />
             </div>
-          ))}
-        </div>
-        <div className="button-group">
-          <div className="button" onClick={handleClickRegister}>註冊</div>
-        </div>
+          </div>
+        ))}
       </div>
-    </>
+      <div className="button-group">
+        <div className="button" onClick={handleClickRegister}>註冊</div>
+      </div>
+    </div>
   )
 }
 

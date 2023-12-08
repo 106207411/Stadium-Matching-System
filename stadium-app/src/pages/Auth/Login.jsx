@@ -5,6 +5,7 @@ import ArrowBackIcon from '@mui/icons-material/ArrowBack'
 import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import './Login.scss'
+import { authTranslator } from "../../lib/utils/translator"
 
 const Login = () => {
   const { loginHandler, isAuth, authError } = useAuth()
@@ -14,7 +15,7 @@ const Login = () => {
     password: ""
   })
 
-  const handleChange = (e) => {
+  const handleFormChange = (e) => {
     const { name, value } = e.target
 
     setLoginInfo(prevState => ({ ...prevState, [name]: value}))
@@ -37,10 +38,16 @@ const Login = () => {
 
     await loginHandler(loginInfo)
       .then((res) => {
-        if (res) {
-          navigate('/home')
+        console.log(res)
+        if (res === 'Missing value' ||
+          res === 'Invalid email format' ||
+          res === 'Email does not exist' ||
+          res === 'Password does not match'
+        ) {
+          toast.error(authTranslator(res))
         } else {
-          toast.error('信箱或密碼錯誤')
+          toast.success('登入成功')
+          navigate('/home')
         }
       })
       .catch((err) => {
@@ -55,14 +62,13 @@ const Login = () => {
       </h1>
       <div className="textbox-group">
         <div className="textbox-title">帳號</div>
-        <input className="textbox" name="email" onChange={handleChange}/>
+        <input className="textbox" name="email" onChange={handleFormChange}/>
       </div>
       <div className="textbox-group">
         <div className="textbox-title">密碼</div>
-        <input className="textbox" type="password" name="password" onChange={handleChange}/>
+        <input className="textbox" type="password" name="password" onChange={handleFormChange}/>
       </div>
       <button className="button" onClick={handleLoginClick}>登入</button>
-      <ToastContainer />
     </div>
   )
 }
