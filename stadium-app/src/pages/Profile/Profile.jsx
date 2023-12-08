@@ -6,8 +6,8 @@ import Text from '@mui/material/Typography'
 import translate from '../../lib/utils/translator'
 import { useNavigate } from 'react-router-dom'
 import { useState, useEffect } from 'react'
-import './Profile.scss'
 import mockUser from '../../mockData/mockUser'
+import './Profile.scss'
 
 const Profile = () => {
   const [profile, setProfile] = useState(null)
