@@ -51,7 +51,7 @@ const generateStars = (rating) => {
 
   return (
     <div>
-      <Header title="活動" />
+      <Header title="活動" showSortIcon={true}/>
       <div className="activity-list">
         <InfiniteScroll
           dataLength={visibleActivities.length}
@@ -61,14 +61,14 @@ const generateStars = (rating) => {
         >
           {visibleActivities.map((activity) => (
             <div key={activity.id} className="activity-item">
-              <img src={activity.image} alt={activity.title} />
+              <img src={activity.picture} alt={activity.title} />
               <div className="activity-info">
                 <div className="title-time">
                   <h3>{activity.title}</h3>
                   <span className="time">{activity.time}</span>
                 </div>
                 <div className="stadium-price">
-                  <p>{activity.stadium} - {activity.price}</p>
+                  <p>{activity.name} - {activity.price}/人</p>
                   <div className="rating">{generateStars(activity.rating)}</div>
                 </div>
                 <span className="remaining">剩餘 {activity.remaining} 人</span>

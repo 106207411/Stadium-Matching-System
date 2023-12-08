@@ -3,7 +3,7 @@ name: Deploy to ACR
 on:
   push:
     branches:
-      - feat/pipeline
+      - main
     # paths:
     #   - 'stadium-app/**'
 
