@@ -8,6 +8,7 @@ storageAccountSku=Standard_LRS
 storageAccountName=tfmgmtstatesdev
 containerName=terraformstates
 subscriptionName=$(az account show --query name --output tsv)
+subscriptionId=$(az account show --query id --output tsv)
 clusterName=aks-stadium-dev
 aksResourceGroup=rg-stadium-app2-dev
 
@@ -113,13 +114,8 @@ terraform plan -out=dev-plan -var-file="./env/dev-variables.tfvars"
 # echo "Connecting to AKS..."
 # az aks get-credentials --name $clusterName --resource-group $aksResourceGroup
 
-# From here, add the following resources to Kubernetes:
-# or update the dev-variables.tfvars file and run terraform apply again
-# - helm provider
-# - Kubernetes provider
-# - Kubectl provider
-# - Ingress controller
-# - ArgoCD
+# # create service principal
+az ad sp create-for-rbac --name "mySP" --role contributor --scopes "/subscriptions/$subscriptionId/" --json-auth
 
 
 # # deploy app
