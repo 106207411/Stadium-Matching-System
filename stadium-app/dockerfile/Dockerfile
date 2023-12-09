@@ -18,4 +18,4 @@ RUN npm install
 EXPOSE 5173
 
 # Run the entrypoint script as the main command
-CMD ["/app/dockerfile/entrypoint.sh"]
+ENTRYPOINT ["/app/dockerfile/entrypoint.sh"]

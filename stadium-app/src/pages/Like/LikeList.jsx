@@ -47,7 +47,7 @@ const LikeList = () => {
 
   return (
     <div>
-      <Header title="收藏" />
+      <Header title="收藏" showSortIcon={true}/>
       <div className="stadium-list">
           {visibleStadiums.map((stadium) => (
             <div key={stadium.id} className="stadium-item">
