@@ -37,6 +37,46 @@ variable "aks_prefix" {
   default     = "aks"
 }
 
+// ========================== Azure Storage Account (SA) ==========================
+variable "sa_name" {
+  type        = string
+  description = "Name of the Storage Account"
+}
+
+variable "sa_postfix" {
+  type        = string
+  description = "Postfix of the Storage Account name"
+}
+
+variable "sa_account_tier" {
+  type        = string
+  description = "Specifies the storage account tier. Valid options are Standard and Premium. Defaults to Standard."
+  default     = "Standard"
+}
+
+variable "sa_account_replication_type" {
+  type        = string
+  description = "Specifies the storage account replication type. Valid options are LRS, GRS, RAGRS and ZRS. Defaults to LRS."
+  default     = "LRS"
+}
+
+variable "sa_account_kind" {
+  type        = string
+  description = "Specifies the storage account kind. Valid options are Storage, StorageV2, BlobStorage. Defaults to Storage."
+  default     = "StorageV2"
+}
+
+variable "sa_index_document" {
+  type        = string
+  description = "Specifies the index document path for the storage account static website."
+  default     = "index.html"
+}
+
+variable "sa_error_404_document" {
+  type        = string
+  description = "Specifies the error 404 document path for the storage account static website."
+  default     = "index.html"
+}
 // ========================== Azure Container Registry (ACR) ==========================
 
 variable "acr_name" {

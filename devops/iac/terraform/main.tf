@@ -13,6 +13,38 @@ resource "azurerm_resource_group" "rg" {
   }
 }
 
+# Create the Storage Account and Blob Container
+resource "azurerm_storage_account" "sa" {
+  name                     = "${var.sa_name}${var.sa_postfix}"
+  resource_group_name      = azurerm_resource_group.rg.name
+  location                 = azurerm_resource_group.rg.location
+  account_tier             = var.sa_account_tier
+  account_replication_type = var.sa_account_replication_type
+  account_kind             = var.sa_account_kind
+  enable_https_traffic_only = true
+  
+  blob_properties {
+    versioning_enabled = true
+    delete_retention_policy {
+      days    = 7
+    }
+  }
+  static_website {
+    index_document = var.sa_index_document
+    error_404_document = var.sa_error_404_document
+  }
+
+  tags = merge(local.default_tags,
+    {
+      "CreatedBy" = "Andy.Lee"
+  })
+  lifecycle {
+    ignore_changes = [
+      tags
+    ]
+  }
+}
+
 # Create the Container Registry
 resource "azurerm_container_registry" "acr" {
   name                = var.acr_name

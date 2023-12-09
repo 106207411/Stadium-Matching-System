@@ -43,16 +43,41 @@ provider "azurerm" {
   features {}
 }
 
+# provider "kubernetes" {
+#   config_path = "~/.kube/config"
+# }
+
+# provider "helm" {
+#   debug = true
+#   kubernetes {
+#     config_path = "~/.kube/config"
+#   }
+# }
+# provider "kubectl" {
+#   config_path = "~/.kube/config"
+# }
 provider "kubernetes" {
-  config_path = "~/.kube/config"
+  host                   = azurerm_kubernetes_cluster.aks.kube_config.0.host
+  client_certificate     = base64decode(azurerm_kubernetes_cluster.aks.kube_config.0.client_certificate)
+  client_key             = base64decode(azurerm_kubernetes_cluster.aks.kube_config.0.client_key)
+  cluster_ca_certificate = base64decode(azurerm_kubernetes_cluster.aks.kube_config.0.cluster_ca_certificate)
+  #load_config_file       = false
 }
 
 provider "helm" {
   debug = true
   kubernetes {
-    config_path = "~/.kube/config"
+    host                   = azurerm_kubernetes_cluster.aks.kube_config.0.host
+    client_certificate     = base64decode(azurerm_kubernetes_cluster.aks.kube_config.0.client_certificate)
+    client_key             = base64decode(azurerm_kubernetes_cluster.aks.kube_config.0.client_key)
+    cluster_ca_certificate = base64decode(azurerm_kubernetes_cluster.aks.kube_config.0.cluster_ca_certificate)
+
   }
 }
 provider "kubectl" {
-  config_path = "~/.kube/config"
+  host                   = azurerm_kubernetes_cluster.aks.kube_config.0.host
+  client_certificate     = base64decode(azurerm_kubernetes_cluster.aks.kube_config.0.client_certificate)
+  client_key             = base64decode(azurerm_kubernetes_cluster.aks.kube_config.0.client_key)
+  cluster_ca_certificate = base64decode(azurerm_kubernetes_cluster.aks.kube_config.0.cluster_ca_certificate)
+  load_config_file       = false
 }
