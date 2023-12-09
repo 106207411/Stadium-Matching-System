@@ -32,12 +32,12 @@ jobs:
         uses: azure/CLI@v1
         with:
           inlineScript: |
-              az storage blob upload-batch --account-name ${{env.ACCOUNT_NAME}} --auth-mode key -d '$web' -s '${{env.STATIC_PATH}}'
-              blobs=$(az storage blob list --account-name ${{env.ACCOUNT_NAME}} --auth-mode key -c '$web' --query "[].name" -o tsv)
-              for blob in $blobs
-              do
-                az storage blob update --account-name ${{env.ACCOUNT_NAME}} --auth-mode key -c '$web' -n $blob --metadata commitId=${{ github.sha }}
-              done
+            az storage blob upload-batch --account-name ${{env.ACCOUNT_NAME}} --auth-mode key -d '$web' -s '${{env.STATIC_PATH}}'
+            blobs=$(az storage blob list --account-name ${{env.ACCOUNT_NAME}} --auth-mode key -c '$web' --query "[].name" -o tsv)
+            for blob in $blobs
+            do
+              az storage blob metadata update --account-name ${{env.ACCOUNT_NAME}} --auth-mode key -c '$web' -n $blob --metadata commitId=${{ github.sha }}
+            done
       # - name: Purge CDN endpoint
       #   uses: azure/CLI@v1
       #   with:
