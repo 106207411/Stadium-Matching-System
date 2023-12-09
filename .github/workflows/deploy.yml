@@ -3,7 +3,6 @@ name: Deploy to ACR
 on:
   push:
     branches:
-      - main
       - feat/pipeline
       - feat/terraform
       - tmp-prod
