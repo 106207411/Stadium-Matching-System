@@ -17,6 +17,12 @@ resource "kubernetes_namespace" "stadiumapp" {
   }
 }
 
+resource "kubernetes_namespace" "monitor" {
+  metadata {
+    name = "monitor"
+  }
+}
+
 # Install ingress helm chart using terraform
 resource "helm_release" "ingress" {
   name       = "ingress"
@@ -40,3 +46,16 @@ resource "helm_release" "argocd" {
     kubernetes_namespace.argocd
   ]
 }
+
+# Install prometheus helm chart using terraform
+resource "helm_release" "prometheus" {
+  name       = "prometheus"
+  repository = "https://prometheus-community.github.io/helm-charts"
+  chart      = "kube-prometheus-stack"
+  version    = "16.12.0"
+  namespace  = kubernetes_namespace.monitor.metadata.0.name
+  depends_on = [
+    kubernetes_namespace.monitor
+  ]
+}
+#TODO: Add grafana helm chart
