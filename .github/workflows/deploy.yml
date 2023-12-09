@@ -15,6 +15,9 @@ jobs:
       ACCOUNT_NAME: stadiumafab3efe
       BUILD_PATH: ./stadium-app
       STATIC_PATH: ./stadium-app/dist
+      CDN_PROFILE_NAME: cdn-profile
+      CDN_ENDPOINT_NAME: stadiumdev 
+      RESOURCE_GROUP: rg-stadium-app-dev
 
     steps:
       - uses: actions/checkout@v3
@@ -32,20 +35,21 @@ jobs:
         uses: azure/CLI@v1
         with:
           inlineScript: |
-            az storage blob upload-batch --account-name ${{env.ACCOUNT_NAME}} --auth-mode key -d '$web' -s '${{env.STATIC_PATH}}' --overwrite true
+            az storage blob upload-batch --account-name ${{env.ACCOUNT_NAME}} --auth-mode key -d '$web' -s '${{env.STATIC_PATH}}'
             blobs=$(az storage blob list --account-name ${{env.ACCOUNT_NAME}} --auth-mode key -c '$web' --query "[].name" -o tsv)
             for blob in $blobs
             do
               az storage blob metadata update --account-name ${{env.ACCOUNT_NAME}} --auth-mode key -c '$web' -n $blob --metadata commitId=${{ github.sha }}
             done
-      # - name: Purge CDN endpoint
-      #   uses: azure/CLI@v1
-      #   with:
-      #     inlineScript: |
-      #         az cdn endpoint purge --content-paths  "/*" --profile-name "CDN_PROFILE_NAME" --name "CDN_ENDPOINT" --resource-group "RESOURCE_GROUP"
+      # https://learn.microsoft.com/en-us/azure/cdn/cdn-add-to-web-app#purge-the-cdn
+      - name: Purge CDN endpoint
+        uses: azure/CLI@v1
+        with:
+          inlineScript: |
+            az cdn endpoint purge --content-paths  "/*" --profile-name "${{env.CDN_PROFILE_NAME}}" --name "${{env.CDN_ENDPOINT_NAME}}" --resource-group "${{env.RESOURCE_GROUP}}"
     
       # Azure logout
       - name: logout
         run: |
-              az logout
+          az logout
         if: always()
