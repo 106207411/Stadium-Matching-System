@@ -25,6 +25,7 @@ jobs:
       - name: Build static website
         working-directory: ${{ env.BUILD_PATH }}
         run: |
+          npm install
           npm run build
   
       - name: Upload to blob storage
