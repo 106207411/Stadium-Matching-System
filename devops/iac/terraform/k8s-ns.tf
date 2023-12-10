@@ -19,7 +19,7 @@ resource "kubernetes_namespace" "stadiumapp" {
 
 resource "kubernetes_namespace" "monitor" {
   metadata {
-    name = "monitor"
+    name = "monitoring"
   }
 }
 
@@ -52,10 +52,9 @@ resource "helm_release" "prometheus" {
   name       = "prometheus"
   repository = "https://prometheus-community.github.io/helm-charts"
   chart      = "kube-prometheus-stack"
-  version    = "36.2.0"
+  version    = "54.0.0"
   namespace  = kubernetes_namespace.monitor.metadata.0.name
   depends_on = [
     kubernetes_namespace.monitor
   ]
 }
-#TODO: Add grafana helm chart

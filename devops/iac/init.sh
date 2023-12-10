@@ -10,7 +10,7 @@ containerName=terraformstates
 subscriptionName=$(az account show --query name --output tsv)
 subscriptionId=$(az account show --query id --output tsv)
 clusterName=aks-stadium-dev
-aksResourceGroup=rg-stadium-app2-dev
+aksResourceGroup=rg-stadium-app-dev
 
 # Create resource group
 echo "Creating resource group for Terraform remote state..."

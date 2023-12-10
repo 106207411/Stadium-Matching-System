@@ -43,19 +43,6 @@ provider "azurerm" {
   features {}
 }
 
-# provider "kubernetes" {
-#   config_path = "~/.kube/config"
-# }
-
-# provider "helm" {
-#   debug = true
-#   kubernetes {
-#     config_path = "~/.kube/config"
-#   }
-# }
-# provider "kubectl" {
-#   config_path = "~/.kube/config"
-# }
 provider "kubernetes" {
   host                   = azurerm_kubernetes_cluster.aks.kube_config.0.host
   client_certificate     = base64decode(azurerm_kubernetes_cluster.aks.kube_config.0.client_certificate)
