@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .Values.global.environment }}-configmap
+  namespace: {{ .Values.global.namespace }}
+data:
+  # Add your key-value pairs here
+  {{- $env := .Values.env }}
+  {{- range $key, $val := index $env .Values.global.environment }}
+  {{ $key }}: {{ $val }}
+  {{- end}}

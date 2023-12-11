@@ -1,14 +1,41 @@
 ---
+# Source: stadium-chart/templates/secrets.yaml
+apiVersion: v1
+kind: Secret
+metadata:
+  name: dev-secrets
+  namespace: stadiumapp
+type: Opaque
+data:
+  JWT_KEY: LKGJBEBRJOGJTRGVORIJGEROGFJREOIGFR
+  SESSION_SECRET: LKGJBEBRJOGJTRGVORIJGEROGFJREOIGFR
+  SQL_NODEJS_PW: r11944078
+  SQL_NODEJS_USER: admin
+---
+# Source: stadium-chart/templates/configmap.yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: dev-configmap
+  namespace: stadiumapp
+data:
+  # Add your key-value pairs here
+  DB: stadium
+  DEFAULT_PROFILE_PATH: /app/default_images/
+  PUBLIC_IP: 52.8.178.204
+  SQL_HOST: database-1.cf4mjuxc3ciy.ap-northeast-1.rds.amazonaws.com
+  UPLOAD_PATH: /app/static/
+---
 # Source: stadium-chart/templates/service.yaml
 apiVersion: v1
 kind: Service
 metadata:
-  name: stadium-release-stadium-chart
+  name: dev-stadium-chart
   namespace: stadiumapp
 spec:
   type: LoadBalancer
   selector:
-    app: stadium-release-stadium-chart
+    app: dev-stadium-chart
   ports:
     - port: 5173 # SERVICE exposed port
       targetPort: http # Port to forward to in the POD
@@ -19,26 +46,30 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: stadium-release-stadium-chart # This will be the name of the deployment
+  name: dev-stadium-chart # This will be the name of the deployment
   namespace: stadiumapp
   labels:
-    app: stadium-release-stadium-chart
+    app: dev-stadium-chart
 spec:
   replicas: 2
   selector:
     matchLabels:
-      app: stadium-release-stadium-chart
+      app: dev-stadium-chart
   template: # This is the template of the pod inside the deployment
     metadata:
       labels:
-        app: stadium-release-stadium-chart
+        app: dev-stadium-chart
     spec:
       containers:
         - name: stadium-chart
           # image: "nginx:1.16.0"
           #TODO: Change this to the correct image
           image: "acrstadium.azurecr.io/frontend:latest" 
-          # image: "acrstadium.azurecr.io/sample/aspnet-api:20230226.1" 
+          envFrom:
+            - configMapRef:
+                name: dev-configmap
+            - secretRef:
+                name: dev-secrets
           ports:
             - name: http # We named that port "http" so we can refer to it later
               containerPort: 5173
