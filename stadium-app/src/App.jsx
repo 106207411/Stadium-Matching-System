@@ -40,6 +40,7 @@ const AppRoutes = () => {
       <Route path='/like/list' element={<ProtectedRoute><LikeList /></ProtectedRoute>} />
       <Route path='/activity/mylist/:activity_id' element={<ProtectedRoute><ActivityInfo /></ProtectedRoute>} />
       <Route path='/activity/mylist' element={<ProtectedRoute><MyActivityList /></ProtectedRoute>} />
+      <Route path='/profile' element={<ProtectedRoute><Profile /></ProtectedRoute>} />
     </Routes>
   );
 };

@@ -7,6 +7,7 @@ const AuthContext = createContext()
 export const AuthProvider = ({ children }) => {
   const [isAuth, setIsAuth] = useState(false)
   const [authError, setAuthError] = useState(null)
+  const [userId, setUserId] = useState(localStorage.getItem('userId') || null)
 
   const signUpHandler = useCallback((signUpInfo) => {
     return signUp(signUpInfo)
@@ -15,6 +16,7 @@ export const AuthProvider = ({ children }) => {
         if (res.data) {
           setIsAuth(true)
           setAuthError(null)
+          localStorage.setItem('userId', res.data.user_id)
           return res.data
         } else {
           setAuthError(res.data)
@@ -38,6 +40,7 @@ export const AuthProvider = ({ children }) => {
         if (res.data) {
           setIsAuth(true)
           setAuthError(null)
+          localStorage.setItem('userId', res.data.user_id)
           return res.data
         } else {
           setAuthError(res.data)
