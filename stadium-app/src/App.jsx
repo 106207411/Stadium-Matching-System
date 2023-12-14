@@ -1,6 +1,7 @@
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom'
 import { AuthProvider, useAuth } from './context/AuthContext'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { ToastContainer, toast } from 'react-toastify'
 import Entry from './pages/Auth/Entry'
 import Home from './pages/Home/Home'
 import Login from './pages/Auth/Login'
@@ -50,6 +51,7 @@ const App = () => {
   return (
     <QueryClientProvider client={queryClient}>
     <AuthProvider>
+      <ToastContainer />
       <Router>
         <AppRoutes />
       </Router>

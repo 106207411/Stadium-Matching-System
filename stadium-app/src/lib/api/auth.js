@@ -5,14 +5,9 @@ export const login = (data) => {
   return (
     axios({
       method: 'post',
-      url: `${PROD_API_URL}/user/signin`,
+      withCredentials: true,
+      url: `${API_URL}/user/signin`,
       data: data
-    })
-    .then((res) => {
-      console.log(res.data)
-    })
-    .catch((err) => {
-      console.log(err)
     })
   )
 }
@@ -22,14 +17,9 @@ export const signUp = (data) => {
   return (
     axios({
       method: 'post',
-      url: `${PROD_API_URL}/user/signup`,
+      withCredentials: true,
+      url: `${API_URL}/user/signup`,
       data: data
-    })
-    .then((res) => {
-      console.log(res.data)
-    })
-    .catch((err) => {
-      console.log(err)
     })
   )
 }

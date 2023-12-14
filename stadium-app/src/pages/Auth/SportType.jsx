@@ -1,13 +1,17 @@
 import { useState } from "react"
 import { useNavigate } from "react-router-dom"
 import { useAuth } from "../../context/AuthContext"
+import { toast } from "react-toastify"
+import { authTranslator } from "../../lib/utils/translator"
 import './SportType.scss'
 
 // 應設計成 toggle sportType 再 append 到 registerInfo 即可
 // 節省後續處理成本 (未知後端不處理 === 0 的 rating)
+// 12/08 已修正
+
 const SportType = () => {
   const navigate = useNavigate()
-  const { register } = useAuth()
+  const { signUpHandler } = useAuth()
   const [registerInfo, setRegisterInfo] = useState(
     JSON.parse(localStorage.getItem('registerInfo'))
   )
@@ -18,15 +22,36 @@ const SportType = () => {
   }
 
   const handleClickNextStep = () => {
-    // Should have a check for zero-toggling here.
-
-    localStorage.setItem('registerInfo', JSON.stringify(registerInfo))
-    navigate('/register/rating')
+    // 如果沒有擅長運動的話，點選下一步應該直接 trigger 跳過並註冊
+    if (Object.values(registerInfo).includes(true)) {
+      console.log('sport')
+      localStorage.setItem('registerInfo', JSON.stringify(registerInfo))
+      navigate('/register/rating')
+      return
+    } else {
+      console.log('no sport')
+      handleClickRegister()
+      return
+    }
   }
 
-  const handleClickRegister = () => {
+  const handleClickRegister = async () => {
     console.log(registerInfo)
-    register(registerInfo)
+    await signUpHandler(registerInfo)
+      .then((res) => {
+        console.log(res)
+        // 理論上在這個 Page 不會走到前 3 個 block
+        if (res === 'Missing value') {
+          toast.warning(authTranslator(res))
+        } else if (res === 'Invalid email format') {
+          toast.warning(authTranslator(res))
+        } else if (res === 'Email already exists') {
+          toast.warning(authTranslator(res))
+        } else {
+          toast.success('註冊成功')
+          navigate('/')
+        }
+      })
   }
 
   return (
@@ -43,8 +68,8 @@ const SportType = () => {
           <img
             loading="lazy"
             srcSet="https://cdn.builder.io/api/v1/image/assets/TEMP/bceb9bfa-0f66-433e-9821-4e521f22018f?apiKey=1e7555367a3941fab0e34c3b046882ea&width=100 100w, https://cdn.builder.io/api/v1/image/assets/TEMP/bceb9bfa-0f66-433e-9821-4e521f22018f?apiKey=1e7555367a3941fab0e34c3b046882ea&width=200 200w, https://cdn.builder.io/api/v1/image/assets/TEMP/bceb9bfa-0f66-433e-9821-4e521f22018f?apiKey=1e7555367a3941fab0e34c3b046882ea&width=400 400w, https://cdn.builder.io/api/v1/image/assets/TEMP/bceb9bfa-0f66-433e-9821-4e521f22018f?apiKey=1e7555367a3941fab0e34c3b046882ea&width=800 800w, https://cdn.builder.io/api/v1/image/assets/TEMP/bceb9bfa-0f66-433e-9821-4e521f22018f?apiKey=1e7555367a3941fab0e34c3b046882ea&width=1200 1200w, https://cdn.builder.io/api/v1/image/assets/TEMP/bceb9bfa-0f66-433e-9821-4e521f22018f?apiKey=1e7555367a3941fab0e34c3b046882ea&width=1600 1600w, https://cdn.builder.io/api/v1/image/assets/TEMP/bceb9bfa-0f66-433e-9821-4e521f22018f?apiKey=1e7555367a3941fab0e34c3b046882ea&width=2000 2000w, https://cdn.builder.io/api/v1/image/assets/TEMP/bceb9bfa-0f66-433e-9821-4e521f22018f?apiKey=1e7555367a3941fab0e34c3b046882ea&"
-            className={registerInfo.tableTennis ? 'img-2 clicked' : 'img-2'}
-            onClick={() => toggleSport('tableTennis')}
+            className={registerInfo.tabletennis ? 'img-2 clicked' : 'img-2'}
+            onClick={() => toggleSport('tabletennis')}
           />
         </div>
         <div className="div-4">
