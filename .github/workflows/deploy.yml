@@ -3,7 +3,9 @@ name: Deploy to ACR
 on:
   push:
     branches:
-      - main
+      - feat/pipeline
+      - feat/terraform
+      - tmp-prod
     # paths:
     #   - 'stadium-app/**'
 
@@ -22,7 +24,8 @@ jobs:
       - name: Generate build ID
         id: tag
         run: |
-          echo "BUILD_ID=$(TZ='Asia/Taipei' date +"%Y%m%d.%H%M%S")" >> $GITHUB_ENV
+          echo "BUILD_ID=$(TZ='Asia/Taipei' date +"%Y%m%d_%H%M%S")" >> $GITHUB_ENV
+          echo "COMMIT_ID=$(git log -1 --pretty=%h)" >> $GITHUB_ENV
 
       - name: Login to ACR
         uses: docker/login-action@v1
@@ -38,7 +41,7 @@ jobs:
           context: ${{ env.BUILD_PATH }}
           tags: |
             ${{ env.IMAGE_NAME }}:latest
-            ${{ env.IMAGE_NAME }}:${{ env.BUILD_ID }}
+            ${{ env.IMAGE_NAME }}:${{ env.BUILD_ID }}_${{ env.COMMIT_ID }}
           file: ${{ env.DOCKERFILE_PATH }}
             
       - name: Save container hashes
