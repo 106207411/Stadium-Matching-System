@@ -114,7 +114,7 @@ terraform plan -out=dev-plan -var-file="./env/dev-variables.tfvars"
 # echo "Connecting to AKS..."
 # az aks get-credentials --name $clusterName --resource-group $aksResourceGroup
 
-# # create service principal
+# # create service principal for CI to Azure Blob Storage
 az ad sp create-for-rbac --name "mySP" --role contributor --scopes "/subscriptions/$subscriptionId/" --json-auth
 
 
@@ -129,6 +129,10 @@ az ad sp create-for-rbac --name "mySP" --role contributor --scopes "/subscriptio
 # helm lint stadium-chart
 # helm template "stadium-chart" "./stadium-chart/" --namespace "stadiumapp" > stadiumapp-manifests.yaml
 # helm install "stadium-release" "./stadium-chart/" --namespace "stadiumapp"
+# helm install "stadium-release" "./stadium-chart/" --namespace "stadiumapp" --dry-run --debug
 # helm upgrade "stadium-release" "./stadium-chart/" --namespace "stadiumapp"
 # helm ls -n stadiumapp
 # helm uninstall "stadium-release" --namespace "stadiumapp"
+
+# Apply VM quota
+# Before creating VM by tf, you must first request a quota increase because the default quota of VM we choose is 0.
