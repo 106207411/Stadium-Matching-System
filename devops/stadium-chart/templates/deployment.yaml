@@ -19,7 +19,7 @@ spec:
         - name: {{ .Chart.Name }}
           # image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
           #TODO: Change this to the correct image
-          image: "{{ .Values.global.registryPrefix }}/frontend:latest" 
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Values.image.defaulttag }}"
           envFrom:
             - configMapRef:
                 name: {{ .Values.global.environment }}-configmap
@@ -27,5 +27,5 @@ spec:
                 name: {{ .Values.global.environment }}-secrets
           ports:
             - name: http # We named that port "http" so we can refer to it later
-              containerPort: {{ .Values.service.port }}
+              containerPort: {{ .Values.service.containerPort }}
               protocol: TCP
