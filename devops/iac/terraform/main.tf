@@ -85,6 +85,7 @@ resource "azurerm_kubernetes_cluster" "aks" {
     max_count           = var.default_node_pool_max_count
     max_pods            = var.default_node_pool_max_pods
     min_count           = var.default_node_pool_min_count
+    # temporary_name_for_rotation = "tmpnodepool"
   }
 
   identity {
