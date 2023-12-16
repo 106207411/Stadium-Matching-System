@@ -10,4 +10,8 @@ sa_postfix                          = "afab3efe"  # use your subscription id
 # Azure Kubernetes Service (AKS) 
 cluster_name                        = "stadium"
 dns_prefix                          = "stadium-dns"
-default_node_pool_node_count        = 2
+default_node_pool_node_count        = 1
+default_node_pool_vm_size           = "Standard_B2ms"
+default_node_pool_enable_auto_scaling = false
+default_node_pool_max_count         = null
+default_node_pool_min_count         = null
