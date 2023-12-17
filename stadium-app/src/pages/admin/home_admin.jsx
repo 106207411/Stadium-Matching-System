@@ -90,14 +90,13 @@ const Home_admin = () => {
         </>
       )}
     <div className='addstadium'>
-        <div style={{
-            display: 'flex',
-            justifyContent: 'center',
-        }}>
-        <Button variant="contained">上架场地</Button>
-        <div onClick={() => navigate('add')}></div>
-        </div>
-    </div>
+      <div style={{
+        display: 'flex',
+        justifyContent: 'center',
+      }}>
+        <Button variant="contained" onClick={() => navigate('../admin/add')}>上架场地</Button>
+      </div>
+    </div> 
       <FooterBar />
     </div>
   );
