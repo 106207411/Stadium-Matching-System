@@ -71,6 +71,13 @@ if (isLoading) return <div>Loading...</div>;
 
   const activities = activitiesData?.activity;
 
+  const timeRangeMapping = (timeNumber) => {
+    const startHour = 8 + timeNumber; // Assuming 1 corresponds to 9-10
+    const endHour = startHour + 1;
+    return `${startHour} - ${endHour}`;
+};
+
+
 
   return (
     <div>
@@ -88,7 +95,8 @@ if (isLoading) return <div>Loading...</div>;
               <div className="activity-info">
                 <div className="title-time">
                   <h3>{activity.title}</h3>
-                  <span className="time">{activity.time}</span>
+                  <span className="time">{activity.date} {timeRangeMapping(activity.time)}</span>
+                  {/* <span className="time">{activity.time}</span> */}
                 </div>
                 <div className="stadium-price">
                   <p>{activity.name} - {activity.price}/人</p>
