@@ -1,23 +1,63 @@
 $background-color: #fff;
 
-.header {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    z-index: 10;
-    padding: 10px 0;
-    text-align: center;
-}
+// .header {
+//     position: fixed;
+//     top: 0;
+//     left: 0;
+//     width: 100%;
+//     z-index: 10;
+//     padding: 10px 0;
+//     text-align: center;
+// }
 
-.activity-list {
+
+.my-activity-options-container {
+    display: flex;
+    justify-content: flex-end; 
+    padding-right: 35px;
+    margin-top:100px;
+    
+  }
+
+  .my-activity-options-section {
+    display: flex;
+    
+    .option {
+      background-color: #f0f0f0;
+      border: 1px solid #ddd; // Add border to connect the buttons
+      padding: 12px;
+      text-align: center;
+      cursor: pointer;
+      position: relative; // Position relative to adjust z-index
+  
+      &:first-child {
+        border-top-left-radius: 4px;
+        border-bottom-left-radius: 4px;
+        border-right: none; // Remove the border on the right to connect buttons
+      }
+  
+      &:last-child {
+        border-top-right-radius: 4px;
+        border-bottom-right-radius: 4px;
+        z-index: 1; // Raise the z-index to cover the border from the first button
+      }
+  
+      &.active {
+        background-color: #000;
+        color: #fff;
+        z-index: 2; // Ensure active button covers the adjacent button's border
+      }
+    }
+  }
+
+.my-activity-list {
     margin-bottom: 70px;
-    padding-top: 60px; // Height of the header plus some extra space
+    padding-top: 8px; // Height of the header plus some extra space
     padding-left: 12px;
     padding-right: 12px;
     background-color: #fff;
 
-    .activity-item {
+    .my-activity-item {
         position: relative; // Parent container needs to be set to relative positioning
         margin: 30px 20px; // Space between items
         border-radius: 8px; // Rounded corners for the items
@@ -32,7 +72,7 @@ $background-color: #fff;
             margin-bottom: 1px;
         }
 
-        .activity-info {
+        .my-activity-info {
             flex: 1;
             display: flex;
             flex-direction: column;

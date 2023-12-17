@@ -5,6 +5,7 @@ import FooterBar from '../../components/FooterBar/FooterBar.jsx';
 import Header from '../../components/Header/Header.jsx';
 import { fetchMessages } from '../../api'; 
 import { useQuery } from '@tanstack/react-query';
+import LoadingSpinner from '../../components/Loading/LoadingPage'; 
 
 
 let renderCount = 0;
@@ -32,7 +33,7 @@ const MessageList = () => {
     }
   }, [event]);
 
-  if (isLoading) return <div>Loading...</div>;
+  if (isLoading) return <LoadingSpinner />;
   if (isError) return <div>Error: {error.message}</div>;
 
   const handleReadMessage = (messageId) => {
