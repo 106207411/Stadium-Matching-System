@@ -1,4 +1,6 @@
 import axios from 'axios';
+import { PROD_API_URL, API_URL } from './config/config'
+
 //const host = process.env.REACT_APP_HOST
 //const port = process.env.REACT_APP_PORT
 //const BASE_URL = `https://${host}/api/`;
@@ -7,53 +9,135 @@ const apiUrl = import.meta.env.VITE_API_URL;
 
 
 
-export const fetchMessages = async () => {
-    console.log(`${apiUrl}/api/event/`);
-    const response =  await fetch(`${apiUrl}/api/event/`);
-    if (!response.ok) {
-      throw new Error('Network response was not ok');
-    }
-
-    const responseText = await response.text(); // 获取响应的文本内容
-  try {
-    const data = JSON.parse(responseText); 
-    console.log('fetch data is', data);
-    console.log('fetch event',data.event);
-    return data;
-  } catch (error) {
-    console.error('Received response is not JSON:', responseText); // 打印原始响应文本
-    throw error;
-  }
-
-   
-
-   
-  
-    // const data = await response.json();
-    // return data;
-    // console.log('fetch message');
-    // const data = await response.json(); 
-    // console.log(data);
-    // return data;
-  };
-  
+// `${PROD_API_URL}/user/signin`
 
 // export const fetchMessages = async () => {
-//   try {
-//     const response =  await fetch(`${BASE_URL}/api/event/`);
-//     console.log(response.data);
-//     return response.data;
-//   } catch (error) {
-//     throw error;
-//   }
-// };
-
-
-// export const fetchProducts = async (category) => {
-//     const response = await fetch(`${BASE_URL}/products/${category}`);
+//     console.log(`${PROD_API_URL}/event/`);
+//     const response =  await fetch(`${PROD_API_URL}/event/`);
 //     if (!response.ok) {
 //       throw new Error('Network response was not ok');
 //     }
-//     return response.json();
-//   };
+
+//     const responseText = await response.text(); 
+//   try {
+//     const data = JSON.parse(responseText); 
+//     console.log('fetch data is', data);
+//     console.log('fetch event',data.event);
+//     return data;
+//   } catch (error) {
+//     console.error('Received response is not JSON:', responseText); 
+//     throw error;
+//   }
+
+export const fetchMessages = async () => {
+  console.log(`${PROD_API_URL}/event/`);
+  const response = await fetch(`${PROD_API_URL}/event/`, {
+      credentials: 'include' 
+  });
+  if (!response.ok) {
+      throw new Error('Network response was not ok');
+  }
+
+  const responseText = await response.text(); 
+  try {
+      const data = JSON.parse(responseText); 
+      console.log('fetch data is', data);
+      console.log('fetch event', data.event);
+      return data;
+  } catch (error) {
+      console.error('Received response is not JSON:', responseText); 
+      throw error;
+  }
+}
+
+
+export const fetchActivities = async () => {
+    console.log(`${PROD_API_URL}/activity`);
+    const response = await fetch(`${PROD_API_URL}/activity`, {
+        credentials: 'include' 
+    });
+    if (!response.ok) {
+        throw new Error('Network response was not ok');
+    }
+  
+    const responseText = await response.text(); 
+    try {
+        const data = JSON.parse(responseText); 
+        console.log('fetch data is', data);
+        return data;
+    } catch (error) {
+        console.error('Received response is not JSON:', responseText); 
+        throw error;
+    }
+  }
+
+
+  export const fetchMyActivityInfo = async (activityId) => {
+    console.log(`${PROD_API_URL}/activity/${activityId}`);
+    const response = await fetch(`${PROD_API_URL}/activity/${activityId}`, {
+        credentials: 'include' 
+    });
+    if (!response.ok) {
+        throw new Error('Network response was not ok');
+    }
+  
+    const responseText = await response.text(); 
+    try {
+        const data = JSON.parse(responseText); 
+        console.log('fetch my activity data is', data);
+        return data;
+    } catch (error) {
+        console.error('Received response is not JSON:', responseText); 
+        throw error;
+    }
+  }
+
+
+
+
+
+//for my activity lists and status
+  export const fetchMyActivities = async (activityId) => {
+    console.log(`${PROD_API_URL}/activity/${activityId}`);
+    const response = await fetch(`${PROD_API_URL}/activity/${activityId}`, {
+        credentials: 'include' 
+    });
+    if (!response.ok) {
+        throw new Error('Network response was not ok');
+    }
+  
+    const responseText = await response.text(); 
+    try {
+        const data = JSON.parse(responseText); 
+        console.log('fetch my activity data is', data);
+        return data;
+    } catch (error) {
+        console.error('Received response is not JSON:', responseText); 
+        throw error;
+    }
+  }
+
+  export const fetchStadiumList = async (category) =>{
+    const url = `${PROD_API_URL}/stadium/${category}/`;
+    console.log("stadium usl,",url);
+    const response = await fetch(url, {
+        credentials: 'include'
+    });
+
+    if (!response.ok) {
+        throw new Error('Network response was not ok');
+    }
+  
+    const responseText = await response.text(); 
+    try {
+        const data = JSON.parse(responseText); 
+        console.log('fetch stadium list data is', data);
+        return data;
+    } catch (error) {
+        console.error('Received response is not JSON:', responseText); 
+        throw error;
+    }
+  }
+
+  
   

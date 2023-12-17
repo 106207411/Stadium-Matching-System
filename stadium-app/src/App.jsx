@@ -1,5 +1,6 @@
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom'
-import { AuthProvider, useAuth } from './context/AuthContext'
+import { useState, CSSProperties } from 'react';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import { AuthProvider, useAuth } from './context/AuthContext';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ToastContainer, toast } from 'react-toastify'
 import Entry from './pages/Auth/Entry'
@@ -21,12 +22,14 @@ import Profile from './pages/Profile/Profile'
 import LikeList from './pages/Like/LikeList'
 import ActivityInfo from './pages/Activity/ActivityInfo';
 import MyActivityList from './pages/Activity/MyActivityList';
-import './index.css'
-import IssueReport from './pages/Stadium/IssueReport'
+import './index.css';
+import IssueReport from './pages/Stadium/IssueReport';
+import { LoadingProvider, useLoading } from './context/LoadingContext';
+import Spinner from './components/Spinner/Spinner';
 
 const ProtectedRoute = ({ children }) => {
-  const { isAuth } = useAuth();
-  return isAuth ? children : <Navigate to="/" />;
+  const isAuthOrNot = localStorage.getItem('isAuth');
+  return isAuthOrNot ? children : <Navigate to="/" />;
 };
 
 const AppRoutes = () => {
@@ -60,15 +63,28 @@ const AppRoutes = () => {
 
 const queryClient = new QueryClient();
 
-const App = () => {
+const MainApp = () => {
+  const { loading } = useLoading();
+
   return (
-    <QueryClientProvider client={queryClient}>
-    <AuthProvider>
-      <ToastContainer />
+    <>
+      {loading && <Spinner />}
       <Router>
         <AppRoutes />
       </Router>
-    </AuthProvider>
+    </>
+  );
+};
+
+const App = () => {
+  return (
+    <QueryClientProvider client={queryClient}>
+      <LoadingProvider>
+        <AuthProvider>
+          <ToastContainer />
+          <MainApp />
+        </AuthProvider>
+      </LoadingProvider>
     </QueryClientProvider>
   );
 };

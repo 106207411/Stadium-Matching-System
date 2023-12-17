@@ -7,22 +7,43 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { LuAlertCircle } from "react-icons/lu";
 import ParticipantModal from '../../components/ParticipantModal';
 import { VscAccount } from "react-icons/vsc";
+import { fetchMyActivityInfo } from '../../api'; 
+import { useQuery } from '@tanstack/react-query';
+import LoadingSpinner from '../../components/Loading/LoadingPage'; 
 
 const ActivityInfo = () => {
 
+    const { activity_id } = useParams();
+    console.log('id is' , activity_id );
+
+    
+    const { data: activityData, isLoading, isError, error } = useQuery({
+        queryKey: ['activityinfo', activity_id],
+        queryFn: () => fetchMyActivityInfo(activity_id),
+    });
+    const [isModalOpen, setIsModalOpen] = useState(false);
 
     //:/api/activity/:activity_id
 
     //useParams get :activity_id
-    const { activity_id } = useParams();
 
 
-    const selectedActivity = mockMyActivity.find((activity) => activity.id === activity_id);
-    console.log(selectedActivity)
-    if (!selectedActivity) {
 
-        return <div>not found</div>;
-    }
+    // const selectedActivity = mockMyActivity.find((activity) => activity.id === activity_id);
+    // console.log(selectedActivity)
+    // if (!selectedActivity) {
+
+    //     return <div>not found</div>;
+    // }
+
+    const selectedActivity = activityData;
+
+    console.log('data:',selectedActivity)
+
+    // if (!selectedActivity) {
+    //     return <div>Activity not found</div>;
+    // }
+
 
     const handleReportIssue = () => {
         navigate('/report-issue'); // Navigate to the report issue page
@@ -36,7 +57,7 @@ const ActivityInfo = () => {
         return stars;
     };
 
-    const [isModalOpen, setIsModalOpen] = useState(false);
+
 
     const openModal = () => setIsModalOpen(true);
     const closeModal = () => setIsModalOpen(false);
@@ -46,6 +67,12 @@ const ActivityInfo = () => {
         const endHour = startHour + 1;
         return `${startHour} - ${endHour}`;
     };
+
+
+
+    if (isLoading) return <LoadingSpinner />;
+    if (isError) return <div>Error: {error.message}</div>;
+
 
 
     return (

@@ -7,6 +7,7 @@ import { translate } from '../../lib/utils/translator';
 import './Profile.scss';
 import { useState, useEffect } from 'react';
 import { getUserProfile } from '../../lib/api/user';
+import LoadingSpinner from '../../components/Loading/LoadingPage'; 
 
 const Profile = () => {
   const [profile, setProfile] = useState(null);
@@ -37,7 +38,7 @@ const Profile = () => {
     console.log(profile);
     if (!profile) return null;
 
-    const sports = Object.keys(profile).filter(key => key !== 'age' && profile[key] !== 0 && typeof(profile[key]) !== 'string');
+    const sports = Object.keys(profile).filter(key => key !== 'user_id' && key !== 'picture' && profile[key] !== 0 && typeof(profile[key]) !== 'string' && typeof(profile[key]) !== 'string');
     return sports.map(sport => (
       <div key={sport}>
         <Text component="span">{translate(sport)}</Text>
@@ -47,7 +48,7 @@ const Profile = () => {
     ));
   };
 
-  if (loading) return <p>Loading...</p>;
+  if (loading) return <LoadingSpinner />;
   if (error) return <p>Error: {error}</p>;
   if (!profile) return <p>No profile data</p>;
 
@@ -60,7 +61,7 @@ const Profile = () => {
           <Text>姓名: {profile.name}</Text>
           <Text>性別: {profile.gender}</Text>
           <Text>信箱: {profile.email}</Text>
-          <Text>年紀: {profile.age}</Text>
+          {/* <Text>年紀: {profile.age}</Text> */}
           <Text>擅長運動: {renderSportsRatings()}</Text>
           <Text>自我介紹: {profile.introduction}</Text>
         </div>
