@@ -38,8 +38,6 @@ const AppRoutes = () => {
       <Route path='/register' element={<Register />} />
       <Route path='/register/sportType' element={<SportType />} />
       <Route path='/register/rating' element={<SportRating />} />
-      <Route path='/admin/home' element={<Home_admin />} />
-      <Route path='/admin/add' element={<Add_admin />} />
 
       {/* Protected Routes */}
       <Route path='/home' element={<ProtectedRoute><Home /></ProtectedRoute>} />
@@ -54,6 +52,8 @@ const AppRoutes = () => {
       <Route path='/stadium/info' element={<ProtectedRoute><Stadiuminfo /></ProtectedRoute>} />
       <Route path='/stadium/create' element={<ProtectedRoute><CreateActive /></ProtectedRoute>} />
       <Route path='/stadium/createsucess' element={<ProtectedRoute><CreateSucess /></ProtectedRoute>} />
+      <Route path='/admin/home' element={<ProtectedRoute><Home_admin /></ProtectedRoute>} />
+      <Route path='/admin/add' element={<ProtectedRoute><Add_admin /></ProtectedRoute>} />
     </Routes>
   );
 };

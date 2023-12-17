@@ -95,6 +95,7 @@ const Home_admin = () => {
             justifyContent: 'center',
         }}>
         <Button variant="contained">上架场地</Button>
+        <div onClick={() => navigate('add')}></div>
         </div>
     </div>
       <FooterBar />
