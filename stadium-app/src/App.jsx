@@ -11,6 +11,12 @@ import SportRating from './pages/Auth/SportRating'
 import ActivityList from './pages/Activity/ActivityList'
 import StadiumList from './pages/Stadium/StadiumList'
 import MessageList from './pages/Message/MessageList'
+import Reserve from './pages/Reserve/Reserve'
+import Stadiuminfo from './pages/Stadium/StadiumInfo'
+import CreateActive from './pages/Stadium/CreateActive'
+import CreateSucess from './pages/Stadium/CreateSucess'
+import Home_admin from './pages/admin/home_admin'
+import Add_admin from './pages/admin/add_admin'
 import Profile from './pages/Profile/Profile'
 import LikeList from './pages/Like/LikeList'
 import ActivityInfo from './pages/Activity/ActivityInfo';
@@ -32,6 +38,8 @@ const AppRoutes = () => {
       <Route path='/register' element={<Register />} />
       <Route path='/register/sportType' element={<SportType />} />
       <Route path='/register/rating' element={<SportRating />} />
+      <Route path='/admin/home' element={<Home_admin />} />
+      <Route path='/admin/add' element={<Add_admin />} />
 
       {/* Protected Routes */}
       <Route path='/home' element={<ProtectedRoute><Home /></ProtectedRoute>} />
@@ -42,6 +50,10 @@ const AppRoutes = () => {
       <Route path='/activity/mylist/:activity_id' element={<ProtectedRoute><ActivityInfo /></ProtectedRoute>} />
       <Route path='/activity/mylist' element={<ProtectedRoute><MyActivityList /></ProtectedRoute>} />
       <Route path='/profile' element={<ProtectedRoute><Profile /></ProtectedRoute>} />
+      <Route path='/reserve' element={<ProtectedRoute><Reserve /></ProtectedRoute>} />
+      <Route path='/stadium/info' element={<ProtectedRoute><Stadiuminfo /></ProtectedRoute>} />
+      <Route path='/stadium/create' element={<ProtectedRoute><CreateActive /></ProtectedRoute>} />
+      <Route path='/stadium/createsucess' element={<ProtectedRoute><CreateSucess /></ProtectedRoute>} />
     </Routes>
   );
 };
