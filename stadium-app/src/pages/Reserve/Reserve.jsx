@@ -1,4 +1,5 @@
 import * as React from "react";
+import { useState, useEffect } from "react";
 import Header from '../../components/Header/Header.jsx'; 
 import FooterBar from "../../components/FooterBar/FooterBar";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
@@ -8,6 +9,16 @@ import { DateCalendar } from "@mui/x-date-pickers/DateCalendar";
 export default function BasicDateCalendar() {
   const [selectedDate, setSelectedDate] = React.useState(null);
   const [selectedItems, setSelectedItems] = React.useState([]);
+  const [stadiumId, setStadiumId] = useState(null); 
+
+  useEffect(() => {
+    // Retrieve the stadium_id from local storage
+    const retrievedStadiumId = localStorage.getItem('selectedStadiumId');
+    console.log('now retrievedStadiumId is',retrievedStadiumId);
+    setStadiumId(retrievedStadiumId);
+  }, []);
+
+  
 
   const handleItemClick = (row, col) => {
     const isItemSelected = selectedItems.some(
