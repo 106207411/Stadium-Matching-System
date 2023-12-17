@@ -7,7 +7,6 @@ import { IoHomeSharp } from "react-icons/io5";
 import { MdVolumeUp, MdViewList } from 'react-icons/md';
 import { AiFillHeart } from 'react-icons/ai';
 import { CgProfile } from 'react-icons/cg';
-
 import './FooterBar.scss'
 
 

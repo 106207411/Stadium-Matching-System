@@ -1,22 +1,18 @@
-
-
 .footer {
   display: flex;
   justify-content: space-around; // 為圖標提供均等間距
   align-items: center;
-  // padding: 2px 0;
+  padding: 2px 0;
   background-color: #2B2B2B; // 黑色背景
   position: fixed;
   bottom: 0;
   left: 0;
   right: 0;
   color: #fff; // White color for all icons
-  
-  
+
+
 
   .footer-icon {
-
-    margin: 0 0px;
     width: 36px; // 圖標的寬度
     height: 36px; // 圖標的高度
 
@@ -27,46 +23,26 @@
     }
 
     .home-icon {
-      color: #333; // Dark color for the home icon
+      color: #333;
+      font-size: 36px;
     }
 
-    &.home {
-      background-color: #ddd; // Grey background for the home button
-      border-radius: 50%; // Makes the background circular
-      width: 48px; // Size of the circular background
-      height: 48px; // Size of the circular background
-      display: flex;
-      justify-content: center;
-      align-items: center;
-
-      .home-icon {
-        color: #000; // Black color for the home icon
-        font-size: 28px; // Adjust the size of the home icon as needed
-        // Other icon-specific styles
-      }
+    .icon {
+      font-size: 32px;
     }
-
-    // Style for the border around non-home icons
-    &:not(.home) {
-      background-color: transparent; // Ensure the background is transparent for non-home icons
-      font-size: 24px; 
-    }
-
-
 
     &.highlighted {
       background-color: #D9D9D9; // Circular background with a semi-transparent white color
       border-radius: 50%; // Make it round
       padding: 10px; // Adjust the padding to get the desired size of the circle
-      
+
       // Optional: Create a larger clickable area if needed
       &:hover {
         background-color: rgba(255, 255, 255, 0.35); // Slightly darker on hover for a feedback effect
       }
     }
-    
   }
-  
+
 }
 
 
