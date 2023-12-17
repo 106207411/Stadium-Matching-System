@@ -17,6 +17,7 @@
     "@mui/x-date-pickers": "latest",
     "@tanstack/react-query": "^5.12.2",
     "axios": "^1.6.2",
+    "google-map-react": "^2.2.1",
     "qrcode.react": "^3.1.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
