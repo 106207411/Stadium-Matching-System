@@ -1,0 +1,46 @@
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between; // 保持三个主要元素分布均匀
+    padding: 20px 20px;
+    background-color: rgba(221, 214, 214, 1);
+    height:60px;
+    
+    .header-icon,
+    .header-title,
+    .spacer {
+      flex-grow: 1; // 三者均等分空间
+      display: flex;
+      justify-content: center; 
+      align-items: center;
+    }
+
+    .header-icon {
+     /*if need */
+    }
+    
+    .header-title {
+      font-size: 1.5em;
+      color: black;
+      margin: 0;
+    }
+
+
+    .header-icon.right {
+        justify-content: flex-end;
+        display: flex;
+        align-items: center;
+        justify-content: center; // 居中图标
+    
+        // 给图标容器指定尺寸
+        width: 36px; // 或者你需要的任何尺寸
+        height: 36px; // 或者你需要的任何尺寸
+    
+        img {
+          max-width: 100%; // 最大宽度为容器宽度
+          max-height: 100%; // 最大高度为容器高度
+          object-fit: contain; // 保持图片的宽高比
+        }
+    }
+
+}

@@ -3,6 +3,7 @@
   height: 100%;
   display: flex;
   flex-direction: column;
+  justify-content: space-between; // This will distribute the space evenly between children
   padding: 0 21px 0 28px;
 }
 @media (max-width: 991px) {
@@ -10,11 +11,12 @@
     padding: 0 20px;
   }
 }
+
 .title {
+  margin-top: 48px;
   color: #2b2b2b;
-  align-content: center;
   align-self: center;
-  margin-top: 148px;
+  text-align: center;
   white-space: nowrap;
   font: 700 32px Inter, sans-serif;
 }
@@ -23,4 +25,46 @@
     margin-top: 40px;
     white-space: initial;
   }
+}
+
+// For the rating-group, since it should be centered, ensure it can grow to use available space if needed
+.rating-group {
+  flex-grow: 1; // This allows the rating group to grow and take up available space
+  display: flex;
+  flex-direction: column;
+  justify-content: center; // Vertically center the content in the available space
+  align-items: center;
+  
+  .rating-container {
+    margin-bottom: 10px;
+    margin-top: 10px;
+  
+    .rating-item {
+      display: flex;
+  
+      .sport-name {
+        font-size: 1.5em;
+        margin-right: 10px;
+      }
+    }
+  }
+}
+
+.button-group {
+  margin-top: auto; // This pushes the button group to the bottom
+  margin-bottom: 30px;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  align-self: center;
+  width: 90%;
+}
+
+.button {
+  color: #fff;
+  border-radius: 55px;
+  background-color: #2b2b2b;
+  padding: 23px 20px;
+  margin: 20px 0 15px;
+  font: 400 24px Inter, sans-serif;
 }
