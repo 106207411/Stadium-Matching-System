@@ -8,7 +8,7 @@ import { GoSearch } from "react-icons/go";
 import { ToastContainer } from 'react-toastify';
 
 const Home = () => {
-  const { logout } = useAuth();
+  const { logoutHandler } = useAuth();
 
   const sports = ['tennis', 'tabletennis', 'badminton', 'basketball', 'volley', 'baseball', 'gym', 'swimming'];
   const activities = ['b1', 'b2'];
@@ -37,7 +37,7 @@ const Home = () => {
 
   return (
     <div className="home-container">
-      <div className="button-container" onClick={logout}>
+      <div className="button-container" onClick={logoutHandler}>
         <PiSignOutBold />
       </div>
 
