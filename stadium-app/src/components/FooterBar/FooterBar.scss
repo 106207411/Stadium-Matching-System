@@ -4,7 +4,7 @@
   display: flex;
   justify-content: space-around; // 為圖標提供均等間距
   align-items: center;
-  padding: 5px 0;
+  // padding: 2px 0;
   background-color: #2B2B2B; // 黑色背景
   position: fixed;
   bottom: 0;
@@ -17,10 +17,8 @@
   .footer-icon {
 
     margin: 0 0px;
-    width: 20px; // Smaller width
-    height: 20px;
-    // width: 24px; // 圖標的寬度
-    // height: 24px; // 圖標的高度
+    width: 36px; // 圖標的寬度
+    height: 36px; // 圖標的高度
 
     img {
       width: 100%;
