@@ -117,27 +117,38 @@ export const fetchActivities = async () => {
     }
   }
 
-  export const fetchStadiumList = async (category) =>{
-    const url = `${PROD_API_URL}/stadium/${category}/`;
-    console.log("stadium usl,",url);
-    const response = await fetch(url, {
-        credentials: 'include'
-    });
 
-    if (!response.ok) {
-        throw new Error('Network response was not ok');
-    }
-  
-    const responseText = await response.text(); 
+  export const fetchStadiumList = async (category) => {
+    const url = `${PROD_API_URL}/stadium/${category}/`;
     try {
-        const data = JSON.parse(responseText); 
-        console.log('fetch stadium list data is', data);
-        return data;
+      const response = await axios.get(url, {
+        withCredentials: true
+      });
+      console.log('fetch stadium list data is', response.data);
+      return response.data;
     } catch (error) {
-        console.error('Received response is not JSON:', responseText); 
-        throw error;
+      console.error('Error fetching stadium list:', error);
+      throw error;
     }
-  }
+  };
+
+
+  // /api/stadium/:catogory/:stadium_id/:date
+//2023-12-17
+  export const fetchStadiumAvailable = async (category, stadiumId, date) =>  {
+    const url = `${PROD_API_URL}/stadium/${category}/${stadiumId}/${date}/`;
+    console.log('fetch url stadium availabel time ',url);
+    try {
+      const response = await axios.get(url, {
+        withCredentials: true
+      });
+      console.log('fetch stadium list data is', response.data);
+      return response.data;
+    } catch (error) {
+      console.error('Error fetching stadium list:', error);
+      throw error;
+    }
+  };
 
   
   
