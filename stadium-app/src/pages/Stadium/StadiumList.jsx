@@ -25,18 +25,22 @@ const StadiumList = () => {
 
   const stadiumList = data?.stadium || [];
 
-  const handleStadiumSelect = (stadiumId) => {
+  const handleStadiumSelect = (stadiumId, category) => {
     localStorage.setItem('selectedStadiumId', stadiumId);
-    navigate('/reserve'); // Replace with the path to your reservation page
-};
-
+    localStorage.setItem('selectedCategory', category);
+    navigate('/reserve'); // Navigate to the reservation page
+  };
 
   return (
     <div>
       <Header title="場地" showSortIcon={true}/>
       <div className="stadium-list">
           {stadiumList.map((stadium) => (
-            <div key={stadium.id} className="stadium-item" onClick={() => handleStadiumSelect(stadium.stadium_id)}>
+                <div 
+                key={stadium.id} 
+                className="stadium-item" 
+                onClick={() => handleStadiumSelect(stadium.stadium_id, 'badminton')}
+              >
               <img src={stadium.picture} alt={stadium.title} />
               <div className="stadium-info">
                 <div className="name-address">
