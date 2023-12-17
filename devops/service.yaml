@@ -1,0 +1,14 @@
+#service.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: stadium-app
+spec:
+  type: ClusterIP
+  selector:
+    app: stadium-app
+  ports:
+    - port: 5173 # SERVICE exposed port
+      name: http # SERVICE port name
+      protocol: TCP # The protocol the SERVICE will listen to
+      targetPort: http # Port to forward to in the POD

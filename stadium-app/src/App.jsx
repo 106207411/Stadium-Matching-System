@@ -1,5 +1,7 @@
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom'
 import { AuthProvider, useAuth } from './context/AuthContext'
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { ToastContainer, toast } from 'react-toastify'
 import Entry from './pages/Auth/Entry'
 import Home from './pages/Home/Home'
 import Login from './pages/Auth/Login'
@@ -15,39 +17,59 @@ import CreateActive from './pages/Stadium/CreateActive'
 import CreateSucess from './pages/Stadium/CreateSucess'
 import Home_admin from './pages/admin/home_admin'
 import Add_admin from './pages/admin/add_admin'
+import Profile from './pages/Profile/Profile'
+import LikeList from './pages/Like/LikeList'
+import ActivityInfo from './pages/Activity/ActivityInfo';
+import MyActivityList from './pages/Activity/MyActivityList';
 import './index.css'
+import IssueReport from './pages/Stadium/IssueReport'
+
+const ProtectedRoute = ({ children }) => {
+  const { isAuth } = useAuth();
+  return isAuth ? children : <Navigate to="/" />;
+};
 
 const AppRoutes = () => {
-  const { isAuth } = useAuth()
-
   return (
     <Routes>
+      {/* Public Routes */}
       <Route path='/' element={<Entry />} />
       <Route path='/login' element={<Login />} />
       <Route path='/register' element={<Register />} />
       <Route path='/register/sportType' element={<SportType />} />
       <Route path='/register/rating' element={<SportRating />} />
-      <Route path='/home' element={isAuth ? <Home /> : <Navigate to="/" />} />
-      <Route path='/activity/list' element={<ActivityList />} />
-      <Route path='/stadium/list' element={<StadiumList />} />
-      <Route path='/message/list' element={<MessageList />} />
-      <Route path='/reserve' element={<Reserve />} />
-      <Route path='/stadium/info' element={<Stadiuminfo />} />
-      <Route path='/stadium/create' element={<CreateActive />} />
-      <Route path='/stadium/createsucess' element={<CreateSucess />} />
       <Route path='/admin/home' element={<Home_admin />} />
       <Route path='/admin/add' element={<Add_admin />} />
+
+      {/* Protected Routes */}
+      <Route path='/home' element={<ProtectedRoute><Home /></ProtectedRoute>} />
+      <Route path='/activity/list' element={<ProtectedRoute><ActivityList /></ProtectedRoute>} />
+      <Route path='/stadium/list' element={<ProtectedRoute><StadiumList /></ProtectedRoute>} />
+      <Route path='/message/list' element={<ProtectedRoute><MessageList /></ProtectedRoute>} />
+      <Route path='/like/list' element={<ProtectedRoute><LikeList /></ProtectedRoute>} />
+      <Route path='/activity/mylist/:activity_id' element={<ProtectedRoute><ActivityInfo /></ProtectedRoute>} />
+      <Route path='/activity/mylist' element={<ProtectedRoute><MyActivityList /></ProtectedRoute>} />
+      <Route path='/profile' element={<ProtectedRoute><Profile /></ProtectedRoute>} />
+      <Route path='/reserve' element={<ProtectedRoute><Reserve /></ProtectedRoute>} />
+      <Route path='/stadium/info' element={<ProtectedRoute><Stadiuminfo /></ProtectedRoute>} />
+      <Route path='/stadium/create' element={<ProtectedRoute><CreateActive /></ProtectedRoute>} />
+      <Route path='/stadium/createsucess' element={<ProtectedRoute><CreateSucess /></ProtectedRoute>} />
     </Routes>
   );
 };
 
+const queryClient = new QueryClient();
+
 const App = () => {
   return (
+    <QueryClientProvider client={queryClient}>
     <AuthProvider>
+      <ToastContainer />
       <Router>
         <AppRoutes />
       </Router>
     </AuthProvider>
+    </QueryClientProvider>
   );
 };
 

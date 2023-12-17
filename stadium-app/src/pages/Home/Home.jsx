@@ -5,6 +5,7 @@ import FooterBar from "../../components/FooterBar/FooterBar";
 import { PiSignOutBold } from "react-icons/pi";
 import { useNavigate } from 'react-router-dom';
 import { GoSearch } from "react-icons/go";
+import { ToastContainer } from 'react-toastify';
 
 const Home = () => {
   const { logout } = useAuth();

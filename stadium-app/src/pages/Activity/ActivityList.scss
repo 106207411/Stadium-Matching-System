@@ -1,0 +1,104 @@
+$background-color: #fff;
+
+.header {
+  position: fixed;
+  top: 0;
+  left: 0; 
+  width: 100%;
+  z-index: 10;
+  padding: 10px 0;
+  text-align: center;
+  
+}
+
+.activity-list {
+  margin-bottom: 70px;
+  padding-top: 60px; // Height of the header plus some extra space
+  padding-left: 12px;
+  padding-right: 12px;
+  background-color: #fff;
+  
+  .activity-item {
+    position: relative; // Parent container needs to be set to relative positioning
+    margin: 30px 20px; // Space between items
+    border-radius: 8px; // Rounded corners for the items
+    //box-shadow: 0 2px 4px rgba(0,0,0,0.1); // Shadow for depth
+    overflow: hidden; // Ensures the child elements do not overflow the rounded corners
+
+    img {
+      border-radius: 10px;
+      width: 100%;
+      height: auto; // Adjust height to maintain aspect ratio
+      object-fit: cover; // Cover the area without stretching
+      margin-bottom: 1px;
+    }
+
+    .activity-info {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    
+
+      h3 {
+        font-size: 1rem;
+        color: #333;
+        margin: 0;
+        margin-bottom: 0rem;
+      }
+
+      p {
+        font-size: 0.9rem;
+        color: #666;
+        margin: 0;
+      }
+
+      .title-time, .stadium-price {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .star {
+        display: inline-block; // Display stars in a row
+        width: 16px; 
+        height: 16px; 
+      }
+
+      .time {
+        font-size: 0.8rem; // Adjust as needed
+        color: #888; // A lighter color for less emphasis
+        margin-left: 0.5rem; // Add some space between the title and time
+      }
+
+      .rating {
+        font-size: 0.8rem; // Adjust as needed
+        color: #ffa500; // Example color for the rating stars
+        margin-left: 0.5rem; // Add some space between the price and rating
+      }
+
+      .remaining {
+        position: absolute; // Position remaining label absolutely
+        bottom: 55px; // Position it 10px from the bottom of the activity-item
+        right: 10px; // Position it 10px from the right of the activity-item
+        background-color: rgba(255, 255, 255, 0.8); // Add a background for legibility
+        padding: 2px 5px; // Padding inside the remaining label
+        border-radius: 5px; // Rounded corners for the label
+        font-size: 1rem;
+        color: #f44336; // Use a color to emphasize remaining number
+      }
+    }
+  }
+}
+
+
+.footer {
+  position: fixed; 
+  bottom: 0; 
+  left: 0; 
+  width: 100%; 
+  z-index: 5; // 確保 footer 的層級低於其他內容
+  text-align: center; // 文字置中
+  padding: 10px 0; // 上下邊距
+  box-shadow: 0 -2px 4px rgba(0,0,0,0.1); // 給 footer 上方添加陰影
+}
