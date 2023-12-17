@@ -94,6 +94,8 @@ export const fetchActivities = async () => {
 
 
 
+
+
 //for my activity lists and status
   export const fetchMyActivities = async (activityId) => {
     console.log(`${PROD_API_URL}/activity/${activityId}`);
@@ -114,5 +116,28 @@ export const fetchActivities = async () => {
         throw error;
     }
   }
+
+  export const fetchStadiumList = async (category) =>{
+    const url = `${PROD_API_URL}/stadium/${category}/`;
+    console.log("stadium usl,",url);
+    const response = await fetch(url, {
+        credentials: 'include'
+    });
+
+    if (!response.ok) {
+        throw new Error('Network response was not ok');
+    }
+  
+    const responseText = await response.text(); 
+    try {
+        const data = JSON.parse(responseText); 
+        console.log('fetch stadium list data is', data);
+        return data;
+    } catch (error) {
+        console.error('Received response is not JSON:', responseText); 
+        throw error;
+    }
+  }
+
   
   
