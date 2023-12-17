@@ -2,7 +2,6 @@ import * as React from "react";
 import { useState, useEffect } from "react";
 import Header from '../../components/Header/Header.jsx'; 
 import FooterBar from "../../components/FooterBar/FooterBar";
-import { useNavigate } from "react-router-dom";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { DateCalendar } from "@mui/x-date-pickers/DateCalendar";
@@ -10,6 +9,7 @@ import { useQuery } from '@tanstack/react-query';
 import { useNavigate } from 'react-router-dom';
 import LoadingSpinner from '../../components/Loading/LoadingPage'; 
 import {fetchStadiumAvailable } from '../../api'; 
+import Button from '@mui/material/Button';
 
 
 
@@ -146,14 +146,15 @@ export default function BasicDateCalendar() {
             </div>
           ))}
         </div>
-        <div style={{ textAlign: "center", marginTop: "20px" }}>
-          <button
-            style={{ padding: "10px 20px", fontSize: "16px" }}
-            onClick={handleSend}
-          >
-            送出
-          </button>
-        </div>
+      <div className='reserve_activity'>
+      <div style={{
+        display: 'flex',
+        justifyContent: 'center',
+      }}>
+        <Button variant="contained" onClick={() => handleSend}>確認預定</Button>
+      </div>
+    </div> 
+      <FooterBar />
       </LocalizationProvider>
     <FooterBar />
   </div>
