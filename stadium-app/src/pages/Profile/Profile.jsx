@@ -7,6 +7,7 @@ import { translate } from '../../lib/utils/translator';
 import './Profile.scss';
 import { useState, useEffect } from 'react';
 import { getUserProfile } from '../../lib/api/user';
+import LoadingSpinner from '../../components/Loading/LoadingPage'; 
 
 const Profile = () => {
   const [profile, setProfile] = useState(null);
@@ -47,7 +48,7 @@ const Profile = () => {
     ));
   };
 
-  if (loading) return <p>Loading...</p>;
+  if (loading) return <LoadingSpinner />;
   if (error) return <p>Error: {error}</p>;
   if (!profile) return <p>No profile data</p>;
 

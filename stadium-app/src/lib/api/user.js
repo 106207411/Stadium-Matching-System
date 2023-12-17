@@ -6,7 +6,7 @@ export const getUserProfile = (userId) => {
   return (
     axios({
       method: 'get',
-      url: `${API_URL}/user/profile?userId=${userId}`,
+      url: `${PROD_API_URL}/user/profile?userId=${userId}`,
       withCredentials: true,
     })
   );
@@ -16,7 +16,7 @@ export const updateUserProfile = (data) => {
   return (
     axios({
       method: 'put',
-      url: `${API_URL}/user/profile`,
+      url: `${PROD_API_URL}/user/profile`,
       withCredentials: true,
       data: data
     })
