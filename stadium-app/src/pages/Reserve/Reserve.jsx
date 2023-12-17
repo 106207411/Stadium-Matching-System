@@ -5,18 +5,45 @@ import FooterBar from "../../components/FooterBar/FooterBar";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { DateCalendar } from "@mui/x-date-pickers/DateCalendar";
+import { useQuery } from '@tanstack/react-query';
+import { useNavigate } from 'react-router-dom';
+import LoadingSpinner from '../../components/Loading/LoadingPage'; 
+import {fetchStadiumAvailable } from '../../api'; 
+
+
+
 
 export default function BasicDateCalendar() {
-  const [selectedDate, setSelectedDate] = React.useState(null);
+ //const [selectedDate, setSelectedDate] = React.useState(null);
+ const [selectedDate, setSelectedDate] = useState(formatDate(new Date()));
   const [selectedItems, setSelectedItems] = React.useState([]);
   const [stadiumId, setStadiumId] = useState(null); 
-
+  const [category, setCategory] = useState(null);
+  
+  function formatDate(date) {
+    let year = date.getFullYear();
+    let month = (1 + date.getMonth()).toString().padStart(2, '0');
+    let day = date.getDate().toString().padStart(2, '0');
+    return `${year}-${month}-${day}`;
+  }
   useEffect(() => {
     // Retrieve the stadium_id from local storage
     const retrievedStadiumId = localStorage.getItem('selectedStadiumId');
-    console.log('now retrievedStadiumId is',retrievedStadiumId);
+    const retrievedCategory = localStorage.getItem('selectedCategory');
+    console.log('Stadium ID:', retrievedStadiumId);
+    console.log('Category:', retrievedCategory);
     setStadiumId(retrievedStadiumId);
+    setCategory(retrievedCategory);
   }, []);
+
+  const { data, isLoading, isError, error } = useQuery({
+    queryKey: ['fetchStadiumAvailable', category, stadiumId, selectedDate],
+    queryFn: () => fetchStadiumAvailable(category, stadiumId, selectedDate),
+    enabled: !!stadiumId && !!category && !!selectedDate, // This ensures the query runs only if these values are available
+  });
+  
+
+  console.log('fetch available data is',data );
 
   
 
@@ -67,6 +94,10 @@ export default function BasicDateCalendar() {
       selectedItems.map((item) => getText(item.row, item.col)),
     );
   };
+
+  if (isLoading) return <LoadingSpinner />;
+  if (isError) return <div>Error: {error.message}</div>;
+
 
   return (
     <div style={{ marginTop: "100px" }}>
