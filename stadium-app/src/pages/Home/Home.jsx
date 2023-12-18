@@ -43,7 +43,9 @@ const Home = () => {
     return `${startHour} - ${endHour}`;
   };
 
-  const [age, setAge] = useState('');
+
+
+
   const sports = ['tennis', 'tabletennis', 'badminton', 'basketball', 'volley', 'baseball', 'gym', 'swimming'];
   //const activities = ['b1', 'b2'];
 
