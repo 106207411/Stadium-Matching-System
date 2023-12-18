@@ -1,21 +1,21 @@
-import React, { Fragment, useState } from 'react'
-import Header from '../../components/Header/Header'
-import Footer from '../../components/FooterBar/FooterBar'
-import Box from '@mui/material/Box'
-import InputLabel from '@mui/material/InputLabel'
-import TextareaAutosize from '@mui/material/TextareaAutosize'
-import MenuItem from '@mui/material/MenuItem'
-import FormControl from '@mui/material/FormControl'
-import Select from '@mui/material/Select'
-import './IssueReport.scss'
+import React, { Fragment, useState } from 'react';
+import Header from '../../components/Header/Header';
+import Footer from '../../components/FooterBar/FooterBar';
+import Box from '@mui/material/Box';
+import InputLabel from '@mui/material/InputLabel';
+import TextareaAutosize from '@mui/material/TextareaAutosize';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import Select from '@mui/material/Select';
+import './IssueReport.scss';
 
 const IssueReport = () => {
-  const stadiumName = localStorage.getItem('stadiumName')
-  const [issueType, setIssueType] = useState('')
-  const [issueDescription, setIssueDescription] = useState('')
+  const stadiumName = localStorage.getItem('stadiumName');
+  const [issueType, setIssueType] = useState('');
+  const [issueDescription, setIssueDescription] = useState('');
 
   const handleIssueTypeChange = (e) => {
-    setIssueType(e.target.value)
+    setIssueType(e.target.value);
   }
 
   const handleDescriptionChange = (event) => {
@@ -23,6 +23,12 @@ const IssueReport = () => {
   }
 
   // Handle API
+  const handleConfirmIssueReport = () => {
+    console.log('issueType:', issueType);
+    console.log('issueDescription:', issueDescription);
+
+    
+  }
 
   return (
     <div>
@@ -63,4 +69,4 @@ const IssueReport = () => {
   )
 }
 
-export default IssueReport
+export default IssueReport;
