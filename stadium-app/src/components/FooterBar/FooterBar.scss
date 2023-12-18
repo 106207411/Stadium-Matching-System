@@ -16,38 +16,86 @@
     // width: 36px; // 圖標的寬度
     // height: 36px; // 圖標的高度
 
-    img {
-      width: 100%;
-      height: 100%;
-      //transition: filter 0.3s;
-    }
-
     .home-icon {
       color: #333;
-      font-size: 36px;
-      background-color: #D9D9D9; // Circular background with a semi-transparent white color
-      border-radius: 50%; // Make it round
-     padding: 10px; // Adjust the padding to get the desired size of the circle
+      font-size: 42px;
+      background-color: #D9D9D9;
+      border-radius: 50%;
+      padding: 10px;
     }
 
     .icon {
       font-size: 32px;
+      color: #fff; // 將 icon 的默認顏色設為白色
+      transition: color 0.3s;
     }
 
-    &.highlighted {
-      background-color: #D9D9D9; // Circular background with a semi-transparent white color
-      border-radius: 50%; // Make it round
-      padding: 10px; // Adjust the padding to get the desired size of the circle
-
-      // Optional: Create a larger clickable area if needed
-      &:hover {
-        background-color: rgba(255, 255, 255, 0.35); // Slightly darker on hover for a feedback effect
-      }
+    &.active .icon {
+      color: #808080 ; // 活動時的淺灰色
     }
+
+    &:hover .icon {
+      color: #BFBFBF; // 滑鼠懸停時的顏色
+    }
+
+
+
+    // &.active .icon {
+    //   color: #D3D3D3; // 活動時的淺灰色
+    // }
+
+
+
+
+    // &.highlighted {
+    //   background-color: #D9D9D9; // Circular background with a semi-transparent white color
+    //   border-radius: 50%; // Make it round
+    //   padding: 10px; // Adjust the padding to get the desired size of the circle
+
+    //   // Optional: Create a larger clickable area if needed
+    //   &:hover {
+    //     background-color: rgba(255, 255, 255, 0.35); // Slightly darker on hover for a feedback effect
+    //   }
+    // }
   }
+
+
+  .unread-count {
+    position: absolute;
+    top: -10px; // Adjust this value as necessary
+    right: 320px; // Adjust this value as necessary
+    display: flex; // Use flex to center the content
+    align-items: center;
+    justify-content: center;
+   
+    padding:4px 8px;// Adjust padding if needed
+    background-color: red;
+    color: white;
+    border-radius: 50%;
+    font-size: 16px;
+    z-index: 10; // Make sure it's above other elements
+  }
+
+  
 
 }
 
+
+// .message-icon {
+//   position: relative;
+//   display: inline-block;
+// }
+
+// .unread-count {
+//   position: absolute;
+//   top: -8px; /* Adjust the positioning as needed */
+//   right: 320px; /* Adjust the positioning as needed */
+//   background-color: red;
+//   color: white;
+//   border-radius: 50%;
+//   padding: 4px 8px;
+//   font-size: 16px;
+// }
 
 
 
