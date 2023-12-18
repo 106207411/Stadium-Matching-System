@@ -195,7 +195,7 @@ const AddAdmin = () => {
             marginTop: '30px',
             marginBottom: '80px',
         }}>
-        <Button variant="contained">上架场地</Button>
+        <Button variant="contained" onClick={() => navigate('../admin/success')}>上架场地</Button>
         </div>
     </div>
 
@@ -247,5 +247,3 @@ const AddAdmin = () => {
     </div>
   );
 }
-
-export default AddAdmin;
