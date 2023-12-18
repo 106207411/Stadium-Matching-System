@@ -6,10 +6,17 @@ import { PiSignOutBold } from "react-icons/pi";
 import { useNavigate } from 'react-router-dom';
 import { GoSearch } from "react-icons/go";
 import { ToastContainer } from 'react-toastify';
+import MapView from '../../components/Map/MapView';
+import Box from '@mui/material/Box';
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import Select from '@mui/material/Select';
 
 const Home = () => {
   const { logoutHandler } = useAuth();
 
+  const [age, setAge] = useState('');
   const sports = ['tennis', 'tabletennis', 'badminton', 'basketball', 'volley', 'baseball', 'gym', 'swimming'];
   const activities = ['b1', 'b2'];
 
@@ -30,6 +37,10 @@ const Home = () => {
     setSelectedOption(option);
   };
 
+  const handleChange = (event) => {
+    setAge(event.target.value);
+  };
+
   const handleSearchIconClick = () => {
     const exampleId = '123';
     navigate(`/activity/${exampleId}`);
@@ -46,9 +57,29 @@ const Home = () => {
         <GoSearch className="search-icon" onClick={handleSearchIconClick} />
       </div>
 
+      {selectedOption === 'List' ? (
+        <></>
+      ) : (
+        // <Box sx={{ minWidth: 120 }}>
+        //   <FormControl fullWidth>
+        //     <InputLabel id="demo-simple-select-label">Age</InputLabel>
+        //     <Select
+        //       labelId="demo-simple-select-label"
+        //       id="demo-simple-select"
+        //       value={age}
+        //       label="Age"
+        //       onChange={handleChange}
+        //     >
+        //       <MenuItem value={10}>Ten</MenuItem>
+        //       <MenuItem value={20}>Twenty</MenuItem>
+        //       <MenuItem value={30}>Thirty</MenuItem>
+        //     </Select>
+        //   </FormControl>
+        // </Box>
+        <></>
+      )}
       <div className="options-container">
         <div className="options-section">
-
           <button
             className={`option ${selectedOption === 'List' ? 'active' : ''}`}
             onClick={() => toggleOption('List')}>
@@ -98,11 +129,7 @@ const Home = () => {
         </>
       ) : (
         <>
-          <div className="map-container">
-            <div style={{ textAlign: 'center' }}>
-              to be continued...
-            </div>
-          </div>
+          <MapView />
         </>
       )}
       <FooterBar />
