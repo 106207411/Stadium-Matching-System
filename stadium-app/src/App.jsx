@@ -10,6 +10,7 @@ import Register from './pages/Auth/Register'
 import SportType from './pages/Auth/SportType'
 import SportRating from './pages/Auth/SportRating'
 import ActivityList from './pages/Activity/ActivityList'
+import AllActivityInfo from './pages/Activity/AllActivityinfo';
 import StadiumList from './pages/Stadium/StadiumList'
 import MessageList from './pages/Message/MessageList'
 import Reserve from './pages/Reserve/Reserve'
@@ -48,6 +49,7 @@ const AppRoutes = () => {
       {/* Protected Routes */}
       <Route path='/home' element={<ProtectedRoute><Home /></ProtectedRoute>} />
       <Route path='/activity/list' element={<ProtectedRoute><ActivityList /></ProtectedRoute>} />
+      <Route path='/activity/:activity_id' element={<ProtectedRoute><AllActivityInfo /></ProtectedRoute>} />
       <Route path='/stadium/list' element={<ProtectedRoute><StadiumList /></ProtectedRoute>} />
       <Route path='/message/list' element={<ProtectedRoute><MessageList /></ProtectedRoute>} />
       <Route path='/like/list' element={<ProtectedRoute><LikeList /></ProtectedRoute>} />

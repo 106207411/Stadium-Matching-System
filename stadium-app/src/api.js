@@ -96,26 +96,28 @@ export const fetchActivities = async () => {
 
 
 
-//for my activity lists and status
-  export const fetchMyActivities = async (activityId) => {
-    console.log(`${PROD_API_URL}/activity/${activityId}`);
-    const response = await fetch(`${PROD_API_URL}/activity/${activityId}`, {
-        credentials: 'include' 
-    });
-    if (!response.ok) {
-        throw new Error('Network response was not ok');
-    }
+// //for my activity lists and status
+//   export const fetchMyActivities = async (activityId) => {
+//     console.log(`${PROD_API_URL}/activity/${activityId}`);
+//     const response = await fetch(`${PROD_API_URL}/activity/${activityId}`, {
+//         credentials: 'include' 
+//     });
+//     if (!response.ok) {
+//         throw new Error('Network response was not ok');
+//     }
   
-    const responseText = await response.text(); 
-    try {
-        const data = JSON.parse(responseText); 
-        console.log('fetch my activity data is', data);
-        return data;
-    } catch (error) {
-        console.error('Received response is not JSON:', responseText); 
-        throw error;
-    }
-  }
+//     const responseText = await response.text(); 
+//     try {
+//         const data = JSON.parse(responseText); 
+//         console.log('fetch my activity data is', data);
+//         return data;
+//     } catch (error) {
+//         console.error('Received response is not JSON:', responseText); 
+//         throw error;
+//     }
+//   }
+
+
 
 
   export const fetchStadiumList = async (category) => {
@@ -149,6 +151,25 @@ export const fetchActivities = async () => {
       throw error;
     }
   };
+
+
+  export const fetchMyActivityStatus = async (status) =>  {
+    //https://52.8.178.204/api/activity/my/pending
+   //https://52.8.178.204/api/activity/my/finish
+    const url = `${PROD_API_URL}/activity/my/${status}/`;
+    console.log('fetch url stadium availabel time ',url);
+    try {
+      const response = await axios.get(url, {
+        withCredentials: true
+      });
+      console.log('fetch my activity with status is ', response.data);
+      return response.data;
+    } catch (error) {
+      console.error('Error fetching stadium list:', error);
+      throw error;
+    }
+  };
+
 
   
   
