@@ -2,6 +2,7 @@ import {
   useJsApiLoader,
   GoogleMap,
   Marker,
+  InfoWindow
 } from '@react-google-maps/api';
 import Box from '@mui/material/Box';
 import InputLabel from '@mui/material/InputLabel';
@@ -12,16 +13,22 @@ import { useEffect, useState, useRef } from 'react';
 import { GOOGLE_MAPS_API_KEY } from '../../config/config';
 import LoadingSpinner from '../Loading/LoadingPage';
 import { fetchActivities, fetchStadiumList } from '../../api';
+import { getCustomMarker } from '../../lib/utils/customMarker';
 
 const MapView = () => {
   const [sportType, setSportType] = useState('');
-  const [location, setLocation] = useState({ lat: -34.397, lng: 150.644 });
+  const [location, setLocation] = useState({ lat: 0, lng: 0 });
+  const [selectedMarker, setSelectedMarker] = useState(null);
   const [markers, setMarkers] = useState([]);
   const mapRef = useRef(null);
   const { isLoaded, loadError } = useJsApiLoader({
     googleMapsApiKey: GOOGLE_MAPS_API_KEY,
     libraries: ['places'],
   });
+
+  const onMarkerClick = (marker) => {
+    setSelectedMarker(marker);
+  };
 
   const handleSportTypeChange = async (event) => {
     const newSportType = event.target.value;
@@ -98,11 +105,32 @@ const MapView = () => {
         onLoad={map => (mapRef.current = map)}
       >
         {markers.map((marker, index) => (
-          <Marker key={index} position={marker.position} title={marker.title} />
+          <Marker
+            key={index}
+            position={marker.position}
+            title={marker.title}
+            onClick={() => onMarkerClick(marker)}
+            options={{
+              draggable: false,
+            }}
+          >
+            {selectedMarker === marker && (
+              <InfoWindow
+                position={marker.position}
+                onCloseClick={() => setSelectedMarker(null)}
+              >
+                <div>
+                  <h2>{marker.title}</h2>
+                  {/* Here you can add any custom content you want */}
+                  <p>Additional information about the marker can go here.</p>
+                </div>
+              </InfoWindow>
+            )}
+          </Marker>
         ))}
 
-        <Box sx={{ minWidth: 120 }}>
-          <FormControl fullWidth>
+        <Box sx={{ minWidth: '75%',  marginTop: '10px', marginLeft: '10px', marginRight: '10px', borderRadius: '10px'}}>
+          <FormControl fullWidth sx={{backgroundColor: 'white'}}>
             <InputLabel id="demo-simple-select-label">運動類型</InputLabel>
             <Select
               labelId="demo-simple-select-label"
@@ -112,7 +140,12 @@ const MapView = () => {
               onChange={handleSportTypeChange}
             >
               <MenuItem value={'badminton'}>羽毛球</MenuItem>
+              <MenuItem value={'baseball'}>棒球</MenuItem>
               <MenuItem value={'basketball'}>籃球</MenuItem>
+              <MenuItem value={'volleyball'}>排球</MenuItem>
+              <MenuItem value={'tabletennis'}>桌球</MenuItem>
+              <MenuItem value={'tennis'}>網球</MenuItem>
+              <MenuItem value={'swimming'}>游泳</MenuItem>
               <MenuItem value={'gym'}>健身房</MenuItem>
             </Select>
           </FormControl>

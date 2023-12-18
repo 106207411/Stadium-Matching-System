@@ -9,6 +9,7 @@ import { ToastContainer } from 'react-toastify';
 import { useQuery } from '@tanstack/react-query';
 import { fetchActivities } from '../../api';
 import { FaStar } from 'react-icons/fa';
+import MapView from '../../components/Map/MapView';
 
 const Home = () => {
   const { logoutHandler } = useAuth();
@@ -41,39 +42,6 @@ const Home = () => {
     const endHour = startHour + 1;
     return `${startHour} - ${endHour}`;
   };
-
-
-
-  // const { data: activitiesData, isLoading, isError, error } = useQuery({
-  //   queryKey: ['activities'],
-  //   queryFn: fetchActivities
-  // });
-
-
-  const { data: activitiesData, isLoading, isError, error } = useQuery({
-    queryKey: ['activities'],
-    queryFn: fetchActivities
-  });
-
-  console.log('Activities data home:', activitiesData);
-
-  const activities = activitiesData?.activity;
-
-  const generateStars = (rating) => {
-    let stars = [];
-    for (let i = 0; i < rating; i++) {
-      stars.push(<FaStar key={i} className="star" />);
-    }
-    return stars;
-  };
-
-  const timeRangeMapping = (timeNumber) => {
-    const startHour = 8 + timeNumber; // Assuming 1 corresponds to 9-10
-    const endHour = startHour + 1;
-    return `${startHour} - ${endHour}`;
-  };
-
-
 
   const [age, setAge] = useState('');
   const sports = ['tennis', 'tabletennis', 'badminton', 'basketball', 'volley', 'baseball', 'gym', 'swimming'];
