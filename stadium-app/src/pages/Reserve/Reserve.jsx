@@ -9,7 +9,7 @@ import { useQuery } from '@tanstack/react-query';
 import { useNavigate } from 'react-router-dom';
 import LoadingSpinner from '../../components/Loading/LoadingPage'; 
 import {fetchStadiumAvailable } from '../../api'; 
-
+import Button from '@mui/material/Button';
 
 
 
@@ -65,7 +65,6 @@ export default function BasicDateCalendar() {
 
   const getText = (row, col) => {
     const textOptions = [
-      "8:00-9:00",
       "9:00-10:00",
       "10:00-11:00",
       "11:00-12:00",
@@ -78,12 +77,9 @@ export default function BasicDateCalendar() {
       "18:00-19:00",
       "19:00-20:00",
       "20:00-21:00",
-      "21:00-22:00",
-      "22:00-23:00",
-      "23:00-24:00",
     ];
 
-    const index = (row - 1) * 4 + (col - 1);
+    const index = (row - 1) * 3 + (col - 1);
     return textOptions[index];
   };
 
@@ -120,11 +116,11 @@ export default function BasicDateCalendar() {
         >
           {[1, 2, 3, 4].map((row) => (
             <div key={row} style={{ display: "flex", marginBottom: "15px" }}>
-              {[1, 2, 3, 4].map((col) => (
+              {[1, 2, 3].map((col) => (
                 <div
                   key={col}
                   style={{
-                    width: "95px",
+                    width: "110px",
                     height: "40px",
                     border: "1px solid #000",
                     margin: "0 5px",
@@ -149,14 +145,15 @@ export default function BasicDateCalendar() {
             </div>
           ))}
         </div>
-        <div style={{ textAlign: "center", marginTop: "20px" }}>
-          <button
-            style={{ padding: "10px 20px", fontSize: "16px" }}
-            onClick={handleSend}
-          >
-            送出
-          </button>
-        </div>
+      <div className='reserve_activity'>
+      <div style={{
+        display: 'flex',
+        justifyContent: 'center',
+      }}>
+        <Button variant="contained" onClick={() => handleSend}>確認預定</Button>
+      </div>
+    </div> 
+      <FooterBar />
       </LocalizationProvider>
     <FooterBar />
   </div>
