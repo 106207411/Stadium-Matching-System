@@ -48,7 +48,15 @@ const Profile = () => {
     ));
   };
 
-  if (loading) return <LoadingSpinner />;
+  if (loading) return ( 
+    <div>
+    <Header title="我的資訊" />
+  
+  <LoadingSpinner />
+  <Footer />
+    </div>
+  );
+  
   if (error) return <p>Error: {error}</p>;
   if (!profile) return <p>No profile data</p>;
 

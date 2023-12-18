@@ -9,14 +9,18 @@ import { ToastContainer } from 'react-toastify';
 import { useQuery } from '@tanstack/react-query';
 import { fetchActivities } from '../../api';
 import { FaStar } from 'react-icons/fa';
+import { fetchMessages } from '../../api'; 
 
 const Home = () => {
   const { logoutHandler } = useAuth();
 
-  // const { data: activitiesData, isLoading, isError, error } = useQuery({
-  //   queryKey: ['activities'],
-  //   queryFn: fetchActivities
+  // const { data: messagesData, isLoading: isLoadingMessages } = useQuery({
+  //   queryKey: ['messages'],
+  //   queryFn: fetchMessages
   // });
+
+  // const unreadMessagesCount = messagesData?.event.filter(message => message.is_read === 0).length;
+
 
 
   const { data: activitiesData, isLoading, isError, error } = useQuery({
@@ -180,7 +184,8 @@ const Home = () => {
           </div>
         </>
       )}
-      <FooterBar />
+       <FooterBar />
+     {/* <FooterBar unreadMessagesCount={unreadMessagesCount} /> */}
     </div>
   );
 };
