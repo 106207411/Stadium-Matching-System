@@ -15,6 +15,7 @@ import Select from '@mui/material/Select';
 import { useQuery } from '@tanstack/react-query';
 import { fetchActivities } from '../../api';
 import { FaStar } from 'react-icons/fa';
+import { fetchMessages } from '../../api'; 
 
 const Home = () => {
   const { logoutHandler } = useAuth();
@@ -26,6 +27,9 @@ const Home = () => {
   //   queryKey: ['activities'],
   //   queryFn: fetchActivities
   // });
+
+  // const unreadMessagesCount = messagesData?.event.filter(message => message.is_read === 0).length;
+
 
 
   const { data: activitiesData, isLoading, isError, error } = useQuery({
@@ -210,7 +214,8 @@ const Home = () => {
           <MapView />
         </>
       )}
-      <FooterBar />
+       <FooterBar />
+     {/* <FooterBar unreadMessagesCount={unreadMessagesCount} /> */}
     </div>
   );
 };
