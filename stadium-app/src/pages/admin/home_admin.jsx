@@ -97,6 +97,15 @@ const Home_admin = () => {
         <Button variant="contained" onClick={() => navigate('../admin/add')}>上架场地</Button>
       </div>
     </div> 
+    <div className='feedback'>
+      <div style={{
+        display: 'flex',
+        justifyContent: 'center',
+        marginTop: "30px",
+      }}>
+        <Button variant="contained" onClick={() => navigate('../admin/feedback')}>反饋列表</Button>
+      </div>
+    </div> 
       <FooterBar />
     </div>
   );

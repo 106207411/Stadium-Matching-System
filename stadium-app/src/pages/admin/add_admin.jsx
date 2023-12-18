@@ -11,7 +11,7 @@ import Select from '@mui/material/Select';
 import Button from '@mui/material/Button';
 import { useNavigate } from 'react-router-dom';
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
-
+import {useDropzone} from 'react-dropzone';
 
 const StadiumName = () => (
   <div className='addname'>
@@ -204,6 +204,42 @@ const Add_Admin = () => {
 
   )
 
+
+  function Dropzone(props) {
+    const {getRootProps, getInputProps, open, acceptedFiles} = useDropzone({
+      // Disable click and keydown behavior
+      noClick: true,
+      noKeyboard: true
+    });
+  
+    const files = acceptedFiles.map(file => (
+      <li key={file.path}>
+        {file.path} - {file.size} bytes
+      </li>
+    ));
+  
+    return (
+      <div className="container">
+        <div style={{
+            display: 'flex',
+            justifyContent: 'center',
+            marginTop: '30px',
+        }}>
+        <div {...getRootProps({className: 'dropzone'})}>
+          <input {...getInputProps()} />
+          <button type="button" onClick={open}>
+            Open File Dialog
+          </button>
+        </div>
+        </div>
+        <aside>
+          <ul>{files}</ul>
+        </aside>
+      </div>
+      
+    );
+  }
+
 // 暫時不需要的上傳圖片按鈕
   // const VisuallyHiddenInput = styled('input')({
   //   clip: 'rect(0 0 0 0)',
@@ -243,7 +279,9 @@ const Add_Admin = () => {
       <PlaceInfo/>
       <PlacePrice/>
       <Rules/>
+      <Dropzone/>
       <Upload_place/>
+
       <FooterBar />
       
 
