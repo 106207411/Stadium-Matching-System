@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import './ActivityInfo.scss';
+import './AllActivityinfo.scss';
 import mockMyActivity from '../../mockData/mockMyActivities.js';
 import FooterBar from '../../components/FooterBar/FooterBar.jsx';
 import Header from '../../components/Header/Header.jsx';
@@ -15,7 +15,7 @@ import axios from 'axios';
 import { PROD_API_URL, API_URL } from '../../config/config'
 
 
-const ActivityInfo = () => {
+const AllActivityInfo = () => {
 
     const { activity_id } = useParams();
     console.log('id is', activity_id);
@@ -24,44 +24,63 @@ const ActivityInfo = () => {
     const activityId = useParams().activity_id;
     const navigate = useNavigate();
 
-
     const { data: activityData, isLoading, isError, error } = useQuery({
         queryKey: ['activityinfo', activity_id],
         queryFn: () => fetchMyActivityInfo(activity_id),
     });
+
+
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [isConfirmationModalOpen, setIsConfirmationModalOpen] = useState(false);
 
+    const [hasJoined, setHasJoined] = useState(false);
 
     const openConfirmationModal = () => setIsConfirmationModalOpen(true);
     const closeConfirmationModal = () => setIsConfirmationModalOpen(false);
 
 
-    const selectedActivity = activityData;
-
-    //console.log('data:', selectedActivity)
-
-
-    const handleLeaveActivity = async () => {
+    const handleJoinActivity = async () => {
         try {
-            console.log('delete url', `${PROD_API_URL}/activity/leave/${activityId}`);
-            const response = await axios.delete(`${PROD_API_URL}/activity/leave/${activityId}`, {
+            const response = await axios.post(`${PROD_API_URL}/activity/join/${activityId}`, {}, {
                 withCredentials: true,
             });
-            console.log('Leave activity success:', response.data);
-            // 成功退出活動後導向到我的其他活動清單
-            navigate('/activity/mylist', { replace: true });
+
+            console.log('Join activity success:', response.data);
+            queryClient.invalidateQueries(['activityinfo', activityId]);
+            navigate(`/activity/mylist/${activityId}`, { replace: true });
 
         } catch (error) {
-            console.error('Error leaving activity:', error);
-            // 錯誤處理
+            console.error('Error joining activity:', error);
+            // Optionally handle error in the UI
         }
     };
 
-    const handleConfirmLeave = () => {
-        handleLeaveActivity();
-        closeConfirmationModal(); // 假設您已經創建了一個關閉確認模態框的函數
+    if (hasJoined) {
+        // 重定向或渲染不同的組件
+        return <Redirect to={`/activity/mylist/${activityId}`} />;
+    }
+
+    const handleConfirm = () => {
+        handleJoinActivity();
+        closeConfirmationModal();
     };
+
+    //:/api/activity/:activity_id
+
+    //useParams get :activity_id
+
+
+
+    // const selectedActivity = mockMyActivity.find((activity) => activity.id === activity_id);
+    // console.log(selectedActivity)
+    // if (!selectedActivity) {
+
+    //     return <div>not found</div>;
+    // }
+
+    const selectedActivity = activityData;
+
+    console.log('data:', selectedActivity)
 
 
     const handleReportIssue = () => {
@@ -71,7 +90,7 @@ const ActivityInfo = () => {
     const generateStars = (rating) => {
         let stars = [];
         for (let i = 0; i < rating; i++) {
-            stars.push(<img key={i} src="../../star.png" alt="Star" className="star" />);
+            stars.push(<img key={i} src="../../star.png" alt="Star" className="all-star" />);
         }
         return stars;
     };
@@ -96,18 +115,18 @@ const ActivityInfo = () => {
 
     return (
         <div>
-            <Header title="我的活動" showSortIcon={false} />
-            <div className="activity-card">
+            <Header title="活動詳情" showSortIcon={false} />
+            <div className="all-activity-card">
 
-                <h1 className="activity-title">{selectedActivity.title}</h1>
-                <img src={selectedActivity.stadium.picture} alt={selectedActivity.title} className="activity-image" />
-                <div className="activity-details">
+                <h1 className="all-activity-title">{selectedActivity.title}</h1>
+                <img src={selectedActivity.stadium.picture} alt={selectedActivity.title} className="all-activity-image" />
+                <div className="all-activity-details">
                     <p>ID:{selectedActivity.id}</p>
 
-                    <div className="location-container">
+                    <div className="all-location-container">
                         <p>場地：{selectedActivity.stadium.name}</p>
-                        <span className="report-issue" onClick={handleReportIssue}>
-                            <LuAlertCircle className="report-icon" />
+                        <span className="all-report-issue" onClick={handleReportIssue}>
+                            <LuAlertCircle className="all-report-icon" />
                             問題回報
                         </span>
                     </div>
@@ -117,10 +136,10 @@ const ActivityInfo = () => {
                     <p>收費：{selectedActivity.fee} / 人</p>
                     <p>程度：{generateStars(selectedActivity.level)}</p>
 
-                    <div className="participant-container">
+                    <div className="all-participant-container">
                         <p>活動參與：{selectedActivity.people}/{selectedActivity.max}人</p>
-                        <span className="participant" onClick={openModal}>
-                            <VscAccount className="participant-icon" />
+                        <span className="all-participant" onClick={openModal}>
+                            <VscAccount className="all-participant-icon" />
                             參與者
                         </span>
                     </div>
@@ -129,13 +148,12 @@ const ActivityInfo = () => {
                         <ParticipantModal users={selectedActivity.users} onClose={closeModal} />
                     )}
                 </div>
-                <img src={selectedActivity.creator.picture} alt="Avatar" className="user-avatar" />
-                <button className="leave-button" onClick={openConfirmationModal}>退出活動</button>
+                <img src={selectedActivity.creator.picture} alt="Avatar" className="all-user-avatar" />
+                <button className="all-join-button" onClick={openConfirmationModal}>申請加入</button>
 
                 {isConfirmationModalOpen && (
-                    <ConfirmModal onConfirm={handleConfirmLeave} onCancel={closeConfirmationModal} title="確認退出活動？" />
+                    <ConfirmModal onConfirm={handleConfirm} onCancel={closeConfirmationModal} />
                 )}
-
             </div>
             <FooterBar />
         </div>
@@ -143,8 +161,5 @@ const ActivityInfo = () => {
     );
 };
 
-export default ActivityInfo;
-
-
-// <p>活動參與：{selectedActivity.people}/{selectedActivity.max}人</p>
+export default AllActivityInfo;
 

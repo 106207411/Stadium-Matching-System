@@ -52,10 +52,11 @@ $background-color: #fff;
 
 .my-activity-list {
     margin-bottom: 70px;
-    padding-top: 8px; // Height of the header plus some extra space
+    padding-top: 3px; // Height of the header plus some extra space
     padding-left: 12px;
     padding-right: 12px;
     background-color: #fff;
+    padding-bottom:100px; //和Footer的距離調這裡
 
     .my-activity-item {
         position: relative; // Parent container needs to be set to relative positioning
@@ -65,10 +66,11 @@ $background-color: #fff;
         overflow: hidden; // Ensures the child elements do not overflow the rounded corners
 
         img {
-            border-radius: 10px;
+            // height: auto; // Adjust height to maintain aspect ratio
             width: 100%;
-            height: auto; // Adjust height to maintain aspect ratio
-            object-fit: cover; // Cover the area without stretching
+            height: 200px; /* Fixed height */
+            object-fit: cover; /* Cover the area without stretching */
+            border-radius: 10px;
             margin-bottom: 1px;
         }
 
@@ -99,9 +101,9 @@ $background-color: #fff;
             }
 
             .star {
-                display: inline-block; // Display stars in a row
-                width: 16px;
-                height: 16px;
+                color: gold; /* Set the color of the stars */
+                width: 16px; /* Set the width of the stars */
+                height: 16px; /* Set the height of the stars */
             }
 
             .time {
