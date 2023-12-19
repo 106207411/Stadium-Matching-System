@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom"
 import './Entry.scss'
-import logo from '../../assets/bujo.svg'
+import logo from '../../assets/bujo32.svg'
 
 const Entry = () => {
   const navigate = useNavigate();
