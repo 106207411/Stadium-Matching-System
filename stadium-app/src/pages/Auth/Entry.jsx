@@ -1,20 +1,20 @@
 import { useNavigate } from "react-router-dom"
 import './Entry.scss'
-import logo from '../../assets/running.png'
+import logo from '../../assets/bujo.svg'
 
 const Entry = () => {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   
   const handleClickOAuthLogin = () => {
-    navigate('/oauth')
+    navigate('/oauth');
   }
   
   const handleClickLogin = () => {
-    navigate('/login')
+    navigate('/login');
   }
 
   const handleClickRegister = () => {
-    navigate('/register')
+    navigate('/register');
   }
 
   return (
