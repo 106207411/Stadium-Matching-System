@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import './feedback_admin.scss';
 import FooterBar from '../../components/FooterBar/FooterBar.jsx';
+import AdminFooter from '../../components/FooterBar/AdminFooter.jsx';
 import Header from '../../components/Header/Header.jsx';
 import { fetchMessages } from '../../api'; 
 import { useQuery } from '@tanstack/react-query';
@@ -61,7 +62,7 @@ const MessageList = () => {
           </div>
         ))}
       </div>
-      <FooterBar />
+      <AdminFooter />
     </div>
   );
 };

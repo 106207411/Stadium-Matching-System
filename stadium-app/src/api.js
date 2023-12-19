@@ -148,6 +148,20 @@ export const fetchAdminStadiumList = async () => {
   }
 };
 
+export const createStadium = async (data) => {
+  const url = `${PROD_API_URL}/admin/stadium/available`;
+  console.log('upload stadium', url);
+  try {
+    const response = await axios.post(url, data, {
+      withCredentials: true
+    })
+    console.log('upload stadium response', response.data);
+  } catch (error) {
+    console.log('upload stadium error', error);
+    throw error;
+  }
+}
+
   // /api/stadium/:catogory/:stadium_id/:date
 //2023-12-17
   export const fetchStadiumAvailable = async (category, stadiumId, date) =>  {

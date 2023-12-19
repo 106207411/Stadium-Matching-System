@@ -24,7 +24,7 @@ const AdminFooter = () => {
 
   return (
     <footer className="auth-footer">
-      <NavLink to="/message/list" className="auth-footer-icon" activeClassName="active">
+      <NavLink to="/admin/feedback" className="auth-footer-icon" activeClassName="active">
         <MdVolumeUp className="auth-icon" />
           {unreadMessagesCount > 0 ? (
             <span className="auth-unread-count">{unreadMessagesCount}</span>
@@ -35,7 +35,7 @@ const AdminFooter = () => {
         <MdViewList className="auth-icon" />
       </NavLink> */}
 
-      <NavLink to="/home" className="auth-footer-icon" activeClassName="active">
+      <NavLink to="/admin/home" className="auth-footer-icon" activeClassName="active">
       <IoHomeSharp className="auth-home-icon" style={{ fontSize: '42px', backgroundColor: '#D9D9D9', borderRadius: '50%', padding: '10px' }} />
       </NavLink>
 
@@ -43,7 +43,7 @@ const AdminFooter = () => {
         <AiFillHeart className="auth-icon" />
       </NavLink> */}
 
-      <NavLink to="/profile" className="auth-footer-icon" activeClassName="active">
+      <NavLink to="/admin/profile" className="auth-footer-icon" activeClassName="active">
         <CgProfile className="auth-icon" />
       </NavLink>
     </footer>
