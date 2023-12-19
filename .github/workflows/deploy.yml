@@ -16,7 +16,7 @@ jobs:
       BUILD_PATH: ./stadium-app
       STATIC_PATH: ./stadium-app/dist
       CDN_PROFILE_NAME: cdn-profile
-      CDN_ENDPOINT_NAME: stadiumdev 
+      CDN_ENDPOINT_NAME: stadium
       RESOURCE_GROUP: rg-stadium-app-dev
 
     steps:
