@@ -8,8 +8,12 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import './IssueReport.scss';
+import { createFeedbackForStadium } from '../../api';
+import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 const IssueReport = () => {
+  const navigate = useNavigate();
   const stadiumName = localStorage.getItem('stadiumName');
   const [issueType, setIssueType] = useState('');
   const [issueDescription, setIssueDescription] = useState('');
@@ -23,11 +27,26 @@ const IssueReport = () => {
   }
 
   // Handle API
-  const handleConfirmIssueReport = () => {
+  const handleConfirmIssueReport = async () => {
     console.log('issueType:', issueType);
     console.log('issueDescription:', issueDescription);
+    const reportStadiumId = localStorage.getItem('stadiumId');
 
-    
+    const feedback = {
+      type: issueType,
+      problem: issueDescription
+    }
+
+    await createFeedbackForStadium(feedback, reportStadiumId)
+      .then((res) => {
+        console.log(res);
+        localStorage.removeItem('stadiumId');
+        toast.success('問題回報成功');
+        navigate(-1);
+      })
+      .catch((err) => {
+        console.log(err);
+      })
   }
 
   return (
@@ -44,10 +63,10 @@ const IssueReport = () => {
               value={issueType}
               onChange={handleIssueTypeChange}
             >
-              <MenuItem value='water-dispenser'>飲水機</MenuItem>
-              <MenuItem value='toilet'>廁所</MenuItem>
-              <MenuItem value='air-conditioner'>冷氣</MenuItem>
-              <MenuItem value='vending-machine'>販賣機</MenuItem>
+              <MenuItem value='water'>飲水機</MenuItem>
+              <MenuItem value='bathroom'>廁所</MenuItem>
+              <MenuItem value='air-condition'>冷氣</MenuItem>
+              <MenuItem value='vending'>販賣機</MenuItem>
             </Select>
           </FormControl>
         </Box>
@@ -60,7 +79,7 @@ const IssueReport = () => {
             onChange={handleDescriptionChange}
           />
         </div>
-        <div className='button-group'>
+        <div className='button-group' onClick={handleConfirmIssueReport}>
           <div className='button'>送出</div>
         </div>
       </div>
