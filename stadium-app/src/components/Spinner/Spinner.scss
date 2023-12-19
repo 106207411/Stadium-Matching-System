@@ -1,0 +1,13 @@
+.auth-spinner {
+  position: fixed; /* Fixed position to cover the entire viewport */
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(255, 255, 255, 0.7); /* semi-transparent white background */
+  backdrop-filter: blur(5px); /* blur effect */
+  display: flex;
+  justify-content: center; /* center horizontally */
+  align-items: center; /* center vertically */
+  z-index: 1000; /* ensures it's above other content */
+}

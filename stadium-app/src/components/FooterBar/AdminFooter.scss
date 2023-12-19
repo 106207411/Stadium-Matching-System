@@ -1,0 +1,61 @@
+.auth-footer {
+  display: flex;
+  justify-content: space-around; // 為圖標提供均等間距
+  align-items: center;
+  padding: 1px 0;
+  background-color: #2B2B2B; // 黑色背景
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  color: #fff; // White color for all icons
+
+
+
+  .auth-footer-icon {
+    // width: 36px; // 圖標的寬度
+    // height: 36px; // 圖標的高度
+
+    .auth-home-icon {
+      color: #333;
+      font-size: 42px;
+      background-color: #D9D9D9;
+      border-radius: 50%;
+      padding: 10px;
+    }
+
+    .auth-icon {
+      font-size: 32px;
+      color: #fff; // 將 icon 的默認顏色設為白色
+      transition: color 0.3s;
+    }
+
+    &.active .auth-icon {
+      color: #808080 ; // 活動時的淺灰色
+    }
+
+    &:hover .auth-icon {
+      color: #BFBFBF; // 滑鼠懸停時的顏色
+    }
+  }
+
+
+  .auth-unread-count {
+    position: absolute;
+    top: -10px; // Adjust this value as necessary
+    right: 320px; // Adjust this value as necessary
+    display: flex; // Use flex to center the content
+    align-items: center;
+    justify-content: center;
+   
+    padding:4px 8px;// Adjust padding if needed
+    background-color: red;
+    color: white;
+    border-radius: 50%;
+    font-size: 16px;
+    z-index: 10; // Make sure it's above other elements
+  }
+
+  
+
+}

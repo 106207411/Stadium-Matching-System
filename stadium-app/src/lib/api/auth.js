@@ -1,5 +1,17 @@
-import axios from 'axios'
-import { PROD_API_URL, API_URL } from '../../config/config'
+import axios from 'axios';
+import { PROD_API_URL, API_URL } from '../../config/config';
+
+export const signUp = (data) => {
+  console.log(data)
+  return (
+    axios({
+      method: 'post',
+      withCredentials: true,
+      url: `${PROD_API_URL}/user/signup`,
+      data: data,
+    })
+  );
+};
 
 export const login = (data) => {
   return (
@@ -7,18 +19,17 @@ export const login = (data) => {
       method: 'post',
       withCredentials: true,
       url: `${PROD_API_URL}/user/signin`,
-      data: data
+      data: data,
     })
-  )
-}
+  );
+};
 
-export const signUp = (data) => {
-  console.log(data)
+export const logout = () => {
   return (
     axios({
-      method: 'post',
-      url: `${PROD_API_URL}/user/signup`,
-      data: data
+      method: 'delete',
+      withCredentials: true,
+      url: `${PROD_API_URL}/user/logout`,
     })
-  )
-}
+  );
+};

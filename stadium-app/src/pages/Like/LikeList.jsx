@@ -48,11 +48,11 @@ const LikeList = () => {
   return (
     <div>
       <Header title="收藏" showSortIcon={true}/>
-      <div className="stadium-list">
+      <div className="like-list">
           {visibleStadiums.map((stadium) => (
-            <div key={stadium.id} className="stadium-item">
+            <div key={stadium.id} className="like-item">
               <img src={stadium.image} alt={stadium.title} />
-              <div className="stadium-info">
+              <div className="like-info">
                   <h3>{stadium.name}</h3>
               </div>
             </div>
@@ -62,6 +62,7 @@ const LikeList = () => {
     </div>
   );
 };
+
 
 export default LikeList;
 
