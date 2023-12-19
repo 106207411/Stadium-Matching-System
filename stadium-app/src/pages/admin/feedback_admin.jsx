@@ -55,13 +55,13 @@ const FeedbackList = () => {
   const handleReadFeedback = async (feedbackId) => {
     try {
       await markFeedbackAsRead(feedbackId)
+      const updatedFeedbacks = feedbackList.map(feedback =>
+        feedback.feedback_id === feedbackId ? { ...feedback, isRead: true } : feedback
+      );
+      setFeedbackList(updatedFeedbacks);
     } catch (error) {
       
     }
-    const updatedFeedbacks = feedbackList.map(feedback =>
-      feedback.feedback_id === feedbackId ? { ...feedback, isRead: true } : feedback
-    );
-    setFeedbackList(updatedFeedbacks);
   };
 
   return (

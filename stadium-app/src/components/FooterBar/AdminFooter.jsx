@@ -5,7 +5,7 @@ import { MdVolumeUp, MdViewList } from 'react-icons/md';
 import { AiFillHeart } from 'react-icons/ai';
 import { CgProfile } from 'react-icons/cg';
 import './AdminFooter.scss';
-import { fetchMessages } from '../../api'; 
+import { fetchFeedback, fetchMessages } from '../../api'; 
 import { useQuery } from '@tanstack/react-query';
 
 const AdminFooter = () => {
@@ -13,21 +13,21 @@ const AdminFooter = () => {
 
   // 要改成 fetch feedback
   const { data, isLoading, isError, error } = useQuery({
-    queryKey: ['messages'],
-    queryFn: fetchMessages
+    queryKey: ['feedback'],
+    queryFn: fetchFeedback
   });
 
   if (isLoading) return <div>Loading...</div>;
   if (isError) return <div>Error: {error.message}</div>;
 
-  const unreadMessagesCount = data.event.filter(msg => msg.is_read === 0).length;
+  const unreadFeedbacksCount = data.feedback.filter(feedback => feedback.read === 0).length;
 
   return (
     <footer className="auth-footer">
       <NavLink to="/admin/feedback" className="auth-footer-icon" activeClassName="active">
         <MdVolumeUp className="auth-icon" />
-          {unreadMessagesCount > 0 ? (
-            <span className="auth-unread-count">{unreadMessagesCount}</span>
+          {unreadFeedbacksCount > 0 ? (
+            <span className="auth-unread-count">{unreadFeedbacksCount}</span>
           ) : null}
       </NavLink>
 
