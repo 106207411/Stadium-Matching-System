@@ -9,6 +9,7 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import Button from '@mui/material/Button';
+import { useNavigate } from 'react-router-dom';
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 
 
@@ -134,9 +135,11 @@ const PlaceInfo = () => (
     </div>
   );
 
-const AddAdmin = () => {
+const Add_Admin = () => {
   const [type, setType] = useState('');
   const [number, setNumber] = useState('');
+
+  const navigate = useNavigate();
 
   const handleTypeChange = (event) => {
     setType(event.target.value);
@@ -195,7 +198,7 @@ const AddAdmin = () => {
             marginTop: '30px',
             marginBottom: '80px',
         }}>
-        <Button variant="contained">上架场地</Button>
+        <Button variant="contained" onClick={() => navigate('../admin/success')}>上架场地</Button>
         </div>
     </div>
 
@@ -248,4 +251,4 @@ const AddAdmin = () => {
   );
 }
 
-export default AddAdmin;
+export default Add_Admin;
