@@ -26,6 +26,7 @@ import LikeList from './pages/Like/LikeList'
 import ActivityInfo from './pages/Activity/ActivityInfo'
 import MyActivityList from './pages/Activity/MyActivityList'
 import Feedback_admin from './pages/admin/feedback_admin'
+import AdminProfile from './pages/admin/AdminProfile'
 
 import './index.css';
 import IssueReport from './pages/Stadium/IssueReport'
@@ -64,6 +65,7 @@ const AppRoutes = () => {
       <Route path='/stadium/create' element={<ProtectedRoute><CreateActive /></ProtectedRoute>} />
       <Route path='/stadium/createsucess' element={<ProtectedRoute><CreateSucess /></ProtectedRoute>} />
       <Route path='/admin/home' element={<ProtectedRoute><Home_admin /></ProtectedRoute>} />
+      <Route path='/admin/profile' element={<ProtectedRoute><AdminProfile /></ProtectedRoute>} />
       <Route path='/admin/upload' element={<ProtectedRoute><Add_admin /></ProtectedRoute>} />
       <Route path='/admin/success' element={<ProtectedRoute><Success_admin /></ProtectedRoute>} />
       <Route path='/admin/feedback' element={<ProtectedRoute><Feedback_admin /></ProtectedRoute>} />
