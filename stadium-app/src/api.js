@@ -120,20 +120,33 @@ export const fetchActivities = async () => {
 
 
 
-  export const fetchStadiumList = async (category) => {
-    const url = `${PROD_API_URL}/stadium/${category}/`;
-    try {
-      const response = await axios.get(url, {
-        withCredentials: true
-      });
-      console.log('fetch stadium list data is', response.data);
-      return response.data;
-    } catch (error) {
-      console.error('Error fetching stadium list:', error);
-      throw error;
-    }
-  };
+export const fetchStadiumList = async (category) => {
+  const url = `${PROD_API_URL}/stadium/${category}/`;
+  try {
+    const response = await axios.get(url, {
+      withCredentials: true
+    });
+    console.log('fetch stadium list data is', response.data);
+    return response.data;
+  } catch (error) {
+    console.error('Error fetching stadium list:', error);
+    throw error;
+  }
+};
 
+export const fetchAdminStadiumList = async () => {
+  const url = `${PROD_API_URL}/admin/stadium/list`;
+  try {
+    const response = await axios.get(url, {
+      withCredentials: true
+    });
+    console.log('fetch ADMIN stadium list data is', response.data);
+    return response.data;
+  } catch (error) {
+    console.error('Error fetching ADMIN stadium list:', error);
+    throw error;
+  }
+};
 
   // /api/stadium/:catogory/:stadium_id/:date
 //2023-12-17

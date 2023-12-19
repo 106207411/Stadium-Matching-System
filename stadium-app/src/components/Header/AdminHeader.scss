@@ -1,0 +1,46 @@
+.auth-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between; // 保持三个主要元素分布均匀
+  padding: 20px 20px;
+  background-color: rgba(221, 214, 214, 1);
+  height:60px;
+  
+  .auth-header-icon,
+  .auth-header-title,
+  .auth-spacer {
+    flex-grow: 1; // 三者均等分空间
+    display: flex;
+    justify-content: center; 
+    align-items: center;
+  }
+
+  .auth-header-icon {
+   /*if need */
+  }
+  
+  .auth-header-title {
+    font-size: 1.5em;
+    color: black;
+    margin: 0;
+  }
+
+
+  .auth-header-icon.right {
+      justify-content: flex-end;
+      display: flex;
+      align-items: center;
+      justify-content: center; // 居中图标
+  
+      // 给图标容器指定尺寸
+      width: 64px; // 或者你需要的任何尺寸
+      height: 64px; // 或者你需要的任何尺寸
+  
+      img {
+        max-width: 100%; // 最大宽度为容器宽度
+        max-height: 100%; // 最大高度为容器高度
+        object-fit: contain; // 保持图片的宽高比
+      }
+  }
+
+}

@@ -63,7 +63,7 @@ const AppRoutes = () => {
       <Route path='/stadium/create' element={<ProtectedRoute><CreateActive /></ProtectedRoute>} />
       <Route path='/stadium/createsucess' element={<ProtectedRoute><CreateSucess /></ProtectedRoute>} />
       <Route path='/admin/home' element={<ProtectedRoute><Home_admin /></ProtectedRoute>} />
-      <Route path='/admin/add' element={<ProtectedRoute><Add_admin /></ProtectedRoute>} />
+      <Route path='/admin/upload' element={<ProtectedRoute><Add_admin /></ProtectedRoute>} />
       <Route path='/admin/success' element={<ProtectedRoute><Success_admin /></ProtectedRoute>} />
       <Route path='/admin/feedback' element={<ProtectedRoute><Feedback_admin /></ProtectedRoute>} />
     </Routes>
