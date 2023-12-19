@@ -4,6 +4,8 @@ import {
   Marker,
   InfoWindow
 } from '@react-google-maps/api';
+import DatePicker from 'react-datepicker';
+import "react-datepicker/dist/react-datepicker.css";
 import Box from '@mui/material/Box';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
@@ -18,6 +20,8 @@ import { getCustomMarker } from '../../lib/utils/customMarker';
 const MapView = () => {
   const [sportType, setSportType] = useState('');
   const [location, setLocation] = useState({ lat: 0, lng: 0 });
+  const [activityList, setActivityList] = useState([]);
+  const [date, setDate] = useState(new Date());
   const [selectedMarker, setSelectedMarker] = useState(null);
   const [markers, setMarkers] = useState([]);
   const mapRef = useRef(null);
@@ -26,16 +30,26 @@ const MapView = () => {
     libraries: ['places'],
   });
 
+  const handleDateChange = (newDate) => {
+    setDate(newDate);
+    fetchAndDisplayActivities(newDate);
+  };
+
   const onMarkerClick = (marker) => {
+    console.log(marker);
     setSelectedMarker(marker);
   };
 
+  // 3. 當天活動再透過 sportType 篩選
   const handleSportTypeChange = async (event) => {
+    console.log(activityList)
     const newSportType = event.target.value;
     setSportType(newSportType);
-    setMarkers([]);
+    const filteredActivities = activityList.filter(activity => activity.category === newSportType);
+    console.log(filteredActivities);
+    // setMarkers([]);
 
-    const stadiumList = await fetchStadiumList(newSportType);
+    // const stadiumList = await fetchStadiumList(newSportType);
     const placesService = new window.google.maps.places.PlacesService(mapRef.current);
 
     stadiumList.stadium.forEach(stadium => {
@@ -51,13 +65,48 @@ const MapView = () => {
           const newMarker = {
             position: results[0].geometry.location,
             title: results[0].name,
+            name: stadium.name,
           };
           setMarkers(prevMarkers => [...prevMarkers, newMarker]);
+          console.log(markers);
         }
       });
     });
   };
 
+  // 2. 透過日期篩選活動
+  const fetchAndDisplayActivities = async (date) => {
+    console.log(date);
+    const allActivities = await fetchActivities();
+    const newActivityList = await selectActivitiesWithDate(allActivities, date);
+    console.log(newActivityList);
+    setActivityList(newActivityList);
+    const placesService = new window.google.maps.places.PlacesService(mapRef.current);
+    setMarkers([]);
+
+    newActivityList.forEach(activity => {
+      console.log(activity);
+      const request = {
+        query: activity.address,
+        fields: ['name', 'geometry'],
+      };
+
+      placesService.findPlaceFromQuery(request, (results, status) => {
+        if (status === window.google.maps.places.PlacesServiceStatus.OK && results) {
+          console.log(results);
+          const newMarker = {
+            position: results[0].geometry.location,
+            title: activity.name,
+            name: activity.name,
+          };
+          setMarkers(prevMarkers => [...prevMarkers, newMarker]);
+          console.log(markers);
+        }
+      })
+    })
+  }
+
+  // 1. 切換到 MapView 就抓使用者位置資料跟 fetchAndFilter 當天的活動
   useEffect(() => {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
@@ -72,18 +121,45 @@ const MapView = () => {
         }
       );
     }
+
+    const fetchAndFilterActivities = async () => {
+      try {
+        const allActivities = await fetchActivities();
+        const today = new Date();
+        const filteredActivities = selectActivitiesWithDate(allActivities, today);
+        setActivityList(filteredActivities);
+        console.log(filteredActivities);
+      } catch (error) {
+        console.error("Failed to fetch activities:", error);
+      }
+    };
+  
+    fetchAndFilterActivities();
   }, []);
 
-  if (loadError) {
-    return <div>Map cannot be loaded right now, sorry.</div>;
+  const selectActivitiesWithDate = (activities, selectedDate) => {
+    console.log(activities);
+    console.log(selectedDate);
+    const selectedDateString = selectedDate.toISOString().split('T')[0];
+
+    return activities.activity.filter(activity => {
+      console.log(activity);
+      const activityDate = new Date(activity.date).toISOString().split('T')[0];
+      return activityDate === selectedDateString;
+    });
   }
 
-  if (!isLoaded) {
-    return <LoadingSpinner />;
-  }
+  if (loadError) return <div>Map cannot be loaded right now, sorry.</div>;
+  if (!isLoaded) return <LoadingSpinner />;
 
   return (
     <>
+      <DatePicker
+        selected={date}
+        onChange={handleDateChange}
+        dateFormat="yyyy/MM/dd"
+        // Other props as needed, e.g., custom styling or min/max dates
+      />
       <GoogleMap
         mapContainerStyle={{
           width: '90%',
@@ -120,9 +196,8 @@ const MapView = () => {
                 onCloseClick={() => setSelectedMarker(null)}
               >
                 <div>
-                  <h2>{marker.title}</h2>
-                  {/* Here you can add any custom content you want */}
-                  <p>Additional information about the marker can go here.</p>
+                  <h2>{marker.name}</h2>
+                  {/* <p>{marker.name}</p> */}
                 </div>
               </InfoWindow>
             )}
