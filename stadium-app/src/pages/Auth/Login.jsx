@@ -16,24 +16,24 @@ const Login = () => {
   })
 
   const handleFormChange = (e) => {
-    const { name, value } = e.target
+    const { name, value } = e.target;
 
-    setLoginInfo(prevState => ({ ...prevState, [name]: value}))
+    setLoginInfo(prevState => ({ ...prevState, [name]: value}));
   }
 
   const handleBackClick = () => {
-    navigate('/')
+    navigate('/');
   }
 
   const handleLoginClick = async () => {
     // Check if email and password are not empty
     if (!loginInfo.email) {
-      toast.error('請輸入帳號')
-      return
+      toast.error('請輸入帳號');
+      return;
     }
     if (!loginInfo.password) {
-      toast.error('請輸入密碼')
-      return
+      toast.error('請輸入密碼');
+      return;
     }
 
     await loginHandler(loginInfo)
@@ -44,14 +44,19 @@ const Login = () => {
           res === 'Email does not exist' ||
           res === 'Password does not match'
         ) {
-          toast.error(authTranslator(res))
+          toast.error(authTranslator(res));
         } else {
-          toast.success('登入成功')
-          navigate('/home')
+          toast.success('登入成功');
+          // Dummy logic for divide the Admin and User
+          if (res.user_id !== 1) {
+            navigate('/home');
+          } else {
+            navigate('/admin/home');
+          }
         }
       })
       .catch((err) => {
-        console.log(err)
+        console.log(err);
       })
   }
 

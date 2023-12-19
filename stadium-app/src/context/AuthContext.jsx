@@ -51,8 +51,8 @@ export const AuthProvider = ({ children }) => {
         };
       })
       .catch((err) => {
-        console.log(err.response.data)
-        return err.response.data
+        console.log(err.response.data);
+        return err.response.data;
       })
       .finally(() => {
         toggleLoading(false);

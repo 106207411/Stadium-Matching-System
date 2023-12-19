@@ -134,6 +134,36 @@ export const fetchStadiumList = async (category) => {
   }
 };
 
+export const fetchAdminStadiumList = async () => {
+  const url = `${PROD_API_URL}/admin/stadium/list`;
+  try {
+    const response = await axios.get(url, {
+      withCredentials: true
+    });
+    console.log('fetch ADMIN stadium list data is', response.data);
+    return response.data;
+  } catch (error) {
+    console.error('Error fetching ADMIN stadium list:', error);
+    throw error;
+  }
+};
+
+export const createStadium = async (data) => {
+  const url = `${PROD_API_URL}/admin/stadium/available`;
+  console.log('upload stadium', url);
+  try {
+    const response = await axios.post(url, data, {
+      headers: {
+        "Content-Type": "multipart/form-data"
+      },
+      withCredentials: true
+    })
+    console.log('upload stadium response', response.data);
+  } catch (error) {
+    console.log('upload stadium error', error);
+    throw error;
+  }
+}
 
   // /api/stadium/:catogory/:stadium_id/:date
 //2023-12-17
@@ -180,6 +210,20 @@ export const createFeedbackForStadium = async (data, stadiumId) => {
     return response.data;
   } catch (error) {
     console.error('Error fetching stadium list:', error);
+    throw error;
+  }
+};
+
+export const fetchFeedback = async () => {
+  const url = `${PROD_API_URL}/admin/feedback/all`;
+  try {
+    const response = await axios.get(url, {
+      withCredentials: true
+    });
+    console.log('fetch feedback data is', response.data);
+    return response.data;
+  } catch (error) {
+    console.error('Error fetching feedback list:', error);
     throw error;
   }
 };

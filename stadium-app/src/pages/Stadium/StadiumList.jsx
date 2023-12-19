@@ -15,9 +15,9 @@ const StadiumList = () => {
    // const [stadiums, setStadiums] = useState([]);
    const navigate = useNavigate();
 
-    const { data, isLoading, isError, error } = useQuery({
-      queryKey: ['stadiums', 'badminton'],
-      queryFn: () => fetchStadiumList('badminton')
+  const { data, isLoading, isError, error } = useQuery({
+    queryKey: ['stadiums', 'badminton'],
+    queryFn: () => fetchStadiumList('badminton')
   });
 
   if (isLoading) return <LoadingSpinner />;

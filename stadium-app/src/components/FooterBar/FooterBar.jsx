@@ -25,9 +25,9 @@ const Footer = () => {
     <footer className="footer">
       <NavLink to="/message/list" className="footer-icon" activeClassName="active">
         <MdVolumeUp className="icon" />
-             {unreadMessagesCount > 0 ? (
-  <span className="unread-count">{unreadMessagesCount}</span>
- ) : null} 
+          {unreadMessagesCount > 0 ? (
+            <span className="unread-count">{unreadMessagesCount}</span>
+          ) : null} 
       </NavLink>
 
       <NavLink to="/activity/mylist" className="footer-icon" activeClassName="active">
@@ -37,8 +37,6 @@ const Footer = () => {
       <NavLink to="/home" className="footer-icon" activeClassName="active">
       <IoHomeSharp className="home-icon" style={{ fontSize: '42px', backgroundColor: '#D9D9D9', borderRadius: '50%', padding: '10px' }} />
       </NavLink>
-
-      
 
       <NavLink to="/like/list" className="footer-icon" activeClassName="active">
         <AiFillHeart className="icon" />
