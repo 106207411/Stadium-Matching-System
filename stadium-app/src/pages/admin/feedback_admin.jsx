@@ -4,61 +4,81 @@ import './feedback_admin.scss';
 import FooterBar from '../../components/FooterBar/FooterBar.jsx';
 import AdminFooter from '../../components/FooterBar/AdminFooter.jsx';
 import Header from '../../components/Header/Header.jsx';
-import { fetchMessages } from '../../api'; 
+import { fetchFeedback } from '../../api'; 
 import { useQuery } from '@tanstack/react-query';
-import LoadingSpinner from '../../components/Loading/LoadingPage'; 
-
+import LoadingSpinner from '../../components/Loading/LoadingPage';
+import axios from 'axios';
+import { PROD_API_URL, API_URL } from '../../config/config';
 
 let renderCount = 0;
 
-const MessageList = () => {
-  renderCount++;
-  console.log(`Component rendered ${renderCount} times`);
-
-  const { data: event, isLoading, isError, error } = useQuery({
-    queryKey: ['messages'], 
-    queryFn: fetchMessages
+const FeedbackList = () => {
+  const { data: feedback, isLoading, isError, error } = useQuery({
+    queryKey: ['feedback'], 
+    queryFn: fetchFeedback
   });
 
-  const [events, setEvents] = useState([]);
+  const [feedbackList, setFeedbackList] = useState([]);
 
   useEffect(() => {
-    console.log("useEffect is triggered");
+    console.log("useEffect is triggered in feedback list");
+    console.log(feedback)
 
-    if (event?.event && Array.isArray(event.event)) {
-      const initialEvents = event.event.map(message => ({
-        ...message,
-        isRead: message.is_read === 1,
+    if (feedback?.feedback && Array.isArray(feedback.feedback)) {
+      const initialFeedback = feedback.feedback.map(feedback => ({
+        ...feedback,
+        isRead: feedback.read === 1,
       }));
-      setEvents(initialEvents);
+      setFeedbackList(initialFeedback);
     }
-  }, [event]);
+  }, [feedback]);
 
   if (isLoading) return <LoadingSpinner />;
   if (isError) return <div>Error: {error.message}</div>;
 
-  const handleReadMessage = (messageId) => {
-    const updatedEvents = events.map(message =>
-      message.reservation_id === messageId ? { ...message, isRead: true } : message
+  const markFeedbackAsRead = async (feedbackId) => {
+    try {
+      const response = await axios.put(
+        `${PROD_API_URL}/admin/feedback/${feedbackId}/read`,
+        null,
+        {
+          withCredentials: true,
+        }
+      );
+      console.log(response.data);
+    } catch (error) {
+      console.error('Error making feedback as read:', error);
+      throw error;
+    }
+  };
+
+  const handleReadFeedback = async (feedbackId) => {
+    try {
+      await markFeedbackAsRead(feedbackId)
+    } catch (error) {
+      
+    }
+    const updatedFeedbacks = feedbackList.map(feedback =>
+      feedback.feedback_id === feedbackId ? { ...feedback, isRead: true } : feedback
     );
-    setEvents(updatedEvents);
+    setFeedbackList(updatedFeedbacks);
   };
 
   return (
     <div>
-      <Header title="反饋列表" showSortIcon={false}/>
+      <Header title="球場問題" showSortIcon={false}/>
       <div className="message-list">
-        {events.map((message) => (
+        {feedbackList.map((feedback) => (
           <div
-          key={message.reservation_id}
-          className={`message-item ${message.isRead ? 'read' : ''}`}
-          onClick={() => handleReadMessage(message.reservation_id)}
+          key={feedback.feedback_id}
+          className={`message-item ${feedback.read ? 'read' : ''}`}
+          onClick={() => handleReadFeedback(feedback.feedback_id)}
         >
             <div className="message-content">
-                {/* 這裏接問題反饋的api */}
-              {/* {<h3>{message.problem}</h3>} */}
+              <h3>{feedback.name}</h3>
+              <p>{feedback.suggestion}</p>
             </div>
-            <div className="message-bottom"></div> {/* Bottom part */}
+            <div className="message-bottom"></div>
           </div>
         ))}
       </div>
@@ -67,4 +87,4 @@ const MessageList = () => {
   );
 };
 
-export default MessageList;
+export default FeedbackList;

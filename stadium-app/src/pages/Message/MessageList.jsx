@@ -7,7 +7,7 @@ import { fetchMessages } from '../../api';
 import { useQuery,useQueryClient } from '@tanstack/react-query';
 import LoadingSpinner from '../../components/Loading/LoadingPage'; 
 import axios from 'axios';
-import { PROD_API_URL, API_URL } from '../../config/config'
+import { PROD_API_URL, API_URL } from '../../config/config';
 
 
 let renderCount = 0;

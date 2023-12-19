@@ -94,8 +94,18 @@ const Add_Admin = () => {
 
   const handleSubmit = async () => {
     console.log(formData); // Replace with API call
+    const data = new FormData();
 
-    await createStadium(formData)
+    // Append each field in formData to the FormData object
+    for (const [key, value] of Object.entries(formData)) {
+      data.append(key, value);
+    }
+    
+    for (let [key, value] of data.entries()) {
+      console.log(`${key}: `, value);
+    }
+
+    await createStadium(data)
       .then((res) => {
         console.log(res.data);
       })
