@@ -6,12 +6,19 @@ import { FaGlassWaterDroplet } from "react-icons/fa6";
 import { MdOutlineFamilyRestroom } from "react-icons/md";
 import { TbAirConditioning } from "react-icons/tb";
 import { LuParkingCircle } from "react-icons/lu";
+import { useNavigate } from 'react-router-dom';
 
 const StadiumInfo = () => {
+
+  const navigate = useNavigate();
+
   const handleConfirmReservation = () => {
     // 在這裡處理確認預約的邏輯
     console.log('確認預約');
+    navigate('/stadium/create');
   };
+
+
 
   return (
     <div>
