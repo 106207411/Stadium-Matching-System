@@ -4,9 +4,14 @@ import {
   Marker,
   InfoWindow
 } from '@react-google-maps/api';
-import DatePicker from 'react-datepicker';
+// import DatePicker from 'react-datepicker';
+// import "react-datepicker/dist/react-datepicker.css";
+import dayjs from "dayjs";
+import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { Link, useNavigate } from 'react-router-dom';
-import "react-datepicker/dist/react-datepicker.css";
 import Box from '@mui/material/Box';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
@@ -255,13 +260,22 @@ const MapView = () => {
             )}
           </Marker>
         ))}
-        <DatePicker
+        {/* <DatePicker
           className='date-picker'
           selected={date}
           onChange={handleDateChange}
           dateFormat="yyyy/MM/dd"
-          // Other props as needed, e.g., custom styling or min/max dates
-        />
+        /> */}
+        <LocalizationProvider dateAdapter={AdapterDayjs}>
+          <DemoContainer components={['DatePicker', 'DatePicker']} sx={{width: '95%', marginTop: '10px', marginLeft: '10px', marginRight: '10px', backgroundColor: 'white'}}>
+            <DatePicker
+              label="Uncontrolled picker"
+              value={dayjs(date)}
+              onChange={handleDateChange}
+              sx={{ backgroundColor: 'white' }}
+            />
+          </DemoContainer>
+        </LocalizationProvider>
 
         <Box sx={{ minWidth: '75%',  marginTop: '10px', marginLeft: '10px', marginRight: '10px', borderRadius: '10px'}}>
           <FormControl fullWidth sx={{backgroundColor: 'white'}}>
