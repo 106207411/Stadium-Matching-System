@@ -18,7 +18,6 @@ const StadiumList = () => {
    console.log('category is', category);
    const navigate = useNavigate();
 
-
    const { data, isLoading, isError, error } = useQuery({
     queryKey: ['stadiums', category],
     queryFn: () => fetchStadiumList(category)
