@@ -71,6 +71,26 @@ export const fetchStadiumAvailability = async () => {
         throw error;
     }
   }
+
+  export const fetchHomeActivities = async () => {
+    console.log(`${PROD_API_URL}/activity/home`);
+    const response = await fetch(`${PROD_API_URL}/activity/home`, {
+        credentials: 'include' 
+    });
+    if (!response.ok) {
+        throw new Error('Network response was not ok');
+    }
+  
+    const responseText = await response.text(); 
+    try {
+        const data = JSON.parse(responseText); 
+        console.log('fetch data is', data);
+        return data;
+    } catch (error) {
+        console.error('Received response is not JSON:', responseText); 
+        throw error;
+    }
+  }
   
 
 

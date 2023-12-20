@@ -31,7 +31,7 @@ const StadiumInfo = () => {
             <TbAirConditioning />
             <LuParkingCircle />
         </div>
-        <div className="introduction-text">場地規則：這裡是你的場地規則介紹文字。</div>
+        <div className="introduction-text">場地規則：請詳閱注意事項</div>
       </div>
 
       {/* 添加確認預約按鈕 */}

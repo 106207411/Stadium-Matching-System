@@ -50,7 +50,7 @@ const AppRoutes = () => {
       <Route path='/home' element={<ProtectedRoute><Home /></ProtectedRoute>} />
       <Route path='/activity/list' element={<ProtectedRoute><ActivityList /></ProtectedRoute>} />
       <Route path='/activity/:activity_id' element={<ProtectedRoute><AllActivityInfo /></ProtectedRoute>} />
-      <Route path='/stadium/list' element={<ProtectedRoute><StadiumList /></ProtectedRoute>} />
+      <Route path='/stadium/list/:category' element={<ProtectedRoute><StadiumList /></ProtectedRoute>} />
       <Route path='/message/list' element={<ProtectedRoute><MessageList /></ProtectedRoute>} />
       <Route path='/like/list' element={<ProtectedRoute><LikeList /></ProtectedRoute>} />
       <Route path='/activity/mylist/:activity_id' element={<ProtectedRoute><ActivityInfo /></ProtectedRoute>} />
