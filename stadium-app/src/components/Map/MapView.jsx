@@ -49,7 +49,6 @@ const MapView = () => {
     console.log(filteredActivities);
     // setMarkers([]);
 
-    // const stadiumList = await fetchStadiumList(newSportType);
     const placesService = new window.google.maps.places.PlacesService(mapRef.current);
 
     stadiumList.stadium.forEach(stadium => {
@@ -80,7 +79,7 @@ const MapView = () => {
     const currentDayActivityList = await selectActivitiesWithDate(allActivities, date);
     setActivityList(currentDayActivityList);
     setMarkers([]);
-    
+
     const placesService = new window.google.maps.places.PlacesService(mapRef.current);
 
     currentDayActivityList.forEach(activity => {
@@ -95,6 +94,7 @@ const MapView = () => {
           console.log(results);
           const newMarker = {
             position: results[0].geometry.location,
+            category: activity.category,
             title: activity.title,
             remain: activity.remain,
             name: activity.name,
@@ -179,6 +179,7 @@ const MapView = () => {
               >
                 <div>
                   <h2>活動名稱:{marker.title}</h2>
+                  <p>運動類型:{marker.category}</p>
                   <p>剩餘人數:{marker.remain}</p>
                 </div>
               </InfoWindow>
