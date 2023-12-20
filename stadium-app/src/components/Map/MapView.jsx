@@ -42,29 +42,28 @@ const MapView = () => {
 
   // 3. 當天活動再透過 sportType 篩選特定運動種類的活動
   const handleSportTypeChange = async (event) => {
-    console.log(activityList)
     const newSportType = event.target.value;
     setSportType(newSportType);
+
     const filteredActivities = activityList.filter(activity => activity.category === newSportType);
-    console.log(filteredActivities);
-    // setMarkers([]);
+    setMarkers([]);
 
     const placesService = new window.google.maps.places.PlacesService(mapRef.current);
 
-    stadiumList.stadium.forEach(stadium => {
-      console.log(stadium);
+    filteredActivities.forEach(activity => {
       const request = {
-        query: stadium.address,
+        query: activity.address,
         fields: ['name', 'geometry'],
       };
 
       placesService.findPlaceFromQuery(request, (results, status) => {
         if (status === window.google.maps.places.PlacesServiceStatus.OK && results) {
-          console.log(results);
           const newMarker = {
             position: results[0].geometry.location,
-            title: results[0].name,
-            name: stadium.name,
+            category: activity.category,
+            title: activity.title,
+            remain: activity.remain,
+            name: activity.name,
           };
           setMarkers(prevMarkers => [...prevMarkers, newMarker]);
           console.log(markers);
@@ -83,7 +82,6 @@ const MapView = () => {
     const placesService = new window.google.maps.places.PlacesService(mapRef.current);
 
     currentDayActivityList.forEach(activity => {
-      console.log(activity);
       const request = {
         query: activity.address,
         fields: ['name', 'geometry'],
