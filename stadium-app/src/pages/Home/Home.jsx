@@ -194,7 +194,7 @@ const Home = () => {
             </div>
 
             <div className="home-activity-section">
-              {activities?.map((activity) => (
+              {activities?.slice(0, 10).map((activity) => (
                 <div key={activity.id} className="home-activity-item" onClick={() => handleHomeActivityClick(activity.id)}>
                   <img src={activity.picture} alt={activity.title} />
                   <div className="home-activity-info">
