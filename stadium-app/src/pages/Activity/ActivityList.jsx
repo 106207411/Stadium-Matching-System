@@ -2,18 +2,13 @@ import React, { useState, useEffect } from 'react';
 import './ActivityList.scss';
 import FooterBar from '../../components/FooterBar/FooterBar.jsx'; 
 import Header from '../../components/Header/Header.jsx'; 
-import mockActivities from '../../mockData/mockActivities.js'; 
 import { useNavigate } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import { fetchActivities } from '../../api';
 import LoadingSpinner from '../../components/Loading/LoadingPage'; 
-import InfiniteScroll from 'react-infinite-scroll-component'; // Make sure to install this package
 import { FaStar } from 'react-icons/fa';
 
 const ActivityList = () => {
-  // const [activities, setActivities] = useState([]);
-  // const [visibleActivities, setVisibleActivities] = useState([]);
-  // const [hasMore, setHasMore] = useState(true);
 
   const { data: activitiesData, isLoading, isError, error } = useQuery({
     queryKey: ['activities'],
@@ -31,19 +26,21 @@ const ActivityList = () => {
     return stars;
   };
 
-if (isLoading) {
-  return <LoadingSpinner />;
+
+
+  if (isLoading) {
+    return (
+        <div>
+            <Header title="活動" showSortIcon={false}/>
+            <LoadingSpinner />;
+            <FooterBar />
+        </div>
+    )
 }
+ 
+
   if (isError) return <div>Error: {error.message}</div>;
 
-
-  //const activitiesArray = Array.isArray(activitiesData) ? activitiesData : activitiesData?.activities;
-
-  // Check if activitiesArray is not undefined and is an array
-  // if (!Array.isArray(activitiesArray)) {
-  //   console.error('activitiesData is not an array:', activitiesData);
-  //   return <div>Error: Data is not an array</div>;
-  // }
 
   const navigate = useNavigate();
 
@@ -81,7 +78,6 @@ if (isLoading) {
               </div>
             </div>
           ))}
-        {/* </InfiniteScroll> */}
       </div>
       <FooterBar />
     </div>

@@ -108,7 +108,18 @@ const AllActivityInfo = () => {
 
 
 
-    if (isLoading) return <LoadingSpinner />;
+   
+
+    if (isLoading) {
+        return (
+            <div>
+               <Header title="活動詳情" showSortIcon={false} />
+                <LoadingSpinner />;
+                <FooterBar />
+            </div>
+        )
+    }
+     
     if (isError) return <div>Error: {error.message}</div>;
 
 
