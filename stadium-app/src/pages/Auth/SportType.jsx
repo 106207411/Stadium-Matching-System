@@ -57,7 +57,7 @@ const SportType = () => {
   return (
     <>
       <div className="main-container">
-        <div className="title">你從事哪些運動？</div>
+        <div className="auth-title">你從事哪些運動？</div>
         <div className="div-3">
           <img
             loading="lazy"

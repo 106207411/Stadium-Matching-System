@@ -2,7 +2,7 @@ import { useState } from "react"
 import { useAuth } from "../../context/AuthContext"
 import { useNavigate } from "react-router-dom"
 import Rating from '@mui/material/Rating'
-import { translate } from "../../lib/utils/translator"
+import { translate, authTranslator } from "../../lib/utils/translator"
 import { toast } from "react-toastify"
 import './SportRating.scss'
 
@@ -51,7 +51,7 @@ const SportRating = () => {
 
   return (
     <div className="main-container">
-      <div className="title">你的擅長程度?</div>
+      <div className="auth-title">你的擅長程度?</div>
       <div className="rating-group">
         {Object.keys(interestSportType).map((sport) => (
           <div key={sport} className="rating-container">

@@ -10,7 +10,7 @@
     padding: 0 20px;
   }
 }
-.title {
+.auth-title {
   color: #2b2b2b;
   align-self: center;
   margin-top: 148px;
@@ -18,7 +18,7 @@
   font: 700 32px Inter, sans-serif;
 }
 @media (max-width: 991px) {
-  .title {
+  .auth-title {
     margin-top: 40px;
     white-space: initial;
   }
