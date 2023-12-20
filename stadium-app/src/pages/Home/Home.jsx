@@ -60,7 +60,7 @@ const Home = () => {
     { name: 'tabletennis', imageUrl: '/tabletennis.png' },
     { name: 'badminton', imageUrl: '/badminton.png' },
     { name: 'basketball', imageUrl: '/basketball.png' },
-    { name: 'volleyball', imageUrl: '/volley.png' },
+    { name: 'volleyball', imageUrl: '/volleyball.png' },
     { name: 'baseball', imageUrl: '/baseball.png' },
     { name: 'gym', imageUrl: '/gym.png' },
     { name: 'swimming', imageUrl: '/swimming.png' }
