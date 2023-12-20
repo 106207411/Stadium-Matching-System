@@ -40,7 +40,7 @@ const MapView = () => {
     setSelectedMarker(marker);
   };
 
-  // 3. 當天活動再透過 sportType 篩選
+  // 3. 當天活動再透過 sportType 篩選特定運動種類的活動
   const handleSportTypeChange = async (event) => {
     console.log(activityList)
     const newSportType = event.target.value;
@@ -76,15 +76,14 @@ const MapView = () => {
 
   // 2. 透過日期篩選活動
   const fetchAndDisplayActivities = async (date) => {
-    console.log(date);
     const allActivities = await fetchActivities();
-    const newActivityList = await selectActivitiesWithDate(allActivities, date);
-    console.log(newActivityList);
-    setActivityList(newActivityList);
-    const placesService = new window.google.maps.places.PlacesService(mapRef.current);
+    const currentDayActivityList = await selectActivitiesWithDate(allActivities, date);
+    setActivityList(currentDayActivityList);
     setMarkers([]);
+    
+    const placesService = new window.google.maps.places.PlacesService(mapRef.current);
 
-    newActivityList.forEach(activity => {
+    currentDayActivityList.forEach(activity => {
       console.log(activity);
       const request = {
         query: activity.address,
@@ -96,7 +95,8 @@ const MapView = () => {
           console.log(results);
           const newMarker = {
             position: results[0].geometry.location,
-            title: activity.name,
+            title: activity.title,
+            remain: activity.remain,
             name: activity.name,
           };
           setMarkers(prevMarkers => [...prevMarkers, newMarker]);
@@ -106,7 +106,7 @@ const MapView = () => {
     })
   }
 
-  // 1. 切換到 MapView 就抓使用者位置資料跟 fetchAndFilter 當天的活動
+  // 1. 切換到 MapView 就抓使用者位置資料跟 fetchCurrentDayActivities
   useEffect(() => {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
@@ -122,19 +122,7 @@ const MapView = () => {
       );
     }
 
-    const fetchAndFilterActivities = async () => {
-      try {
-        const allActivities = await fetchActivities();
-        const today = new Date();
-        const filteredActivities = selectActivitiesWithDate(allActivities, today);
-        setActivityList(filteredActivities);
-        console.log(filteredActivities);
-      } catch (error) {
-        console.error("Failed to fetch activities:", error);
-      }
-    };
-  
-    fetchAndFilterActivities();
+    fetchAndDisplayActivities(new Date());
   }, []);
 
   const selectActivitiesWithDate = (activities, selectedDate) => {
@@ -154,12 +142,6 @@ const MapView = () => {
 
   return (
     <>
-      <DatePicker
-        selected={date}
-        onChange={handleDateChange}
-        dateFormat="yyyy/MM/dd"
-        // Other props as needed, e.g., custom styling or min/max dates
-      />
       <GoogleMap
         mapContainerStyle={{
           width: '90%',
@@ -196,13 +178,20 @@ const MapView = () => {
                 onCloseClick={() => setSelectedMarker(null)}
               >
                 <div>
-                  <h2>{marker.name}</h2>
-                  {/* <p>{marker.name}</p> */}
+                  <h2>活動名稱:{marker.title}</h2>
+                  <p>剩餘人數:{marker.remain}</p>
                 </div>
               </InfoWindow>
             )}
           </Marker>
         ))}
+        <DatePicker
+          className='date-picker'
+          selected={date}
+          onChange={handleDateChange}
+          dateFormat="yyyy/MM/dd"
+          // Other props as needed, e.g., custom styling or min/max dates
+        />
 
         <Box sx={{ minWidth: '75%',  marginTop: '10px', marginLeft: '10px', marginRight: '10px', borderRadius: '10px'}}>
           <FormControl fullWidth sx={{backgroundColor: 'white'}}>
