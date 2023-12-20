@@ -163,10 +163,12 @@ const MapView = () => {
     console.log(activities);
     console.log(selectedDate);
     const selectedDateString = selectedDate.toISOString().split('T')[0];
+    console.log(selectedDateString);
 
     return activities.activity.filter(activity => {
-      console.log(activity);
+      // console.log(activity);
       const activityDate = new Date(activity.date).toISOString().split('T')[0];
+      // console.log(activityDate);
       return activityDate === selectedDateString;
     });
   };

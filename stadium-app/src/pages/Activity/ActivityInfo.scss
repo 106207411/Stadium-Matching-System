@@ -9,7 +9,9 @@
     width: 100%; // Or a specific width as needed
     max-width: 500px; // Optional, if you want to limit the card width
     margin-top: 60px;
-    margin-bottom: 0px;
+    margin-bottom: 180px;
+    overflow-y: auto;
+    max-height: 80vh;
 
     .activity-title {
         // Additional styles for the title
