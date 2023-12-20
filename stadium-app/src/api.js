@@ -159,6 +159,7 @@ export const createStadium = async (data) => {
       withCredentials: true
     })
     console.log('upload stadium response', response.data);
+    return response.data;
   } catch (error) {
     console.log('upload stadium error', error);
     throw error;

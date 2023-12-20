@@ -11,6 +11,7 @@ import Button from '@mui/material/Button';
 import AdminFooter from '../../components/FooterBar/AdminFooter.jsx';
 import { useNavigate } from 'react-router-dom';
 import { createStadium } from '../../api.js';
+import { toast } from 'react-toastify';
 
 const FormField = ({ label, value, onChange, multiline = false, rows = 1 }) => (
   <div className='form-field'>
@@ -93,26 +94,26 @@ const Add_Admin = () => {
   ];
 
   const handleSubmit = async () => {
-    console.log(formData); // Replace with API call
+    console.log(formData);
     const data = new FormData();
 
-    // Append each field in formData to the FormData object
     for (const [key, value] of Object.entries(formData)) {
       data.append(key, value);
-    }
-    
-    for (let [key, value] of data.entries()) {
-      console.log(`${key}: `, value);
     }
 
     await createStadium(data)
       .then((res) => {
-        console.log(res.data);
+        console.log(res);
+        if (res) {
+          toast.success('場地上架成功');
+          navigate('/admin/home');
+        } else {
+          toast.error('場地上架失敗，請稍後再試');
+        }
       })
       .catch((err) => {
         console.log(err);
       })
-    // navigate('../admin/success'); // Navigate on successful submission
   };
 
   return (
