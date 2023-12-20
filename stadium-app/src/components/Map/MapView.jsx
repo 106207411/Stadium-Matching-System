@@ -5,6 +5,7 @@ import {
   InfoWindow
 } from '@react-google-maps/api';
 import DatePicker from 'react-datepicker';
+import { Link, useNavigate } from 'react-router-dom';
 import "react-datepicker/dist/react-datepicker.css";
 import Box from '@mui/material/Box';
 import InputLabel from '@mui/material/InputLabel';
@@ -16,19 +17,42 @@ import { GOOGLE_MAPS_API_KEY } from '../../config/config';
 import LoadingSpinner from '../Loading/LoadingPage';
 import { fetchActivities, fetchStadiumList } from '../../api';
 import { getCustomMarker } from '../../lib/utils/customMarker';
+import { translate } from '../../lib/utils/translator';
 
 const MapView = () => {
   const [sportType, setSportType] = useState('');
   const [location, setLocation] = useState({ lat: 0, lng: 0 });
+  const [directions, setDirections] = useState(null);
   const [activityList, setActivityList] = useState([]);
   const [date, setDate] = useState(new Date());
   const [selectedMarker, setSelectedMarker] = useState(null);
   const [markers, setMarkers] = useState([]);
   const mapRef = useRef(null);
+
   const { isLoaded, loadError } = useJsApiLoader({
     googleMapsApiKey: GOOGLE_MAPS_API_KEY,
     libraries: ['places'],
   });
+
+  // 點選 marker 再進行駕駛時間計算
+  const fetchDirections = (markerPosition) => {
+    const directionsService = new window.google.maps.DirectionsService();
+
+    directionsService.route(
+      {
+        origin: location,
+        destination: markerPosition,
+        travelMode: window.google.maps.TravelMode.DRIVING,
+      },
+      (result, status) => {
+        if (status === window.google.maps.DirectionsStatus.OK) {
+          setDirections(result);
+        } else {
+          console.error(`error fetching directions ${result}`);
+        }
+      }
+    );
+  };
 
   const handleDateChange = (newDate) => {
     setDate(newDate);
@@ -38,6 +62,7 @@ const MapView = () => {
   const onMarkerClick = (marker) => {
     console.log(marker);
     setSelectedMarker(marker);
+    fetchDirections(marker.position);
   };
 
   // 3. 當天活動再透過 sportType 篩選特定運動種類的活動
@@ -60,13 +85,16 @@ const MapView = () => {
         if (status === window.google.maps.places.PlacesServiceStatus.OK && results) {
           const newMarker = {
             position: results[0].geometry.location,
+            id: activity.id,
             category: activity.category,
             title: activity.title,
             remain: activity.remain,
             name: activity.name,
+            level: activity.level,
+            date: activity.date,
+            time: activity.time,
           };
           setMarkers(prevMarkers => [...prevMarkers, newMarker]);
-          console.log(markers);
         }
       });
     });
@@ -89,16 +117,18 @@ const MapView = () => {
 
       placesService.findPlaceFromQuery(request, (results, status) => {
         if (status === window.google.maps.places.PlacesServiceStatus.OK && results) {
-          console.log(results);
           const newMarker = {
             position: results[0].geometry.location,
+            id: activity.id,
             category: activity.category,
             title: activity.title,
             remain: activity.remain,
             name: activity.name,
+            level: activity.level,
+            date: activity.date,
+            time: activity.time,
           };
           setMarkers(prevMarkers => [...prevMarkers, newMarker]);
-          console.log(markers);
         }
       })
     })
@@ -133,7 +163,21 @@ const MapView = () => {
       const activityDate = new Date(activity.date).toISOString().split('T')[0];
       return activityDate === selectedDateString;
     });
-  }
+  };
+
+  const generateStars = (rating) => {
+    let stars = [];
+    for (let i = 0; i < rating; i++) {
+      stars.push(<img key={i} src="../../star.png" alt="Star" className="all-star" />);
+    }
+    return stars;
+  };
+
+  const timeRangeMapping = (timeNumber) => {
+    const startHour = 8 + timeNumber; // Assuming 1 corresponds to 9-10
+    const endHour = startHour + 1;
+    return `${startHour} - ${endHour}`;
+  };
 
   if (loadError) return <div>Map cannot be loaded right now, sorry.</div>;
   if (!isLoaded) return <LoadingSpinner />;
@@ -160,6 +204,21 @@ const MapView = () => {
         }}
         onLoad={map => (mapRef.current = map)}
       >
+        {/* Only render this marker if location is available */}
+        {location.lat !== 0 && location.lng !== 0 && (
+          <Marker
+            position={location}
+            icon={{
+              path: window.google.maps.SymbolPath.CIRCLE,
+              scale: 6,
+              fillColor: "#4285F4",
+              fillOpacity: 1,
+              strokeWeight: 2,
+              strokeColor: "white",
+            }}
+          />
+        )}
+
         {markers.map((marker, index) => (
           <Marker
             key={index}
@@ -167,6 +226,10 @@ const MapView = () => {
             title={marker.title}
             onClick={() => onMarkerClick(marker)}
             options={{
+              icon: {
+                url: `../../public/${marker.category}.png`,
+                scaledSize: new window.google.maps.Size(20, 20),
+              },
               draggable: false,
             }}
           >
@@ -176,9 +239,17 @@ const MapView = () => {
                 onCloseClick={() => setSelectedMarker(null)}
               >
                 <div>
-                  <h2>活動名稱:{marker.title}</h2>
-                  <p>運動類型:{marker.category}</p>
-                  <p>剩餘人數:{marker.remain}</p>
+                  <h2>活動名稱: {marker.title}</h2>
+                  {/* <p>運動類型: {marker.category}</p> */}
+                  <p>剩餘人數: {marker.remain}</p>
+                  <p>程度: {generateStars(marker.level)}</p>
+                  <p>時間: {marker.date} {timeRangeMapping(marker.time)} 點</p>
+                  {directions && (
+                    <p>前往時間: {directions.routes[0].legs[0].duration.text}</p>
+                  )}
+                  <Link to={`/activity/${marker.id}`} style={linkStyle}>
+                    <button style={buttonStyle}>View Activity</button>
+                  </Link>
                 </div>
               </InfoWindow>
             )}
@@ -219,3 +290,20 @@ const MapView = () => {
 };
 
 export default MapView;
+
+// Styles for the button and link
+const buttonStyle = {
+  backgroundColor: "#4285F4", // Example color
+  color: "white",
+  border: "none",
+  borderRadius: "5px",
+  padding: "10px 15px",
+  cursor: "pointer",
+  fontSize: "1em",
+};
+
+const linkStyle = {
+  textDecoration: "none", // Remove underline from the link
+  display: "block", // Ensure the link fills the button for clickable area
+  textAlign: "center",
+};
