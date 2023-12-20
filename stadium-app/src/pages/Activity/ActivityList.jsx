@@ -37,7 +37,7 @@ if (isLoading) {
   if (isError) return <div>Error: {error.message}</div>;
 
 
-  const activitiesArray = Array.isArray(activitiesData) ? activitiesData : activitiesData?.activities;
+  //const activitiesArray = Array.isArray(activitiesData) ? activitiesData : activitiesData?.activities;
 
   // Check if activitiesArray is not undefined and is an array
   // if (!Array.isArray(activitiesArray)) {
@@ -72,7 +72,6 @@ if (isLoading) {
                 <div className="title-time">
                   <h3>{activity.title}</h3>
                   <span className="time">{activity.date} {timeRangeMapping(activity.time)}</span>
-                  {/* <span className="time">{activity.time}</span> */}
                 </div>
                 <div className="stadium-price">
                   <p>{activity.name} - {activity.price}/人</p>
