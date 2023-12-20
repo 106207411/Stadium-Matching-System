@@ -60,6 +60,7 @@ const MapView = () => {
   };
 
   const handleDateChange = (newDate) => {
+    console.log(newDate);
     setDate(newDate);
     fetchAndDisplayActivities(newDate);
   };
@@ -245,7 +246,7 @@ const MapView = () => {
               >
                 <div>
                   <h2>活動名稱: {marker.title}</h2>
-                  {/* <p>運動類型: {marker.category}</p> */}
+                  <p>運動類型: {marker.category}</p>
                   <p>剩餘人數: {marker.remain}</p>
                   <p>程度: {generateStars(marker.level)}</p>
                   <p>時間: {marker.date} {timeRangeMapping(marker.time)} 點</p>
@@ -287,14 +288,14 @@ const MapView = () => {
               label="sportType"
               onChange={handleSportTypeChange}
             >
-              <MenuItem value={'badminton'}>羽毛球</MenuItem>
-              <MenuItem value={'baseball'}>棒球</MenuItem>
-              <MenuItem value={'basketball'}>籃球</MenuItem>
-              <MenuItem value={'volleyball'}>排球</MenuItem>
-              <MenuItem value={'tabletennis'}>桌球</MenuItem>
-              <MenuItem value={'tennis'}>網球</MenuItem>
-              <MenuItem value={'swimming'}>游泳</MenuItem>
-              <MenuItem value={'gym'}>健身房</MenuItem>
+              <MenuItem value={'Badminton'}>羽毛球</MenuItem>
+              <MenuItem value={'Baseball'}>棒球</MenuItem>
+              <MenuItem value={'Basketball'}>籃球</MenuItem>
+              <MenuItem value={'Volleyball'}>排球</MenuItem>
+              <MenuItem value={'Tabletennis'}>桌球</MenuItem>
+              <MenuItem value={'Tennis'}>網球</MenuItem>
+              <MenuItem value={'Swimming'}>游泳</MenuItem>
+              <MenuItem value={'Gym'}>健身房</MenuItem>
             </Select>
           </FormControl>
         </Box>
