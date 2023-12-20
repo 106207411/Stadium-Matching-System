@@ -6,22 +6,14 @@ import { PiSignOutBold } from "react-icons/pi";
 import { useNavigate } from 'react-router-dom';
 import { GoSearch } from "react-icons/go";
 import { ToastContainer } from 'react-toastify';
-import MapView from '../../components/Map/MapView';
-import Box from '@mui/material/Box';
-import InputLabel from '@mui/material/InputLabel';
-import MenuItem from '@mui/material/MenuItem';
-import FormControl from '@mui/material/FormControl';
-import Select from '@mui/material/Select';
 import { useQuery } from '@tanstack/react-query';
 import { fetchHomeActivities } from '../../api';
 import { FaStar } from 'react-icons/fa';
+import MapView from '../../components/Map/MapView';
 import { fetchMessages } from '../../api'; 
 
 const Home = () => {
   const { logoutHandler } = useAuth();
-
-
-  const [age, setAge] = useState('');
 
   // const { data: activitiesData, isLoading, isError, error } = useQuery({
   //   queryKey: ['activities'],
