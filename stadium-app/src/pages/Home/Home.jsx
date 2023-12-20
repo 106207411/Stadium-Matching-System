@@ -13,7 +13,7 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import { useQuery } from '@tanstack/react-query';
-import { fetchActivities } from '../../api';
+import { fetchHomeActivities } from '../../api';
 import { FaStar } from 'react-icons/fa';
 import { fetchMessages } from '../../api'; 
 
@@ -33,8 +33,8 @@ const Home = () => {
 
 
   const { data: activitiesData, isLoading, isError, error } = useQuery({
-    queryKey: ['activities'],
-    queryFn: fetchActivities
+    queryKey: ['homeactivities'],
+    queryFn: fetchHomeActivities
   });
 
   console.log('Activities data home:', activitiesData);
@@ -58,10 +58,26 @@ const Home = () => {
 
 
 
-  const sports = ['tennis', 'tabletennis', 'badminton', 'basketball', 'volley', 'baseball', 'gym', 'swimming'];
+ // const sports = ['tennis', 'tabletennis', 'badminton', 'basketball', 'volley', 'baseball', 'gym', 'swimming'];
   //const activities = ['b1', 'b2'];
 
   const navigate = useNavigate();
+
+  const sports = [
+    { name: 'tennis', imageUrl: '/tennis.png' },
+    { name: 'tabletennis', imageUrl: '/tabletennis.png' },
+    { name: 'badminton', imageUrl: '/badminton.png' },
+    { name: 'basketball', imageUrl: '/basketball.png' },
+    { name: 'volleyball', imageUrl: '/volley.png' },
+    { name: 'baseball', imageUrl: '/baseball.png' },
+    { name: 'gym', imageUrl: '/gym.png' },
+    { name: 'swimming', imageUrl: '/swimming.png' }
+  ];
+
+  const handleSportClick = (sportName) => {
+    navigate(`/stadium/list/${sportName}`);
+  };
+
 
 
   const handleHomeActivityClick = (activityId) => {
@@ -69,7 +85,7 @@ const Home = () => {
   };
 
   const gotoStadium = () => {
-    navigate('/stadium/list');
+    navigate('/stadium/list/all');
   };
 
   const gotoActivity = () => {
@@ -147,12 +163,25 @@ const Home = () => {
                 <span onClick={gotoStadium} style={{ cursor: 'pointer' }}>更多</span>
               </div>
             </div>
-            <div className="sports-section">
+
+            
+            {/* <div className="sports-section">
               {sports.map(sport => (
                 <div key={sport} className="sport">
                   <img src={`/${sport}.png`} alt={sport} />
                 </div>
-              ))}
+              ))} */}
+
+
+<div className="sports-section">
+      {sports.map(sport => (
+        <div key={sport.name} className="sport" onClick={() => handleSportClick(sport.name)}>
+          <img src={sport.imageUrl} alt={sport.name} />
+        </div>
+      ))}
+
+
+              
             </div>
           </div>
 
@@ -165,7 +194,7 @@ const Home = () => {
             </div>
 
             <div className="home-activity-section">
-              {activities?.map((activity) => (
+              {activities?.slice(0, 10).map((activity) => (
                 <div key={activity.id} className="home-activity-item" onClick={() => handleHomeActivityClick(activity.id)}>
                   <img src={activity.picture} alt={activity.title} />
                   <div className="home-activity-info">
