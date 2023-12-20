@@ -22,27 +22,6 @@ const LikeList = () => {
       }
     }, [stadiums]);
   
-    const loadMoreStadiums = () => {
-      // 載入更多場地
-      const currentLength = visibleStadiums.length;
-      const newVisibleStadiums = stadiums.slice(
-        currentLength,
-        currentLength + 10 // 每次載入10個場地
-      );
-  
-      if (newVisibleStadiums.length === 0) {
-        setHasMore(false); // 沒有更多場地可載入
-      } else {
-        setVisibleStadiums([...visibleStadiums, ...newVisibleStadiums]);
-      }
-    };
-  
-// <InfiniteScroll
-//           dataLength={visibleStadiums.length}
-//           next={loadMoreStadiums}
-//           hasMore={hasMore}
-//           loader={<h4>Loading...</h4>}
-//         ></InfiniteScroll>
 
 
   return (
@@ -51,7 +30,7 @@ const LikeList = () => {
       <div className="like-list">
           {visibleStadiums.map((stadium) => (
             <div key={stadium.id} className="like-item">
-              <img src={stadium.image} alt={stadium.title} />
+              <img src={stadium.picture} alt={stadium.name} />
               <div className="like-info">
                   <h3>{stadium.name}</h3>
               </div>
