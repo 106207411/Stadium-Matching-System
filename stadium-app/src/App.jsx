@@ -25,6 +25,8 @@ import Profile from './pages/Profile/Profile'
 import LikeList from './pages/Like/LikeList'
 import ActivityInfo from './pages/Activity/ActivityInfo'
 import MyActivityList from './pages/Activity/MyActivityList'
+import Feedback_admin from './pages/admin/feedback_admin'
+import AdminProfile from './pages/admin/AdminProfile'
 
 import './index.css';
 import IssueReport from './pages/Stadium/IssueReport'
@@ -50,7 +52,7 @@ const AppRoutes = () => {
       <Route path='/home' element={<ProtectedRoute><Home /></ProtectedRoute>} />
       <Route path='/activity/list' element={<ProtectedRoute><ActivityList /></ProtectedRoute>} />
       <Route path='/activity/:activity_id' element={<ProtectedRoute><AllActivityInfo /></ProtectedRoute>} />
-      <Route path='/stadium/list/:category' element={<ProtectedRoute><StadiumList /></ProtectedRoute>} />
+      <Route path='/report-issue' element={<ProtectedRoute><IssueReport /></ProtectedRoute>} />
       <Route path='/message/list' element={<ProtectedRoute><MessageList /></ProtectedRoute>} />
       <Route path='/like/list' element={<ProtectedRoute><LikeList /></ProtectedRoute>} />
       <Route path='/activity/mylist/:activity_id' element={<ProtectedRoute><ActivityInfo /></ProtectedRoute>} />
@@ -62,8 +64,10 @@ const AppRoutes = () => {
       <Route path='/stadium/create' element={<ProtectedRoute><CreateActive /></ProtectedRoute>} />
       <Route path='/stadium/createsucess' element={<ProtectedRoute><CreateSucess /></ProtectedRoute>} />
       <Route path='/admin/home' element={<ProtectedRoute><Home_admin /></ProtectedRoute>} />
-      <Route path='/admin/add' element={<ProtectedRoute><Add_admin /></ProtectedRoute>} />
+      <Route path='/admin/profile' element={<ProtectedRoute><AdminProfile /></ProtectedRoute>} />
+      <Route path='/admin/upload' element={<ProtectedRoute><Add_admin /></ProtectedRoute>} />
       <Route path='/admin/success' element={<ProtectedRoute><Success_admin /></ProtectedRoute>} />
+      <Route path='/admin/feedback' element={<ProtectedRoute><Feedback_admin /></ProtectedRoute>} />
     </Routes>
   );
 };

@@ -194,9 +194,6 @@ const Home = () => {
             </div>
 
             <div className="home-activity-section">
-
-
-
               {activities?.map((activity) => (
                 <div key={activity.id} className="home-activity-item" onClick={() => handleHomeActivityClick(activity.id)}>
                   <img src={activity.picture} alt={activity.title} />
@@ -214,8 +211,7 @@ const Home = () => {
                 </div>
               ))}
             </div>
-
-{/* 
+          {/* 
           <div className="activity-container">
             <div className="title-container">
               <div className="title-left">活動</div>
@@ -231,12 +227,7 @@ const Home = () => {
                 </div>
               ))}
             </div> */}
-
-
-
-
           </div>
-
         </>
       ) : (
         <>

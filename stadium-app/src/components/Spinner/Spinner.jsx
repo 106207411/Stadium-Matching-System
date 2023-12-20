@@ -1,10 +1,10 @@
-import BeatLoader from "react-spinners/BeatLoader";
+import ClimbingBoxLoader from "react-spinners/ClimbingBoxLoader";
 import "./Spinner.scss"
 
 const Spinner = () => {
   return (
     <div className="auth-spinner">
-      <BeatLoader
+      <ClimbingBoxLoader
         color="#000000"
         size={25}
         aria-label="Loading Spinner"
