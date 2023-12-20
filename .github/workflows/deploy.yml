@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - tmp-prod
+      - feat/pipeline
     # paths:
     #   - 'stadium-app/**'
 
