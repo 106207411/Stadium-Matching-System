@@ -233,7 +233,7 @@ const MapView = () => {
             onClick={() => onMarkerClick(marker)}
             options={{
               icon: {
-                url: `../../public/${marker.category.toLowerCase()}.png`,
+                url: `/${marker.category.toLowerCase()}.png`,
                 scaledSize: new window.google.maps.Size(20, 20),
               },
               draggable: false,
