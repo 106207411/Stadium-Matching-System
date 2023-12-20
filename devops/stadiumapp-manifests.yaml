@@ -62,9 +62,9 @@ spec:
     spec:
       containers:
         - name: stadium-chart
-          # image: "stadiumacr.azurecr.io/backend:1.16.0"
+          # image: "stadiumacr.azurecr.io/backend:20231220_201341_2782ebc"
           #TODO: Change this to the correct image
-          image: "stadiumacr.azurecr.io/backend:latest"
+          image: "stadiumacr.azurecr.io/backend:20231220_201341_2782ebc"
           envFrom:
             - configMapRef:
                 name: dev-configmap
