@@ -4,8 +4,10 @@ import './MessageList.scss';
 import FooterBar from '../../components/FooterBar/FooterBar.jsx';
 import Header from '../../components/Header/Header.jsx';
 import { fetchMessages } from '../../api'; 
-import { useQuery } from '@tanstack/react-query';
+import { useQuery,useQueryClient } from '@tanstack/react-query';
 import LoadingSpinner from '../../components/Loading/LoadingPage'; 
+import axios from 'axios';
+import { PROD_API_URL, API_URL } from '../../config/config';
 
 
 let renderCount = 0;
@@ -20,6 +22,7 @@ const MessageList = () => {
   });
 
   const [events, setEvents] = useState([]);
+  const queryClient = useQueryClient(); 
 
   useEffect(() => {
     console.log("useEffect is triggered");
@@ -33,26 +36,81 @@ const MessageList = () => {
     }
   }, [event]);
 
+  // const markMessageAsRead = async (messageId) => {
+  //   try {
+  //     // Make a PUT request to mark the message as read
+  //     const response = await axios.put(`${PROD_API_URL}/event/read/${messageId}`);
+      
+  //     return response.data; // Assuming your API returns some data after marking the message as read
+  //   } catch (error) {
+  //     // Handle errors gracefully (e.g., show an error message to the user or log the error)
+  //     console.error('Error marking message as read:', error);
+  //     throw error; // Optionally re-throw the error for further handling
+  //   }
+  // };
+
+
+
+  const markMessageAsRead = async (messageId) => {
+    try {
+      // Make a PUT request to mark the message as read
+      console.log('url is',`${PROD_API_URL}/event/read/${messageId}`);
+      const response = await axios.put(
+        `${PROD_API_URL}/event/${messageId}`,
+        null, // Request body (if needed)
+        {
+          withCredentials: true, // Add this option
+        }
+      );
+  
+      return response.data; // Assuming your API returns some data after marking the message as read
+    } catch (error) {
+      // Handle errors gracefully (e.g., show an error message to the user or log the error)
+      console.error('Error marking message as read:', error);
+      throw error; // Optionally re-throw the error for further handling
+    }
+  };
+
+
+  const handleReadMessage = async (messageId) => {
+    try {
+      // Send a PUT request to mark the message as read
+      await markMessageAsRead(messageId);
+
+      // Update the local state to mark the message as read
+      const updatedEvents = events.map(message =>
+        message.reservation_id === messageId ? { ...message, isRead: true } : message
+      );
+      setEvents(updatedEvents);
+
+      // Invalidate the query to refetch the latest data
+      queryClient.invalidateQueries('messages');
+    } catch (error) {
+      console.error('Error marking message as read:', error);
+    }
+  };
+
+
   if (isLoading) return <LoadingSpinner />;
   if (isError) return <div>Error: {error.message}</div>;
 
-  const handleReadMessage = (messageId) => {
-    const updatedEvents = events.map(message =>
-      message.reservation_id === messageId ? { ...message, isRead: true } : message
-    );
-    setEvents(updatedEvents);
-  };
+
 
   return (
     <div>
       <Header title="通知" showSortIcon={false}/>
       <div className="message-list">
         {events.map((message) => (
-          <div
-          key={message.reservation_id}
-          className={`message-item ${message.isRead ? 'read' : ''}`}
-          onClick={() => handleReadMessage(message.reservation_id)}
-        >
+        //   <div
+        //   key={message.reservation_id}
+        //   className={`message-item ${message.isRead ? 'read' : ''}`}
+        //   onClick={() => handleReadMessage(message.reservation_id)}
+        // >
+        <div
+        key={message.reservation_id}
+        className={`message-item ${message.isRead ? 'read' : ''}`}
+        onClick={() => handleReadMessage(message.reservation_id)}
+      >
             <div className="message-content">
               <h3>{message.title}</h3>
               <p>預約編號：{message.reservation_id}</p>
@@ -63,7 +121,8 @@ const MessageList = () => {
           </div>
         ))}
       </div>
-      <FooterBar />
+      <FooterBar /> 
+      {/* <FooterBar unreadMessagesCount={unreadMessagesCount} />  */}
     </div>
   );
 };

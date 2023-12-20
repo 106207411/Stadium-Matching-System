@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import './add_admin.scss';
-import FooterBar from "../../components/FooterBar/FooterBar";
 import Header from '../../components/Header/Header.jsx';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
@@ -9,243 +8,154 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import Button from '@mui/material/Button';
-import CloudUploadIcon from '@mui/icons-material/CloudUpload';
+import AdminFooter from '../../components/FooterBar/AdminFooter.jsx';
+import { useNavigate } from 'react-router-dom';
+import { createStadium } from '../../api.js';
+import { toast } from 'react-toastify';
 
-
-const StadiumName = () => (
-  <div className='addname'>
-    <div style={{
-      display: 'flex',
-      justifyContent: 'center',
-      marginTop: "100px"
-    }}>
-      <div className="label">球場名稱</div>
-      <Box
-        component="form"
-        sx={{
-          '& .MuiTextField-root': { m: 1, width: '25ch' },
-        }}
-        noValidate
-        autoComplete="off"
-      >
-        <TextField id="standard-basic" label="請輸入球場名稱" variant="standard" />
-      </Box>
-    </div>
-  </div>
-);
-
-
-const SelectSport = ({ value, handleChange, label, options, Test_label }) => (
-  <div className='selectsport'>
-    <div style={{
-      display: 'flex',
-      justifyContent: 'center',
-      marginTop: "30px"
-    }}>
-      <div className="label">{Test_label}</div>
-      <br></br>
-      <div>
-        <Box sx={{ minWidth: 120 }}>
-          <FormControl sx={{ m: 1, minWidth: 150 }}>
-            <InputLabel id="demo-simple-select-label">{label}</InputLabel>
-            <Select
-              labelId="demo-simple-select-label"
-              id="demo-simple-select"
-              value={value}
-              label={label}
-              onChange={handleChange}
-            >
-              {options.map((option) => (
-                <MenuItem key={option.value} value={option.value}>{option.label}</MenuItem>
-              ))}
-            </Select>
-          </FormControl>
-        </Box>
-      </div>
-    </div>
-  </div>
-);
-
-// Separate functional component for the TextField section
-const PlaceSection = () => (
-  <div className='place'>
-    <div style={{
-      display: 'flex',
-      justifyContent: 'center',
-      marginTop: "30px"
-    }}>
-      <div className="label">球場位置</div>
-      <Box
-        component="form"
-        sx={{
-          '& .MuiTextField-root': { m: 1, width: '25ch' },
-        }}
-        noValidate
-        autoComplete="off"
-      >
-        <TextField id="standard-basic" label="請輸入球場位置" variant="standard" />
-      </Box>
-    </div>
-  </div>
-);
-
-const PlaceInfo = () => (
-    <div className='Info'>
-      <div style={{
-        display: 'flex',
-        justifyContent: 'center',
-        marginTop: "30px"
-      }}>
-        <div className="label">球場介紹</div>
-        <Box
-          component="form"
-          sx={{
-            '& .MuiTextField-root': { m: 1, width: '25ch' },
-          }}
-          noValidate
-          autoComplete="off"
-          rows={4}
-        >
-          <TextField id="standard-basic" label="請輸入球場介紹" variant="standard" />
-        </Box>
-      </div>
-    </div>
-  );
-
-  const PlacePrice = () => (
-    <div className='Price'>
-      <div style={{
-        display: 'flex',
-        justifyContent: 'center',
-        marginTop: "30px"
-      }}>
-        <div className="label">球場收費</div>
-        <Box
-          component="form"
-          sx={{
-            '& .MuiTextField-root': { m: 1, width: '25ch' },
-          }}
-          noValidate
-          autoComplete="off"
-        >
-          <TextField id="standard-basic" label="請輸入球場每小時價格" variant="standard" />
-        </Box>
-      </div>
-    </div>
-  );
-
-const AddAdmin = () => {
-  const [type, setType] = useState('');
-  const [number, setNumber] = useState('');
-
-  const handleTypeChange = (event) => {
-    setType(event.target.value);
-  };
-
-  const handleNumberChange = (event) => {
-    setNumber(event.target.value);
-  };
-
-  const sportOptions = [
-    { value: 10, label: '羽球' },
-    { value: 20, label: '籃球' },
-    { value: 30, label: '足球' },
-  ];
-
-  const numberOptions = [1, 2, 3];
-
-
-
-
-  const Rules = () => (
-    <div className='Rules'>
-      <div style={{
-        display: 'flex',
-        justifyContent: 'center',
-        marginTop: "30px"
-      }}>
-        <div className="label">球場規則</div>
+const FormField = ({ label, value, onChange, multiline = false, rows = 1 }) => (
+  <div className='form-field'>
+    <div className="label">{label}</div>
     <Box
       component="form"
-      sx={{
-        '& .MuiTextField-root': { m: 1, width: '25ch' },
-      }}
+      sx={{ '& .MuiTextField-root': { m: 1, width: '25ch' } }}
       noValidate
       autoComplete="off"
     >
-      <div>
-        <TextField
-          id="outlined-multiline-static"
-          label="請輸入規則"
-          multiline
-          rows={4}
-        />
-        </div>
-        </Box>
-      </div>
-      </div>
+      <TextField
+        id={`field-${label}`}
+        label={label}
+        variant="standard"
+        value={value}
+        onChange={onChange}
+        multiline={multiline}
+        rows={rows}
+      />
+    </Box>
+  </div>
+);
 
-  )
+const SelectField = ({ label, value, onChange, options }) => (
+  <div className='select-field'>
+    <div className="label">{label}</div>
+    <Box sx={{ minWidth: 120 }}>
+      <FormControl sx={{ m: 1, minWidth: 150 }}>
+        <InputLabel id={`select-${label}-label`}>{label}</InputLabel>
+        <Select
+          labelId={`select-${label}-label`}
+          id={`select-${label}`}
+          value={value}
+          label={label}
+          onChange={onChange}
+        >
+          {options.map((option) => (
+            <MenuItem key={option.value} value={option.value}>{option.label}</MenuItem>
+          ))}
+        </Select>
+      </FormControl>
+    </Box>
+  </div>
+);
 
-  const Upload_place = () => (
-    <div className='Upload'>
-        <div style={{
-            display: 'flex',
-            justifyContent: 'center',
-            marginTop: '30px',
-            marginBottom: '80px',
-        }}>
-        <Button variant="contained">上架场地</Button>
-        </div>
-    </div>
+const ImageUploadField = ({ onChange }) => (
+  <div className='form-field'>
+    <div className="label">球場圖片</div>
+    <input type="file" onChange={onChange} accept="image/*" />
+  </div>
+);
 
-  )
 
-// 暫時不需要的上傳圖片按鈕
-  // const VisuallyHiddenInput = styled('input')({
-  //   clip: 'rect(0 0 0 0)',
-  //   clipPath: 'inset(50%)',
-  //   height: 1,
-  //   overflow: 'hidden',
-  //   position: 'absolute',
-  //   bottom: 0,
-  //   left: 0,
-  //   whiteSpace: 'nowrap',
-  //   width: 1,
-  // });
+const Add_Admin = () => {
+  const navigate = useNavigate();
+  const [formData, setFormData] = useState({
+    name: '',
+    category: '',
+    max_capacity: 0,
+    address: '',
+    rule: '',
+    price: 0,
+    image: null,
+  });
 
-  // const InputFileUpload = () => (
-  //   <div>
-  //     <Button component="label" variant="contained" startIcon={<CloudUploadIcon />}>
-  //       Upload file
-  //       <VisuallyHiddenInput type="file" />
-  //     </Button>
-  //     </div>
-  // )
+  const handleInputChange = (field) => (event) => {
+    setFormData({ ...formData, [field]: event.target.value });
+    console.log(event.target.value);
+  };
+
+  const sportOptions = [
+    { value: 'badminton', label: '羽毛球' },
+    { value: 'basketball', label: '籃球' },
+    { value: 'baseball', label: '棒球' },
+    { value: 'volleyball', label: '排球' },
+    { value: 'tabletennis', label: '桌球' },
+    { value: 'tennis', label: '網球' },
+    { value: 'swimming', label: '游泳' },
+    { value: 'gym', label: '健身房' },
+  ];
+
+  const handleSubmit = async () => {
+    console.log(formData);
+    const data = new FormData();
+
+    for (const [key, value] of Object.entries(formData)) {
+      data.append(key, value);
+    }
+
+    await createStadium(data)
+      .then((res) => {
+        console.log(res);
+        if (res) {
+          toast.success('場地上架成功');
+          navigate('/admin/home');
+        } else {
+          toast.error('場地上架失敗，請稍後再試');
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+  };
 
   return (
-    <div>
-      <Header title="場地上架" showSortIcon={true} />
-      <StadiumName />
-      <SelectSport
-        value={type}
-        handleChange={handleTypeChange}
-        Test_label="球場種類"
-        label="選擇種類"
-        options={sportOptions}
-      />
-      <div className='numberofpeople'>
+    <div className="admin-container">
+      <Header title="場地上架" showSortIcon={false} />
+      <div  className="form-container">
+        <FormField 
+          label="球場名稱"
+          value={formData.name}
+          onChange={handleInputChange('name')}
+        />
+        <SelectField
+          label="球場種類"
+          value={formData.category}
+          onChange={handleInputChange('category')}
+          options={sportOptions}
+        />
+        <FormField
+          label="請輸入地址"
+          value={formData.address}
+          onChange={handleInputChange('address')}
+        />
+        <FormField
+          label="球場規則"
+          value={formData.rule}
+          onChange={handleInputChange('rule')}
+          multiline
+          // rows={4}
+        />
+        <FormField
+          label="球場收費"
+          value={formData.price}
+          onChange={handleInputChange('price')}
+        />
+        <ImageUploadField
+          onChange={(e) => setFormData({ ...formData, image: e.target.files[0] })}
+        />
+        <Button variant="contained" onClick={handleSubmit}>上架場地</Button>
       </div>
-      <PlaceSection />
-      <PlaceInfo/>
-      <PlacePrice/>
-      <Rules/>
-      <Upload_place/>
-      <FooterBar />
-      
-
+      <AdminFooter />
     </div>
   );
 }
 
-export default AddAdmin;
+export default Add_Admin;

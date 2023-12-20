@@ -1,15 +1,16 @@
 import Header from '../../components/Header/Header';
 import Footer from '../../components/FooterBar/FooterBar';
+import AdminFooter from '../../components/FooterBar/AdminFooter';
 import QRCode from '../../components/QRCode/QRCodeCard';
 import Rating from '@mui/material/Rating';
 import Text from '@mui/material/Typography';
 import { translate } from '../../lib/utils/translator';
-import './Profile.scss';
+// import './Profile.scss';
 import { useState, useEffect } from 'react';
 import { getUserProfile } from '../../lib/api/user';
 import LoadingSpinner from '../../components/Loading/LoadingPage'; 
 
-const Profile = () => {
+const AdminProfile = () => {
   const [profile, setProfile] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -74,9 +75,9 @@ const Profile = () => {
           <Text>自我介紹: {profile.introduction}</Text>
         </div>
       </div>
-      <Footer />
+      <AdminFooter />
     </div>
   );
 };
 
-export default Profile;
+export default AdminProfile;

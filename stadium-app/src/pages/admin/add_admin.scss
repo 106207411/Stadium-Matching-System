@@ -1,0 +1,25 @@
+.admin-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh; // Adjust as needed
+  padding-bottom: 100px; // Add padding to avoid overlap with the footer
+}
+
+.form-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%; // You can adjust the width as needed
+  padding: 20px;
+  box-sizing: border-box;
+  margin-bottom: 60px; // Increase bottom margin for extra space above the footer
+  margin-top: 80px;
+}
+
+.form-field, .select-field {
+  width: 100%; // Ensures form fields take the full width of the container
+  max-width: 400px; // Adjust the max width as needed
+  margin-bottom: 20px;
+}

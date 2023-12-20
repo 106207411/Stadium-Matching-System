@@ -60,11 +60,12 @@ const ActivityInfo = () => {
 
     const handleConfirmLeave = () => {
         handleLeaveActivity();
-        closeConfirmationModal(); // 假設您已經創建了一個關閉確認模態框的函數
+        closeConfirmationModal(); 
     };
 
 
     const handleReportIssue = () => {
+        localStorage.setItem('stadiumId', selectedActivity.stadium.id);
         navigate('/report-issue'); // Navigate to the report issue page
     };
 
