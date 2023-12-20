@@ -60,7 +60,7 @@ const ActivityInfo = () => {
 
     const handleConfirmLeave = () => {
         handleLeaveActivity();
-        closeConfirmationModal(); // 假設您已經創建了一個關閉確認模態框的函數
+        closeConfirmationModal(); 
     };
 
 

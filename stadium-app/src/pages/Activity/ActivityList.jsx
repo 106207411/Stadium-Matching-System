@@ -10,6 +10,8 @@ import { FaStar } from 'react-icons/fa';
 
 const ActivityList = () => {
 
+  const navigate = useNavigate();
+
   const { data: activitiesData, isLoading, isError, error } = useQuery({
     queryKey: ['activities'],
     queryFn: fetchActivities
@@ -42,7 +44,7 @@ const ActivityList = () => {
   if (isError) return <div>Error: {error.message}</div>;
 
 
-  const navigate = useNavigate();
+
 
   const handleAllActivityClick = (activityId) => {
     navigate(`/activity/${activityId}`);
