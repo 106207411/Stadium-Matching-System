@@ -2,7 +2,6 @@ import React from 'react';
 import './ConfirmModal.scss'; // Add your styles here
 
 
-
 const ConfirmModal = ({ onConfirm, onCancel }) => {
     return (
       <div className="confirmation-modal">

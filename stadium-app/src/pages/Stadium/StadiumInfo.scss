@@ -1,12 +1,23 @@
 $background-color: #fff;
 
+.icon-container {
+  display: flex; 
+  gap: 15px; 
+  justify-content: center;
+}
+
+
+.icon {
+  font-size: 32px; 
+}
+
 .centered-textbox {
   text-align: center;
-  margin-top: 100px; /* 調整需要的上邊距 */
+  margin-top: 100px; 
 }
 
 .centered-input {
-  width: 20px; /* 調整需要的寬度 */
+  width: 20px; 
   text-align: center;
 }
 
@@ -24,25 +35,21 @@ $background-color: #fff;
   color: #666; /* 可以根據需要設置文字顏色 */
 }
 
-.header {
-  position: fixed;
-  top: 0;
-  left: 0; 
-  width: 100%;
-  z-index: 10;
-  padding: 10px 0;
-  text-align: center;
-  
+.confirm-reservation-button {
+  padding: 20px 120px;
+  border-radius: 30px;
+  background-color: black;
+  color: white;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  margin-top:120px;
 }
 
-
-.footer {
-  position: fixed; // 固定 footer 在底部
-  bottom: 0; // 將 footer 置於螢幕底部
-  left: 0; // 與螢幕左邊對齊
-  width: 100%; // footer 寬度與螢幕一樣寬
-  z-index: 5; // 確保 footer 的層級低於其他內容
-  text-align: center; // 文字置中
-  padding: 10px 0; // 上下邊距
-  box-shadow: 0 -2px 4px rgba(0,0,0,0.1); // 給 footer 上方添加陰影
+.info-stadium-image {
+  width: 80%;
+  height: 200px;
+  border-radius: 10px;
+  margin-top:70px;
 }
+
