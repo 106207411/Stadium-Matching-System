@@ -5,6 +5,8 @@ import './CreateActive.scss';
 import axios from 'axios';
 import { PROD_API_URL, API_URL } from '../../config/config'
 import { useNavigate } from 'react-router-dom';
+import { ToastContainer, toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 
 
 const CreateActive = () => {
@@ -45,10 +47,19 @@ const CreateActive = () => {
       });
       console.log('Success:', response.data);
      // setShowConfirmationModal(true); 
-     alert("預約成功！即將前往我的活動列表。。。");
+    // alert("預約成功！即將前往我的活動列表。。。");
+    toast.success("預約成功！即將前往我的活動列表。。。", {
+      position: "top-center",
+      autoClose: 2000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+    });
       setTimeout(() => {
         navigate('/activity/mylist'); 
-      }, 3000); 
+      }, 2000); 
 
       localStorage.removeItem('selectedStadiumId');
       localStorage.removeItem('selectedCategory');
@@ -73,6 +84,7 @@ const CreateActive = () => {
   return (
     <div>
       <Header title="建立活動" showSortIcon={false} />
+      <ToastContainer />
       <form onSubmit={handleSubmit} className="create-active-form">
         <label htmlFor="eventName">活動名稱</label>
         <input
