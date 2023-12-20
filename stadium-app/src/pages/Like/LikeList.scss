@@ -11,7 +11,7 @@ $background-color: #fff;
   
 }
 
-.stadium-list {
+.like-list {
   display: grid;
   grid-template-columns: repeat(2, 1fr); // Two columns
   margin-top:80px;
@@ -21,27 +21,31 @@ $background-color: #fff;
   padding-bottom:5rem;
   background-color: #fff;
   width: 100%;
+  //grid-gap: 0px;
+  
 
   
-  .stadium-item {
+  .like-item {
  
     display: flex;
     flex-direction: column;
     border-radius: 8px;
     overflow: hidden;
-    margin-bottom: 1rem;
-    margin-top: 1rem;
+    margin-bottom: 0.5rem;
+    margin-top: 0.5rem;
+    margin-left:1rem;
+    margin-right:1rem;
 
 
     img {
       border-radius: 10px;
       width: 100%;
-      height: auto; 
+      height: 180px; 
       object-fit: cover; 
       margin-bottom: 1px;
     }
 
-    .stadium-info {
+    .like-info {
       padding: 0;  
       display: flex;
       flex-direction: column;

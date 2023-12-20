@@ -1,0 +1,103 @@
+// CreateActive.scss
+.create-active-form {
+  background-color: #fff; // 背景颜色设置为白色
+  padding: 20px;
+  border-radius: 8px; // 设置边框圆角
+  //box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); // 添加轻微的阴影效果
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  max-width: 500px; // 或者根据您的布局需求调整
+  margin: auto; // 让表单在页面中居中显示
+  margin-top: 100px; // 向下移动表单
+
+  input, textarea, button {
+    border: 1px solid #ccc; // 输入框和按钮的边框颜色
+    border-radius: 4px; // 输入框和按钮的边框圆角
+    padding: 14px 18px; // 内填充
+    font-size: 16px; // 字体大小
+    outline: none; // 移除焦点时的轮廓
+  }
+
+  input::placeholder, textarea::placeholder {
+    color: #999; // 占位符的颜色
+  }
+
+  input:focus, textarea:focus {
+    border-color: #007bff; // 聚焦时边框的颜色
+  }
+
+  textarea {
+    resize: none; // 防止手动调整大小
+  }
+
+  button {
+    padding: 20px 120px; // 按钮大小
+    border-radius: 30px; // 圆角大小
+    background-color: black; // 按钮背景颜色
+    color: white; // 文字颜色
+    border: none; // 去掉边框
+    cursor: pointer; // 鼠标悬浮时的光标样式
+    font-size: 16px; // 字体大小
+    margin-top: 20px; // 与上一个元素的间距
+    transition: background-color 0.3s ease; // 背景颜色变化的过渡效果
+  
+    &:hover {
+      background-color: #333; // 鼠标悬浮时的背景颜色变化
+    }
+  }
+}
+
+
+
+
+
+
+// $background-color: #fff;
+
+// .centered-textbox {
+//   text-align: center;
+//   margin-top: 100px; /* 調整需要的上邊距 */
+// }
+
+// .centered-input {
+//   width: 20px; /* 調整需要的寬度 */
+//   text-align: center;
+// }
+
+// .bold-text {
+//   font-weight: bold;
+// }
+
+// .large-text {
+//   font-size: 40px; /* 调整需要的字号 */
+// }
+
+// .introduction-text {
+//   margin-top: 10px;
+//   font-size: 16px;
+//   color: #666; /* 可以根據需要設置文字顏色 */
+// }
+
+// .header {
+//   position: fixed;
+//   top: 0;
+//   left: 0; 
+//   width: 100%;
+//   z-index: 10;
+//   padding: 10px 0;
+//   text-align: center;
+  
+// }
+
+
+// .footer {
+//   position: fixed; // 固定 footer 在底部
+//   bottom: 0; // 將 footer 置於螢幕底部
+//   left: 0; // 與螢幕左邊對齊
+//   width: 100%; // footer 寬度與螢幕一樣寬
+//   z-index: 5; // 確保 footer 的層級低於其他內容
+//   text-align: center; // 文字置中
+//   padding: 10px 0; // 上下邊距
+//   box-shadow: 0 -2px 4px rgba(0,0,0,0.1); // 給 footer 上方添加陰影
+// }

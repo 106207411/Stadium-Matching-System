@@ -7,24 +7,65 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { LuAlertCircle } from "react-icons/lu";
 import ParticipantModal from '../../components/ParticipantModal';
 import { VscAccount } from "react-icons/vsc";
+import { fetchMyActivityInfo } from '../../api';
+import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
+import LoadingSpinner from '../../components/Loading/LoadingPage';
+import ConfirmModal from '../../components/Modal/ConfirmModal';
+import axios from 'axios';
+import { PROD_API_URL, API_URL } from '../../config/config'
+
 
 const ActivityInfo = () => {
 
-
-    //:/api/activity/:activity_id
-
-    //useParams get :activity_id
     const { activity_id } = useParams();
+    console.log('id is', activity_id);
+
+    const queryClient = useQueryClient();
+    const activityId = useParams().activity_id;
+    const navigate = useNavigate();
 
 
-    const selectedActivity = mockMyActivity.find((activity) => activity.id === activity_id);
-    console.log(selectedActivity)
-    if (!selectedActivity) {
+    const { data: activityData, isLoading, isError, error } = useQuery({
+        queryKey: ['activityinfo', activity_id],
+        queryFn: () => fetchMyActivityInfo(activity_id),
+    });
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [isConfirmationModalOpen, setIsConfirmationModalOpen] = useState(false);
 
-        return <div>not found</div>;
-    }
+
+    const openConfirmationModal = () => setIsConfirmationModalOpen(true);
+    const closeConfirmationModal = () => setIsConfirmationModalOpen(false);
+
+
+    const selectedActivity = activityData;
+
+    //console.log('data:', selectedActivity)
+
+
+    const handleLeaveActivity = async () => {
+        try {
+            console.log('delete url', `${PROD_API_URL}/activity/leave/${activityId}`);
+            const response = await axios.delete(`${PROD_API_URL}/activity/leave/${activityId}`, {
+                withCredentials: true,
+            });
+            console.log('Leave activity success:', response.data);
+            // 成功退出活動後導向到我的其他活動清單
+            navigate('/activity/mylist', { replace: true });
+
+        } catch (error) {
+            console.error('Error leaving activity:', error);
+            // 錯誤處理
+        }
+    };
+
+    const handleConfirmLeave = () => {
+        handleLeaveActivity();
+        closeConfirmationModal(); 
+    };
+
 
     const handleReportIssue = () => {
+        localStorage.setItem('stadiumId', selectedActivity.stadium.id);
         navigate('/report-issue'); // Navigate to the report issue page
     };
 
@@ -36,7 +77,7 @@ const ActivityInfo = () => {
         return stars;
     };
 
-    const [isModalOpen, setIsModalOpen] = useState(false);
+
 
     const openModal = () => setIsModalOpen(true);
     const closeModal = () => setIsModalOpen(false);
@@ -48,9 +89,15 @@ const ActivityInfo = () => {
     };
 
 
+
+    if (isLoading) return <LoadingSpinner />;
+    if (isError) return <div>Error: {error.message}</div>;
+
+
+
     return (
         <div>
-            <Header title="我的活動" />
+            <Header title="我的活動" showSortIcon={false} />
             <div className="activity-card">
 
                 <h1 className="activity-title">{selectedActivity.title}</h1>
@@ -84,7 +131,11 @@ const ActivityInfo = () => {
                     )}
                 </div>
                 <img src={selectedActivity.creator.picture} alt="Avatar" className="user-avatar" />
-                <button className="join-button">退出活動</button>
+                <button className="leave-button" onClick={openConfirmationModal}>退出活動</button>
+
+                {isConfirmationModalOpen && (
+                    <ConfirmModal onConfirm={handleConfirmLeave} onCancel={closeConfirmationModal} title="確認退出活動？" />
+                )}
 
             </div>
             <FooterBar />

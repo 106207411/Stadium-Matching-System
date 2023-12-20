@@ -1,0 +1,107 @@
+$background-color: #fff;
+
+.auth-header {
+  position: fixed;
+  top: 0;
+  left: 0; 
+  width: 100%;
+  z-index: 10;
+  padding: 10px 0;
+  text-align: center;
+}
+
+.auth-stadium-list {
+  margin-bottom: 70px;
+  padding-top: 60px; // Height of the header plus some extra space
+  padding-left: 12px;
+  padding-right: 12px;
+  background-color: #fff;
+  
+  .auth-stadium-item {
+    position: relative; // Parent container needs to be set to relative positioning
+    margin: 30px 20px; // Space between items
+    border-radius: 8px; // Rounded corners for the items
+    //box-shadow: 0 2px 4px rgba(0,0,0,0.1); // Shadow for depth
+    overflow: hidden; // Ensures the child elements do not overflow the rounded corners
+
+    img {
+      border-radius: 10px;
+      width: 100%;
+      height: 200px; // Adjust height to maintain aspect ratio
+      object-fit: cover; // Cover the area without stretching
+      margin-bottom: 1px;
+    }
+
+    .auth-stadium-info {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    
+
+      h3 {
+        font-size: 1rem;
+        color: #333;
+        margin: 0;
+        margin-bottom: 0rem;
+      }
+
+      p {
+        font-size: 0.9rem;
+        color: #666;
+        margin: 0;
+      }
+
+      .auth-name-address, .auth-stadium-price {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .auth-star {
+        display: inline-block; // Display stars in a row
+        width: 16px; 
+        height: 16px; 
+      }
+
+      .auth-address {
+        font-size: 0.8rem; // Adjust as needed
+        color: #888; // A lighter color for less emphasis
+        margin-left: 0.5rem; // Add some space between the title and time
+      }
+    }
+  }
+}
+
+.auth-upload-icon .icon-wrapper{
+  position: fixed; // Position the icon absolutely
+  bottom: 100px; // Adjust as needed
+  right: 30px; // Adjust as needed
+  display: inline-block;
+  z-index: 5;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 48px; // Match the icon size
+    height: 48px; // Match the icon size
+    background-color: #fff; // The color you want
+    border-radius: 50%; // Makes it circular, remove if not needed
+    transform: translate(-50%, -50%); // Center the pseudo-element
+    z-index: -1;
+  }
+}
+
+.auth-footer {
+  position: fixed; // 固定 footer 在底部
+  width: 100%;
+  bottom: 0; // 將 footer 置於螢幕底部
+  left: 0; // 與螢幕左邊對齊
+  width: 100%; // footer 寬度與螢幕一樣寬
+  z-index: 5; // 確保 footer 的層級低於其他內容
+  text-align: center; // 文字置中
+  padding: 10px 0; // 上下邊距
+  box-shadow: 0 -2px 4px rgba(0,0,0,0.1); // 給 footer 上方添加陰影
+}

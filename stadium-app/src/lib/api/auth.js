@@ -1,35 +1,35 @@
-import axios from 'axios'
-import { PROD_API_URL, API_URL } from '../../config/config'
-
-export const login = (data) => {
-  return (
-    axios({
-      method: 'post',
-      url: `${PROD_API_URL}/user/signin`,
-      data: data
-    })
-    .then((res) => {
-      console.log(res.data)
-    })
-    .catch((err) => {
-      console.log(err)
-    })
-  )
-}
+import axios from 'axios';
+import { PROD_API_URL, API_URL } from '../../config/config';
 
 export const signUp = (data) => {
   console.log(data)
   return (
     axios({
       method: 'post',
+      withCredentials: true,
       url: `${PROD_API_URL}/user/signup`,
-      data: data
+      data: data,
     })
-    .then((res) => {
-      console.log(res.data)
+  );
+};
+
+export const login = (data) => {
+  return (
+    axios({
+      method: 'post',
+      withCredentials: true,
+      url: `${PROD_API_URL}/user/signin`,
+      data: data,
     })
-    .catch((err) => {
-      console.log(err)
+  );
+};
+
+export const logout = () => {
+  return (
+    axios({
+      method: 'delete',
+      withCredentials: true,
+      url: `${PROD_API_URL}/user/logout`,
     })
-  )
-}
+  );
+};
