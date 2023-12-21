@@ -84,6 +84,7 @@ const AllActivityInfo = () => {
 
 
     const handleReportIssue = () => {
+        localStorage.setItem('stadiumId', selectedActivity.stadium.id);
         navigate('/report-issue'); // Navigate to the report issue page
     };
 

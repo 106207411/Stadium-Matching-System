@@ -248,7 +248,7 @@ const MapView = () => {
               >
                 <div>
                   <h2>活動名稱: {marker.title}</h2>
-                  <p>運動類型: {marker.category}</p>
+                  <p>運動類型: {translate(marker.category)}</p>
                   <p>剩餘人數: {marker.remain}</p>
                   <p>程度: {generateStars(marker.level)}</p>
                   <p>時間: {marker.date} {timeRangeMapping(marker.time)} 點</p>
@@ -263,18 +263,13 @@ const MapView = () => {
             )}
           </Marker>
         ))}
-        {/* <DatePicker
-          className='date-picker'
-          selected={date}
-          onChange={handleDateChange}
-          dateFormat="yyyy/MM/dd"
-        /> */}
         <LocalizationProvider dateAdapter={AdapterDayjs}>
           <DemoContainer components={['DatePicker', 'DatePicker']} sx={{width: '95%', marginTop: '10px', marginLeft: '10px', marginRight: '10px', backgroundColor: 'white'}}>
             <DatePicker
               label="Uncontrolled picker"
               value={dayjs(date)}
               onChange={handleDateChange}
+              minDate={dayjs()}
               sx={{ backgroundColor: 'white' }}
             />
           </DemoContainer>
