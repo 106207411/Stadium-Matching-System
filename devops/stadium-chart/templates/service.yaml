@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "stadium-chart.fullname" . }}
+  namespace: {{ .Values.global.namespace }}
+spec:
+  type: {{ .Values.service.type }}
+  selector:
+    app: {{ include "stadium-chart.fullname" . }}
+  ports:
+    - port: {{ .Values.service.port }} # SERVICE exposed port
+      targetPort: http # Port to forward to in the POD
+      protocol: TCP # The protocol the SERVICE will listen to
+      name: http # SERVICE port name

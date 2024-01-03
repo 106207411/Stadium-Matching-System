@@ -3,8 +3,9 @@ name: Blob storage website CI/CD
 on:
   push:
     branches:
-      - tmp-prod
-      - feat/pipeline
+      # - main
+      # - feat/pipeline
+      # - feat/terraform
       - tmp-prod
     # paths:
     #   - 'stadium-app/**'

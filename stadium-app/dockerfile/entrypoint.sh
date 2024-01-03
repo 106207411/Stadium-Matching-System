@@ -6,7 +6,7 @@
 #   kill -TERM $(cat /var/run/app.pid)
 # }
 
-# # Start the server
+# Start the server
 # npm run dev & echo $! > /var/run/app.pid && wait
 npm run dev
 
