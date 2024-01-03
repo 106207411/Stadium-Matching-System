@@ -1,0 +1,32 @@
+{{- if .Values.ingress.enabled -}}
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: {{ .Values.global.environment }}-ingress
+  namespace: {{ .Values.global.namespace }}
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    # appgw.ingress.kubernetes.io/backend-path-prefix: "/"
+    cert-manager.io/cluster-issuer: letsencrypt
+    appgw.ingress.kubernetes.io/ssl-redirect: "true"
+    cert-manager.io/acme-challenge-type: http01
+    appgw.ingress.kubernetes.io/health-probe-status-codes: "200-499"
+
+spec:
+  ingressClassName: nginx
+  tls:
+  - hosts:
+      - {{ .Values.ingress.hosts.host }}
+    secretName: tls-secret
+  rules:
+  - host: {{ .Values.ingress.hosts.host }}
+    http:
+      paths:
+        - path: {{ .Values.ingress.hosts.path }}
+          pathType: Prefix
+          backend:
+            service:
+              name: {{ include "stadium-chart.fullname" . }}
+              port:
+                number: {{ .Values.service.port }}
+{{- end }}

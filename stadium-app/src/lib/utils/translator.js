@@ -1,12 +1,12 @@
 export const translate = (sportType) => {
-  if (sportType === 'baseball') return '棒球'
-  else if (sportType === 'tabletennis') return '桌球'
-  else if (sportType === 'basketball') return '籃球'
-  else if (sportType === 'badminton') return '羽球'
-  else if (sportType === 'volleyball') return '排球'
-  else if (sportType === 'tennis') return '網球'
-  else if (sportType === 'swimming') return '游泳'
-  else if (sportType === 'gym') return '健身'
+  if (sportType === 'baseball' || sportType === 'Baseball') return '棒球'
+  else if (sportType === 'tabletennis' || sportType === 'Tabletennis') return '桌球'
+  else if (sportType === 'basketball' || sportType === 'Basketball') return '籃球'
+  else if (sportType === 'badminton' || sportType === 'Badminton') return '羽球'
+  else if (sportType === 'volleyball' || sportType === 'Volleyball') return '排球'
+  else if (sportType === 'tennis' || sportType === 'Tennis') return '網球'
+  else if (sportType === 'swimming' || sportType === 'Swimming') return '游泳'
+  else if (sportType === 'gym' || sportType === 'Gym') return '健身'
 }
 
 export const authTranslator = (string) => {

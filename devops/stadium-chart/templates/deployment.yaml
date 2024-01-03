@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "stadium-chart.fullname" . }} # This will be the name of the deployment
+  namespace: {{ .Values.global.namespace }}
+  labels:
+    app: {{ include "stadium-chart.fullname" . }}
+spec:
+  replicas: {{ .Values.microservices.stadiumapp.replicaCount }}
+  selector:
+    matchLabels:
+      app: {{ include "stadium-chart.fullname" . }}
+  template: # This is the template of the pod inside the deployment
+    metadata:
+      labels:
+        app: {{ include "stadium-chart.fullname" . }}
+    spec:
+      containers:
+        - name: {{ .Chart.Name }}
+          # image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+          #TODO: Change this to the correct image
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Values.image.defaulttag }}"
+          envFrom:
+            - configMapRef:
+                name: {{ .Values.global.environment }}-configmap
+            - secretRef:
+                name: {{ .Values.global.environment }}-secrets
+          ports:
+            - name: http # We named that port "http" so we can refer to it later
+              containerPort: {{ .Values.service.containerPort }}
+              protocol: TCP
