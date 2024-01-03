@@ -40,3 +40,5 @@ override.tf.json
 terraform.rc
 *.hcl
 dev-plan
+
+values.yaml
