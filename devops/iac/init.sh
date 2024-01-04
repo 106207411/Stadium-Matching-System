@@ -114,7 +114,8 @@ terraform plan -out=dev-plan -var-file="./env/dev-variables.tfvars"
 # echo "Connecting to AKS..."
 # az aks get-credentials --name $clusterName --resource-group $aksResourceGroup
 
-# # create service principal for CI to Azure Blob Storage
+# create service principal for CI to Azure Blob Storage
+# then copy AZURE_CREDENTIALS from output and set it as a secret in GitHub
 az ad sp create-for-rbac --name "mySP" --role contributor --scopes "/subscriptions/$subscriptionId/" --json-auth
 
 
