@@ -14,7 +14,7 @@ jobs:
   build-and-push:
     runs-on: ubuntu-latest
     env:
-      ACCOUNT_NAME: stadiumafab3efe
+      ACCOUNT_NAME: stadiumfrontend
       BUILD_PATH: ./stadium-app
       STATIC_PATH: ./stadium-app/dist
       CDN_PROFILE_NAME: cdn-profile-new
@@ -44,11 +44,11 @@ jobs:
               az storage blob metadata update --account-name ${{env.ACCOUNT_NAME}} --auth-mode key -c '$web' -n $blob --metadata commitId=${{ github.sha }}
             done
       # https://learn.microsoft.com/en-us/azure/cdn/cdn-add-to-web-app#purge-the-cdn
-      - name: Purge CDN endpoint
-        uses: azure/CLI@v1
-        with:
-          inlineScript: |
-            az cdn endpoint purge --content-paths  "/*" --profile-name "${{env.CDN_PROFILE_NAME}}" --name "${{env.CDN_ENDPOINT_NAME}}" --resource-group "${{env.RESOURCE_GROUP}}"
+      # - name: Purge CDN endpoint
+      #   uses: azure/CLI@v1
+      #   with:
+      #     inlineScript: |
+      #       az cdn endpoint purge --content-paths  "/*" --profile-name "${{env.CDN_PROFILE_NAME}}" --name "${{env.CDN_ENDPOINT_NAME}}" --resource-group "${{env.RESOURCE_GROUP}}"
     
       # Azure logout
       - name: logout
