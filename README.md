@@ -4,6 +4,21 @@ The [application](https://stadium.rdto.io/) is developed by React.js and Node.js
 The system allows users to select a stadium and join the activity based on the user's location and the stadium's capacity. It also provides the admin page to manage the stadium and the activity.
 ![intro](./media/intro.png)
 
+- Search for venues or events with map search support. Customized event recommendations are also displayed on the homepage.
+
+https://github.com/106207411/Stadium-Matching-System/assets/48765569/568bb308-8953-4a8f-b9fa-9e1db3efc38d
+
+
+
+- View and manage currently scheduled events.
+  
+https://github.com/106207411/Stadium-Matching-System/assets/48765569/a337a5ad-6a94-44af-97ad-471468dd1104
+
+
+
+
+
+
 See [Details](./media/Group%2012_Stadium%20matching%20System.pdf) for more information.
 
 ## Deployment
